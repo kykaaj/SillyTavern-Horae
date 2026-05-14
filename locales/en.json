@@ -616,7 +616,24 @@
     "httpHint429": "Rate limited due to too many requests, please try again later",
     "httpHint500": "Server internal error (proxy/upstream issue), not a plugin problem",
     "httpHint502": "Gateway error, proxy service may be temporarily unavailable",
-    "httpHint503": "Service temporarily unavailable, please try again later"
+    "httpHint503": "Service temporarily unavailable, please try again later",
+    "summaryTruncated": "Summary failed: AI response truncated",
+    "summaryFormatError": "Summary failed: AI response format error",
+    "vectorIndexMissing": "Detected {{missing}}/{{total}} missing vector entries, rebuilding index. Do not switch or close the chat.",
+    "vectorIndexRebuilt": "Vector index rebuilt: {{indexed}} added, {{skipped}} skipped.",
+    "vectorIndexRebuildFailed": "Vector index rebuild failed: {{error}}",
+    "noCarryData": "No data to carry over from this chat",
+    "newChatCreated": "New chat created: {{aiCount}} AI messages, {{msgCount}} total messages, {{recapCount}} recap entries",
+    "newChatCreatedWithCleanup": ", cleaned up {{preludeCount}} prelude messages",
+    "newChatFailed": "Failed to create new chat: {{error}}",
+    "exportNoData": "No valid metadata in export file",
+    "vectorApiFillRequired": "Please fill in the API URL, key and model name",
+    "corsProxyRequired": "Please set enableCorsProxy: true in config.yaml and restart SillyTavern.",
+    "auxApiSafetyBlock": "Auxiliary API safety filter triggered. Try reducing batch token limit or switching to a less restrictive model.",
+    "geminiInputBlocked": "Gemini input safety block: {{reason}}",
+    "geminiNoCandidate": "Gemini API returned no candidate content",
+    "geminiOutputBlocked": "Gemini output safety block. Consider switching to a less restrictive model.",
+    "resummary": "Re-summary"
   },
   "confirm": {
     "deleteSummary": "Delete this summary? Original events will be restored.",
@@ -655,7 +672,9 @@
     "aiScanStopConfirm": "{{n}} completed summaries will be retained and can be reviewed.\n\nStop remaining batches?",
     "reanalyzeMessage": "This message already has Horae data. AI analysis will merge new results and write the tags back to the message. Continue?",
     "importMode": "Select import mode:\n\n[OK] → Match by message index (same conversation restore)\n[Cancel] → Import as initial state (new conversation metadata)",
-    "languageChanged": "Language changed to {{lang}}.\n\nTo switch custom prompts to this language, go to Settings → Custom Prompts and click 'Reset All'. Use per-prompt 'Restore Default' only if you want to keep some custom prompts."
+    "languageChanged": "Language changed to {{lang}}.\n\nTo switch custom prompts to this language, go to Settings → Custom Prompts and click 'Reset All'. Use per-prompt 'Restore Default' only if you want to keep some custom prompts.",
+    "carryConfirm": "Will carry over the latest AI messages based on \"Keep AI count={{keepCount}}\" and create a new chat.\n\nAI messages to carry: {{aiCount}}\nTotal messages: {{msgCount}} (including interleaved User)\nOld plot recap: {{recapCount}} entries\n\nContinue?",
+    "newChatCreateFailed": "Failed to create new chat"
   },
   "tooltip": {
     "addAgenda": "Add agenda item",

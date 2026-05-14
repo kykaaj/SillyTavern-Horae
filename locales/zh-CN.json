@@ -613,7 +613,24 @@
     "httpHint429": "请求过快被限流，请稍后再试",
     "httpHint500": "服务器内部错误（代理/上游问题），非插件问题",
     "httpHint502": "网关错误，代理服务可能暂时不可用",
-    "httpHint503": "服务暂时不可用，请稍后重试"
+    "httpHint503": "服务暂时不可用，请稍后重试",
+    "summaryTruncated": "总结失败：AI回复截断",
+    "summaryFormatError": "总结失败：AI回复掉格式",
+    "vectorIndexMissing": "检测到 {{missing}}/{{total}} 条向量索引缺失，正在补建索引。请勿切换或退出聊天。",
+    "vectorIndexRebuilt": "向量索引补建完成：新增 {{indexed}} 条，跳过 {{skipped}} 条。",
+    "vectorIndexRebuildFailed": "向量索引补建失败：{{error}}",
+    "noCarryData": "当前对话没有可携带的数据",
+    "newChatCreated": "已创建新对话：AI {{aiCount}} 条，实际消息 {{msgCount}} 条，旧剧情回顾 {{recapCount}} 条",
+    "newChatCreatedWithCleanup": "，已清理开场白 {{preludeCount}} 条",
+    "newChatFailed": "创建新对话失败: {{error}}",
+    "exportNoData": "导出文件中无有效元数据",
+    "vectorApiFillRequired": "请填写完整的 API 地址、密钥和模型名称",
+    "corsProxyRequired": "请在 config.yaml 中设置 enableCorsProxy: true 后重启酒馆。",
+    "auxApiSafetyBlock": "副API安全过滤拦截，建议：降低批次token上限 或 换用限制更宽松的模型",
+    "geminiInputBlocked": "Gemini输入安全拦截: {{reason}}",
+    "geminiNoCandidate": "Gemini API未返回候选内容",
+    "geminiOutputBlocked": "Gemini输出安全拦截，建议换用限制更宽松的模型",
+    "resummary": "二次总结"
   },
   "confirm": {
     "deleteSummary": "删除此总结？原始事件将恢复显示。",
@@ -652,7 +669,9 @@
     "aiScanStopConfirm": "已完成 {{n}} 条数据将保留，可在审阅弹窗中查看。\n\n确定停止后续批次？",
     "reanalyzeMessage": "此消息已有 Horae 数据。重新 AI 分析会合并新结果并写回正文标签，是否继续？",
     "importMode": "请选择导入模式：\n\n【确定】→ 按楼层匹配导入（同一对话还原）\n【取消】→ 导入为初始状态（新对话继承元数据）",
-    "languageChanged": "语言已切换为 {{lang}}。\n\n如需把自定义提示词切换到对应语言，请前往 设置 → 自定义提示词，点击「全部重置」。只有需要保留部分自定义内容时，才逐个点击「恢复默认」。"
+    "languageChanged": "语言已切换为 {{lang}}。\n\n如需把自定义提示词切换到对应语言，请前往 设置 → 自定义提示词，点击「全部重置」。只有需要保留部分自定义内容时，才逐个点击「恢复默认」。",
+    "carryConfirm": "将按\"保留AI条数={{keepCount}}\"携带最近 AI 楼层，并创建新对话。\n\n将携带AI楼层：{{aiCount}} 条\n实际携带消息：{{msgCount}} 条（含夹带User）\n旧剧情回顾：{{recapCount}} 条\n\n继续吗？",
+    "newChatCreateFailed": "新对话创建失败"
   },
   "tooltip": {
     "addAgenda": "添加待办",

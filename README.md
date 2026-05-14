@@ -149,3 +149,19 @@ Bug reports and suggestions are welcome!
 
 - [@baibai-git](https://github.com/baibai-git) — PR #5 integration contribution
 
+### Developer Note: Localization
+
+If you are contributing code to this extension, please ensure that all new UI strings, toasts, and confirmation dialogs are localized. **Do not hardcode Chinese strings into `index.js` or HTML files.**
+
+Instead, add your strings to `locales/en.json` (and other translation files if possible) and use the `t('namespace.key')` function:
+```js
+// ❌ Incorrect
+showToast('保存成功', 'success');
+
+// ✅ Correct
+showToast(t('toast.saveSuccess'), 'success');
+```
+For HTML templates, use the `data-i18n` attribute:
+```html
+<span data-i18n="settings.newFeature">New Feature</span>
+```

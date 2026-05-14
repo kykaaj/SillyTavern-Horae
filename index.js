@@ -133,12 +133,12 @@ const DEFAULT_SETTINGS = {
     sendCharacters: true,  // 发送角色信息（服装、好感度）
     sendItems: true,       // 发送物品栏
     customTables: [],      // 自定义表格 [{id, name, rows, cols, data, prompt}]
-    customSystemPrompt: '',      // 自定义系统注入提示词（空=使用默认）
-    customBatchPrompt: '',       // 自定义AI摘要提示词（空=使用默认）
-    customAnalysisPrompt: '',    // 自定义AI分析提示词（空=使用默认）
-    customCompressPrompt: '',    // 自定义剧情压缩提示词（空=使用默认）
-    customAutoSummaryPrompt: '', // 自定义自动摘要提示词（空=使用默认；独立于手动压缩）
-    customAutoResummaryPrompt: '', // 自定义二次总结提示词（空=使用默认）
+    customSystemPrompt: '',      // 自定义系统注入提示词（empty=使用默认）
+    customBatchPrompt: '',       // 自定义AI摘要提示词（empty=使用默认）
+    customAnalysisPrompt: '',    // 自定义AI分析提示词（empty=使用默认）
+    customCompressPrompt: '',    // 自定义剧情压缩提示词（empty=使用默认）
+    customAutoSummaryPrompt: '', // 自定义自动摘要提示词（empty=使用默认；独立于手动压缩）
+    customAutoResummaryPrompt: '', // 自定义二次总结提示词（empty=使用默认）
     aiScanIncludeNpc: false,     // AI摘要是否提取NPC
     aiScanIncludeAffection: false, // AI摘要是否提取好感度
     aiScanIncludeScene: false,    // AI摘要是否提取场景记忆
@@ -150,13 +150,13 @@ const DEFAULT_SETTINGS = {
     customThemes: [],              // 导入的美化主题 [{name, author, variables, css}]
     globalTables: [],              // 全局表格（跨角色卡共享）
     showTopIcon: true,             // 显示顶部导航栏图标
-    customTablesPrompt: '',        // 自定义表格填写规则提示词（空=使用默认）
+    customTablesPrompt: '',        // 自定义表格填写规则提示词（empty=使用默认）
     sendLocationMemory: false,     // 发送场景记忆（地点固定特征描述）
-    customLocationPrompt: '',      // 自定义场景记忆提示词（空=使用默认）
+    customLocationPrompt: '',      // 自定义场景记忆提示词（empty=使用默认）
     sendRelationships: false,      // 发送关系网络
     sendMood: false,               // 发送情绪/心理状态追踪
-    customRelationshipPrompt: '',  // 自定义关系网络提示词（空=使用默认）
-    customMoodPrompt: '',          // 自定义情绪追踪提示词（空=使用默认）
+    customRelationshipPrompt: '',  // 自定义关系网络提示词（empty=使用默认）
+    customMoodPrompt: '',          // 自定义情绪追踪提示词（empty=使用默认）
     // 自动摘要
     autoSummaryEnabled: false,     // 自动摘要开关
     autoSummaryKeepRecent: 5,      // 保留最近N条AI消息不压缩（中间用户消息会随全文一起发送）
@@ -168,10 +168,10 @@ const DEFAULT_SETTINGS = {
     autoSummaryResummaryThreshold: 7, // <=0 关闭二次总结；>0 时同层摘要达到此值触发更高层摘要（2->3->4...）
     autoSummaryBatchMaxMsgs: 50,    // 单次摘要最大消息条数
     autoSummaryBatchMaxTokens: 80000, // 单次摘要最大Token数
-    autoSummaryUseCustomApi: false, // 是否使用独立API端点
-    autoSummaryApiUrl: '',          // 独立API端点地址（OpenAI兼容）
-    autoSummaryApiKey: '',          // 独立API密钥
-    autoSummaryModel: '',           // 独立API模型名称
+    autoSummaryUseCustomApi: false, // 是否使用Auxiliary API端点
+    autoSummaryApiUrl: '',          // Auxiliary API端点地址（OpenAI兼容）
+    autoSummaryApiKey: '',          // Auxiliary API密钥
+    autoSummaryModel: '',           // Auxiliary API模型名称
     auxApiEnabled: false,            // 辅助API总开关
     auxApiUrl: '',                   // 辅助API端点地址
     auxApiKey: '',                   // 辅助API密钥
@@ -204,7 +204,7 @@ const DEFAULT_SETTINGS = {
     rpgBarConfig: [],
     rpgAttributeConfig: [],
     rpgAttrViewMode: 'radar',       // 'radar' 或 'text'
-    customRpgPrompt: '',            // 自定义RPG提示词（空=默认）
+    customRpgPrompt: '',            // 自定义RPG提示词（empty=默认）
     promptPresets: [],              // 提示词预设存档 [{name, prompts:{system,batch,...}}]
     equipmentTemplates: [],          // 装备格位模板（i18n 初始化后生成）
     rpgDiceEnabled: false,          // RPG骰子面板
@@ -224,8 +224,8 @@ const DEFAULT_SETTINGS = {
     vectorRerankEnabled: false,        // 启用 Rerank 二次排序
     vectorRerankFullText: false,       // Rerank 使用全文而非摘要（需要长上下文模型如 Qwen3-Reranker）
     vectorRerankModel: '',             // Rerank 模型名称
-    vectorRerankUrl: '',               // Rerank API 地址（留空则复用 embedding 地址）
-    vectorRerankKey: '',               // Rerank API 密钥（留空则复用 embedding 密钥）
+    vectorRerankUrl: '',               // Rerank API 地址（留empty则复用 embedding 地址）
+    vectorRerankKey: '',               // Rerank API 密钥（留empty则复用 embedding 密钥）
     vectorRerankCandidates: 25,        // Rerank 候选条数（embedding 召回上限）
     vectorRerankRecallThreshold: 0.3,  // Rerank 路径的 embedding 召回阈值
     vectorRerankMinScore: 0.5,         // Rerank 最低分；低于此分丢弃
@@ -1049,7 +1049,7 @@ function _readDataProviders(baseContext) {
         try {
             value = provider(baseContext);
         } catch (error) {
-            console.warn(`[Horae] 数据源 ${id} 读取失败:`, error);
+            console.warn(`[Horae] 数据源 ${id} 读取failed:`, error);
         }
         bucket.set(id, value);
         providers[id] = value;
@@ -1098,7 +1098,7 @@ function _disposePortRoot(root, port) {
     try {
         port?.dispose?.(root);
     } catch (error) {
-        console.warn(`[Horae] 端口 ${port?.id || root.dataset.horaePortId} 清理失败:`, error);
+        console.warn(`[Horae] 端口 ${port?.id || root.dataset.horaePortId} 清理failed:`, error);
     }
     root.remove();
 }
@@ -1130,9 +1130,9 @@ function _applyPortOutput(root, output) {
 function _recordPortError(port, error) {
     const count = (horaePortErrors.get(port.id) || 0) + 1;
     horaePortErrors.set(port.id, count);
-    console.error(`[Horae] 端口 ${port.id} 运行出错 (${count}/${HORAE_PORT_ERROR_LIMIT})`, error);
+    console.error(`[Horae] Port ${port.id} execution error (${count}/${HORAE_PORT_ERROR_LIMIT})`, error);
     if (count >= HORAE_PORT_ERROR_LIMIT) {
-        showToast(`端口 ${port.id} 多次出错，已自动卸载`, 'error');
+        showToast(`Port ${port.id} errored too many times, auto-unloaded`, 'error');
         unregisterHoraePort(port.id);
     }
 }
@@ -1346,7 +1346,7 @@ function refreshHoraePorts(scope = document) {
         try {
             _doRefreshHoraePorts(targetScope);
         } catch (error) {
-            console.error('[Horae] 端口刷新失败:', error);
+            console.error('[Horae] 端口刷新failed:', error);
         }
     }, HORAE_PORT_REFRESH_DEBOUNCE_MS);
 }
@@ -1723,7 +1723,7 @@ function setCharacterTables(tables) {
             avatar: chars[charId].avatar,
             data: { extensions: { horae: { charTables: charData.extensions.horae.charTables } } }
         })
-    }).catch(err => console.warn('[Horae] 保存角色卡表格失败:', err));
+    }).catch(err => console.warn('[Horae] 保存角色卡表格failed:', err));
 
     saveSettings();
 }
@@ -2083,7 +2083,7 @@ function updateTimelineDisplay() {
     };
 
     listEl.innerHTML = events.reverse().map(e => {
-        const isSummary = e.event?.isSummary || e.event?.level === '摘要';
+        const isSummary = e.event?.isSummary || e.event?.level === '摘要' || e.event?.level === 'summary';
         const compressedBy = e.event?._compressedBy;
         const summaryId = e.event?._summaryId;
 
@@ -2298,7 +2298,7 @@ async function setMessagesHidden(chat, indices, hidden) {
                 console.log(`[Horae][Debug] /${action} call#${_hideUnhideDebugStats[action]} (batch#${batchId} ${i + 1}/${ranges.length}) range=${rangeArg} covers=${covered}`);
                 await exec(`${cmd} ${rangeArg}`);
             } catch (cmdErr) {
-                console.warn(`[Horae] ${cmd} ${rangeArg} 失败:`, cmdErr);
+                console.warn(`[Horae] ${cmd} ${rangeArg} failed:`, cmdErr);
             }
         }
         console.log(`[Horae][Debug] batch#${batchId} done, total /hide=${_hideUnhideDebugStats.hide} (msgs=${_hideUnhideDebugStats.hideMsgs}), total /unhide=${_hideUnhideDebugStats.unhide} (msgs=${_hideUnhideDebugStats.unhideMsgs})`);
@@ -2865,9 +2865,9 @@ function openTimelineInsertEventModal(refMsgIdx, refEvtIdx, isAbove) {
                     <div class="horae-edit-field">
                         <label>${t('label.eventLevel')}</label>
                         <select id="insert-event-level" class="horae-select">
-                            <option value="一般">${t('levels.normal')}</option>
-                            <option value="重要">${t('levels.important')}</option>
-                            <option value="关键">${t('levels.critical')}</option>
+                            <option value="normal">${t('levels.normal')}</option>
+                            <option value="important">${t('levels.important')}</option>
+                            <option value="critical">${t('levels.critical')}</option>
                         </select>
                     </div>
                     <div class="horae-edit-field">
@@ -2991,7 +2991,7 @@ function openTimelineSummaryModal(refMsgIdx, refEvtIdx, isAbove) {
         const summaryId = `ms_${Date.now()}`;
         const newEvent = {
             is_important: true,
-            level: '摘要',
+            level: 'summary',
             summary: summaryText,
             isSummary: true,
             _summaryId: summaryId
@@ -3176,7 +3176,7 @@ async function compressSelectedTimelineEvents() {
         events.push({
             key, msgIdx, evtIdx,
             date, time,
-            level: evt.level || '一般',
+            level: evt.level || 'normal',
             summary: evt.summary || '',
             isSummary,
             _summaryId
@@ -3300,17 +3300,17 @@ async function compressSelectedTimelineEvents() {
         const hasCloseSummaryTag = /<\/horaesummary>/i.test(cleanedText);
         if (hasOpenSummaryTag && !hasCloseSummaryTag) {
             overlay.remove();
-            showToast('总结失败：AI回复截断', 'warning');
+            showToast(t('toast.summaryTruncated'), 'warning');
             return;
         }
         if (!hasOpenSummaryTag && !hasCloseSummaryTag) {
             overlay.remove();
-            showToast('总结失败：AI回复掉格式', 'warning');
+            showToast(t('toast.summaryFormatError'), 'warning');
             return;
         }
         if (!hasOpenSummaryTag || !hasCloseSummaryTag) {
             overlay.remove();
-            showToast('总结失败：AI回复掉格式', 'warning');
+            showToast(t('toast.summaryFormatError'), 'warning');
             return;
         }
         const summaryMatch = cleanedText.match(/<horaesummary>([\s\S]*?)<\/horaesummary>/i);
@@ -3426,7 +3426,7 @@ async function compressSelectedTimelineEvents() {
             if (!firstMeta.events) firstMeta.events = [];
             firstMeta.events.push({
                 is_important: true,
-                level: '摘要',
+                level: 'summary',
                 summary: summaryText,
                 isSummary: true,
                 _summaryId: summaryId
@@ -3448,7 +3448,7 @@ async function compressSelectedTimelineEvents() {
         window.fetch = _origFetch;
         overlay.remove();
         if (cancelled || err?.name === 'AbortError') return;
-        console.error('[Horae] 压缩失败:', err);
+        console.error('[Horae] 压缩failed:', err);
         showToast(t('toast.compressFailed', { error: err.message || 'unknown' }), 'error');
     }
 }
@@ -4294,7 +4294,7 @@ function openItemEditModal(itemName) {
                     <div class="horae-edit-field">
                         <label>${t('label.importance')}</label>
                         <select id="edit-item-importance">
-                            <option value="normal" ${!item.importance || item.importance === '一般' || item.importance === 'normal' || item.importance === '' ? 'selected' : ''}>${t('levels.normal')}</option>
+                            <option value="normal" ${!item.importance || item.importance === 'normal' || item.importance === 'normal' || item.importance === '' ? 'selected' : ''}>${t('levels.normal')}</option>
                             <option value="important" ${horaeIsImportant(item.importance) ? 'selected' : ''}>${t('levels.important')}</option>
                             <option value="critical" ${horaeIsCritical(item.importance) ? 'selected' : ''}>${t('levels.critical')}</option>
                         </select>
@@ -4344,7 +4344,7 @@ function openItemEditModal(itemName) {
             location: document.getElementById('edit-item-location').value
         };
 
-        // 更新所有消息中的该物品（含数量后缀变体，如 sword(3)）
+        // 更新所有消息中的该物品 (incl 数量后缀变体，如 sword(3)）
         const chat = horaeManager.getChat();
         const nameChanged = newName !== itemName;
         const editBaseName = getItemBaseName(itemName).toLowerCase();
@@ -4565,7 +4565,7 @@ function _cascadeDeleteNpcs(names) {
 /**
  * 打开「手动添加 NPC」弹窗（精简版）
  * 字段：名字（必填）/ 别名 / 性别 / 外貌 / 性格 / 关系
- * 提交前检查：撞名（含 _aliases）→ 提示打开编辑或合并
+ * 提交前检查：撞名 (incl  _aliases）→ 提示打开编辑或合并
  * 写入：chat[最后一条消息].horae_meta.npcs[名字]，并标记 chat[0].horae_meta._userAddedNpcs
  * 名字旁有 ✨ 按钮可触发 AI 从剧情中补全外貌/性格/关系
  */
@@ -4576,8 +4576,8 @@ function openNpcAddModal() {
 
     const genderOptions = [
         { val: '', label: t('ui.genderUnknown') },
-        { val: '男', label: t('ui.genderMale') },
-        { val: '女', label: t('ui.genderFemale') },
+        { val: 'male', label: t('ui.genderMale') },
+        { val: 'female', label: t('ui.genderFemale') },
         { val: '__custom__', label: t('ui.genderCustom') }
     ].map(o => `<option value="${o.val}">${o.label}</option>`).join('');
 
@@ -4672,7 +4672,7 @@ function openNpcAddModal() {
             if (enriched.age) document.getElementById('add-npc-age').value = enriched.age;
             if (enriched.gender) {
                 const sel = document.getElementById('add-npc-gender');
-                if (['男', '女'].includes(enriched.gender)) {
+                if (['male', 'female', '男', '女'].includes(enriched.gender)) {
                     sel.value = enriched.gender;
                 } else {
                     sel.value = '__custom__';
@@ -4683,7 +4683,7 @@ function openNpcAddModal() {
             }
             showToast(t('toast.aiEnrichDone', { name, n: enriched._matchCount || 0 }), 'success');
         } catch (err) {
-            console.error('[Horae] aiEnrichNpc 失败:', err);
+            console.error('[Horae] aiEnrichNpc failed:', err);
             showToast(t('toast.aiEnrichFailed', { error: err.message || err }), 'error');
         } finally {
             btn.disabled = false;
@@ -4865,12 +4865,12 @@ function openNpcEditModal(npcName) {
 
     // 性别选项：预设值以外的自动归入「自定义」
     const genderVal = npc.gender || '';
-    const presetGenders = ['', '男', '女'];
+    const presetGenders = ['', 'male', 'female'];
     const isCustomGender = genderVal !== '' && !presetGenders.includes(genderVal);
     const genderOptions = [
         { val: '', label: t('ui.genderUnknown') },
-        { val: '男', label: t('ui.genderMale') },
-        { val: '女', label: t('ui.genderFemale') },
+        { val: 'male', label: t('ui.genderMale') },
+        { val: 'female', label: t('ui.genderFemale') },
         { val: '__custom__', label: t('ui.genderCustom') }
     ].map(o => {
         const selected = isCustomGender ? o.val === '__custom__' : genderVal === o.val;
@@ -5150,10 +5150,10 @@ function openEventEditModal(messageId, eventIndex = 0) {
                     <div class="horae-edit-field">
                         <label>${t('label.eventLevel')}</label>
                         <select id="edit-event-level">
-                            <option value="normal" ${event.level === '一般' || event.level === 'normal' || !event.level ? 'selected' : ''}>${t('levels.normal')}</option>
+                            <option value="normal" ${event.level === 'normal' || !event.level ? 'selected' : ''}>${t('levels.normal')}</option>
                             <option value="important" ${horaeIsImportant(event.level) ? 'selected' : ''}>${t('levels.important')}</option>
                             <option value="critical" ${horaeIsCritical(event.level) ? 'selected' : ''}>${t('levels.critical')}</option>
-                            <option value="summary" ${event.level === '摘要' || event.level === 'summary' ? 'selected' : ''}>${t('levels.summary')}</option>
+                            <option value="summary" ${event.level === 'summary' ? 'selected' : ''}>${t('levels.summary')}</option>
                         </select>
                     </div>
                     <div class="horae-edit-field">
@@ -5188,7 +5188,7 @@ function openEventEditModal(messageId, eventIndex = 0) {
             const newLevel = document.getElementById('edit-event-level').value;
             const newSummary = document.getElementById('edit-event-summary').value.trim();
 
-            // 防呆提示：摘要为空等同于删除
+            // 防呆提示：摘要为empty等同于删除
             if (!newSummary) {
                 if (!confirm(t('confirm.deleteTimeline', { n: 1 }))) {
                     return;
@@ -5215,7 +5215,7 @@ function openEventEditModal(messageId, eventIndex = 0) {
             }
 
             // 更新或添加事件
-            const isSummaryLevel = newLevel === '摘要';
+            const isSummaryLevel = newLevel === '摘要' || newLevel === 'summary';
             if (chatMeta.events[eventIndex]) {
                 chatMeta.events[eventIndex] = {
                     is_important: horaeIsImportant(newLevel) || horaeIsCritical(newLevel),
@@ -5394,7 +5394,7 @@ function _updatePerTableUndoRedoButtons(tid) {
     if (redoBtn) redoBtn.disabled = !_perTableRedo[tid]?.length;
 }
 
-/** 切换聊天时清空所有 undo/redo 栈 */
+/** 切换聊天时清empty所有 undo/redo 栈 */
 function clearTableHistory() {
     for (const k of Object.keys(_perTableUndo)) delete _perTableUndo[k];
     for (const k of Object.keys(_perTableRedo)) delete _perTableRedo[k];
@@ -5625,7 +5625,7 @@ function bindExcelTableEvents() {
         });
     });
 
-    // 清空表格数据按钮（保留表头）
+    // 清empty表格数据按钮（保留表头）
     document.querySelectorAll('.clear-table-data-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
             e.stopPropagation();
@@ -6076,7 +6076,7 @@ function purgeTableContributions(tableName, scope = 'local') {
         }
     }
 
-    // 将当前完整数据（含用户编辑）写入 baseData 作为新基准
+    // 将当前完整数据 (incl 用户编辑）写入 baseData 作为新基准
     // 这样即使消息被滑动/重新生成，rebuildTableData 也能从正确的基准恢复
     const tables = getTablesByScope(scope);
     const table = tables.find(tbl => (tbl.name || '').trim() === tableName);
@@ -6099,7 +6099,7 @@ function purgeTableContributions(tableName, scope = 'local') {
     }
 }
 
-/** 清空表格数据区（保留第0行和第0列的表头） */
+/** 清empty表格数据区（保留第0行和第0列的表头） */
 function clearTableData(index, scope = 'local') {
     if (!confirm(t('confirm.clearTableData'))) return;
     pushTableSnapshot(scope, index);
@@ -6306,7 +6306,7 @@ function _equipItemToChar(itemName, owner, slotName, replacedItem) {
         _unequipToItems(owner, slotName, replacedItem.name, true);
     }
 
-    // 确保目标数组存在（unequip 可能删除了空数组）
+    // 确保目标数组存在（unequip 可能删除了empty数组）
     if (!rpg.equipment[owner]) rpg.equipment[owner] = {};
     if (!rpg.equipment[owner][slotName]) rpg.equipment[owner][slotName] = [];
 
@@ -6348,7 +6348,7 @@ function _unequipToItems(owner, slotName, equipName, skipSave) {
     if (idx < 0) return;
     const removed = slotArr.splice(idx, 1)[0];
 
-    // 清理空结构
+    // 清理empty结构
     if (!slotArr.length) delete first.horae_meta.rpg.equipment[owner][slotName];
     if (first.horae_meta.rpg.equipment[owner] && !Object.keys(first.horae_meta.rpg.equipment[owner]).length) delete first.horae_meta.rpg.equipment[owner];
 
@@ -6685,36 +6685,36 @@ async function deleteSelectedNpcs() {
 
 // 异常状态 → FontAwesome 图标映射
 const RPG_STATUS_ICONS = {
-    '昏': 'fa-dizzy', '眩': 'fa-dizzy', '晕': 'fa-dizzy', '暈': 'fa-dizzy',
-    '流血': 'fa-droplet', '出血': 'fa-droplet', '血': 'fa-droplet',
-    '重伤': 'fa-heart-crack', '重傷': 'fa-heart-crack', '濒死': 'fa-heart-crack', '瀕死': 'fa-heart-crack',
-    '冻': 'fa-snowflake', '凍': 'fa-snowflake', '冰': 'fa-snowflake', '寒': 'fa-snowflake',
-    '石化': 'fa-gem', '钙化': 'fa-gem', '鈣化': 'fa-gem', '结晶': 'fa-gem', '結晶': 'fa-gem',
-    '毒': 'fa-skull-crossbones', '腐蚀': 'fa-skull-crossbones', '腐蝕': 'fa-skull-crossbones',
-    '火': 'fa-fire', '烧': 'fa-fire', '燒': 'fa-fire', '灼': 'fa-fire', '燃': 'fa-fire', '炎': 'fa-fire',
-    '慢': 'fa-hourglass-half', '减速': 'fa-hourglass-half', '減速': 'fa-hourglass-half', '迟缓': 'fa-hourglass-half', '遲緩': 'fa-hourglass-half',
-    '盲': 'fa-eye-slash', '失明': 'fa-eye-slash',
-    '沉默': 'fa-comment-slash', '禁言': 'fa-comment-slash', '封印': 'fa-ban',
-    '麻': 'fa-bolt', '痹': 'fa-bolt', '痺': 'fa-bolt', '电': 'fa-bolt', '電': 'fa-bolt', '雷': 'fa-bolt',
-    '弱': 'fa-feather', '衰': 'fa-feather', '虚': 'fa-feather', '虛': 'fa-feather',
-    '恐': 'fa-ghost', '惧': 'fa-ghost', '懼': 'fa-ghost', '惊': 'fa-ghost', '驚': 'fa-ghost',
-    '乱': 'fa-shuffle', '亂': 'fa-shuffle', '混乱': 'fa-shuffle', '混亂': 'fa-shuffle', '狂暴': 'fa-shuffle',
-    '眠': 'fa-moon', '睡': 'fa-moon', '催眠': 'fa-moon',
-    '缚': 'fa-link', '縛': 'fa-link', '禁锢': 'fa-link', '禁錮': 'fa-link', '束': 'fa-link',
-    '饥': 'fa-utensils', '飢': 'fa-utensils', '饿': 'fa-utensils', '餓': 'fa-utensils', '饥饿': 'fa-utensils', '飢餓': 'fa-utensils',
-    '渴': 'fa-glass-water', '脱水': 'fa-glass-water', '脫水': 'fa-glass-water',
-    '疲': 'fa-battery-quarter', '累': 'fa-battery-quarter', '倦': 'fa-battery-quarter', '乏': 'fa-battery-quarter',
-    '伤': 'fa-bandage', '傷': 'fa-bandage', '创': 'fa-bandage', '創': 'fa-bandage',
-    '愈': 'fa-heart-pulse', '恢复': 'fa-heart-pulse', '恢復': 'fa-heart-pulse', '再生': 'fa-heart-pulse',
-    '隐': 'fa-user-secret', '隱': 'fa-user-secret', '伪装': 'fa-user-secret', '偽裝': 'fa-user-secret', '潜行': 'fa-user-secret', '潛行': 'fa-user-secret',
-    '护盾': 'fa-shield', '護盾': 'fa-shield', '防御': 'fa-shield', '防禦': 'fa-shield', '铁壁': 'fa-shield', '鐵壁': 'fa-shield',
-    '正常': 'fa-circle-check',
+    '昏': 'fa-dizzy', '眩': 'fa-dizzy', '晕': 'fa-dizzy', '暈': 'fa-dizzy', 'dizzy': 'fa-dizzy', 'stun': 'fa-dizzy', 'оглуш': 'fa-dizzy', 'головокр': 'fa-dizzy',
+    '流血': 'fa-droplet', '出血': 'fa-droplet', '血': 'fa-droplet', 'bleed': 'fa-droplet', 'blood': 'fa-droplet', 'кровотеч': 'fa-droplet',
+    '重伤': 'fa-heart-crack', '重傷': 'fa-heart-crack', '濒死': 'fa-heart-crack', '瀕死': 'fa-heart-crack', 'dying': 'fa-heart-crack', 'critical': 'fa-heart-crack', 'смертел': 'fa-heart-crack', 'тяжел': 'fa-heart-crack',
+    '冻': 'fa-snowflake', '凍': 'fa-snowflake', '冰': 'fa-snowflake', '寒': 'fa-snowflake', 'freeze': 'fa-snowflake', 'ice': 'fa-snowflake', 'cold': 'fa-snowflake', 'заморож': 'fa-snowflake', 'лед': 'fa-snowflake', 'холод': 'fa-snowflake',
+    '石化': 'fa-gem', '钙化': 'fa-gem', '鈣化': 'fa-gem', '结晶': 'fa-gem', '結晶': 'fa-gem', 'petrify': 'fa-gem', 'stone': 'fa-gem', 'окамен': 'fa-gem', 'камен': 'fa-gem',
+    '毒': 'fa-skull-crossbones', '腐蚀': 'fa-skull-crossbones', '腐蝕': 'fa-skull-crossbones', 'poison': 'fa-skull-crossbones', 'corros': 'fa-skull-crossbones', 'отравл': 'fa-skull-crossbones', 'яд': 'fa-skull-crossbones', 'корроз': 'fa-skull-crossbones',
+    '火': 'fa-fire', '烧': 'fa-fire', '燒': 'fa-fire', '灼': 'fa-fire', '燃': 'fa-fire', '炎': 'fa-fire', 'fire': 'fa-fire', 'burn': 'fa-fire', 'огон': 'fa-fire', 'ожог': 'fa-fire', 'горен': 'fa-fire',
+    '慢': 'fa-hourglass-half', '减速': 'fa-hourglass-half', '減速': 'fa-hourglass-half', '迟缓': 'fa-hourglass-half', '遲緩': 'fa-hourglass-half', 'slow': 'fa-hourglass-half', 'замедл': 'fa-hourglass-half',
+    '盲': 'fa-eye-slash', '失明': 'fa-eye-slash', 'blind': 'fa-eye-slash', 'ослепл': 'fa-eye-slash', 'слепот': 'fa-eye-slash',
+    '沉默': 'fa-comment-slash', '禁言': 'fa-comment-slash', '封印': 'fa-ban', 'silence': 'fa-comment-slash', 'mute': 'fa-comment-slash', 'безмолв': 'fa-comment-slash', 'немот': 'fa-comment-slash',
+    '麻': 'fa-bolt', '痹': 'fa-bolt', '痺': 'fa-bolt', '电': 'fa-bolt', '電': 'fa-bolt', '雷': 'fa-bolt', 'paralyz': 'fa-bolt', 'shock': 'fa-bolt', 'паралич': 'fa-bolt', 'шок': 'fa-bolt',
+    '弱': 'fa-feather', '衰': 'fa-feather', '虚': 'fa-feather', '虛': 'fa-feather', 'weaken': 'fa-feather', 'frail': 'fa-feather', 'feeble': 'fa-feather', 'ослабл': 'fa-feather', 'слабост': 'fa-feather',
+    '恐': 'fa-ghost', '惧': 'fa-ghost', '懼': 'fa-ghost', '惊': 'fa-ghost', '驚': 'fa-ghost', 'fear': 'fa-ghost', 'terrify': 'fa-ghost', 'страх': 'fa-ghost', 'ужас': 'fa-ghost',
+    '乱': 'fa-shuffle', '亂': 'fa-shuffle', '混乱': 'fa-shuffle', '混亂': 'fa-shuffle', '狂暴': 'fa-shuffle', 'confus': 'fa-shuffle', 'chaos': 'fa-shuffle', 'berserk': 'fa-shuffle', 'безум': 'fa-shuffle', 'хаос': 'fa-shuffle', 'смятен': 'fa-shuffle',
+    '眠': 'fa-moon', '睡': 'fa-moon', '催眠': 'fa-moon', 'sleep': 'fa-moon', 'hypno': 'fa-moon', 'сон': 'fa-moon', 'гипноз': 'fa-moon',
+    '缚': 'fa-link', '縛': 'fa-link', '禁锢': 'fa-link', '禁錮': 'fa-link', '束': 'fa-link', 'bind': 'fa-link', 'root': 'fa-link', 'snare': 'fa-link', 'связан': 'fa-link', 'опутан': 'fa-link',
+    '饥': 'fa-utensils', '飢': 'fa-utensils', '饿': 'fa-utensils', '餓': 'fa-utensils', '饥饿': 'fa-utensils', '飢餓': 'fa-utensils', 'hunger': 'fa-utensils', 'starve': 'fa-utensils', 'голод': 'fa-utensils',
+    '渴': 'fa-glass-water', '脱水': 'fa-glass-water', '脫水': 'fa-glass-water', 'thirst': 'fa-glass-water', 'dehydrat': 'fa-glass-water', 'жажд': 'fa-glass-water',
+    '疲': 'fa-battery-quarter', '累': 'fa-battery-quarter', '倦': 'fa-battery-quarter', '乏': 'fa-battery-quarter', 'fatigue': 'fa-battery-quarter', 'tired': 'fa-battery-quarter', 'exhaust': 'fa-battery-quarter', 'устал': 'fa-battery-quarter', 'утомл': 'fa-battery-quarter',
+    '伤': 'fa-bandage', '傷': 'fa-bandage', '创': 'fa-bandage', '創': 'fa-bandage', 'wound': 'fa-bandage', 'injur': 'fa-bandage', 'ран': 'fa-bandage', 'травм': 'fa-bandage',
+    '愈': 'fa-heart-pulse', '恢复': 'fa-heart-pulse', '恢復': 'fa-heart-pulse', '再生': 'fa-heart-pulse', 'heal': 'fa-heart-pulse', 'regen': 'fa-heart-pulse', 'recover': 'fa-heart-pulse', 'исцел': 'fa-heart-pulse', 'восстанов': 'fa-heart-pulse',
+    '隐': 'fa-user-secret', '隱': 'fa-user-secret', '伪装': 'fa-user-secret', '偽裝': 'fa-user-secret', '潜行': 'fa-user-secret', '潛行': 'fa-user-secret', 'stealth': 'fa-user-secret', 'hide': 'fa-user-secret', 'invis': 'fa-user-secret', 'невидим': 'fa-user-secret', 'скрыт': 'fa-user-secret',
+    '护盾': 'fa-shield', '護盾': 'fa-shield', '防御': 'fa-shield', '防禦': 'fa-shield', '铁壁': 'fa-shield', '鐵壁': 'fa-shield', 'shield': 'fa-shield', 'defend': 'fa-shield', 'barrier': 'fa-shield', 'щит': 'fa-shield', 'барьер': 'fa-shield', 'защит': 'fa-shield',
+    '正常': 'fa-circle-check', 'normal': 'fa-circle-check', 'ok': 'fa-circle-check', 'норма': 'fa-circle-check',
 };
 
 /** 根据异常状态文本匹配图标 */
 function getStatusIcon(text) {
     for (const [kw, icon] of Object.entries(RPG_STATUS_ICONS)) {
-        if (text.includes(kw)) return icon;
+        if (text.toLowerCase().includes(kw.toLowerCase())) return icon;
     }
     return 'fa-triangle-exclamation';
 }
@@ -9199,7 +9199,7 @@ function _saveGlobalMeta(meta) {
 
 function _restoreGlobalMeta(meta, saved) {
     if (!saved || !meta) return;
-    // 空对象/空数组视为缺失（createEmptyMeta 会先放 {} 占位）
+    // empty对象/empty数组视为缺失（createEmptyMeta 会先放 {} 占位）
     const isEmptyObj = (v) => v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0;
     const isEmptyArr = (v) => Array.isArray(v) && v.length === 0;
     const isMissing = (v) => v === undefined || v === null || isEmptyObj(v) || isEmptyArr(v);
@@ -9277,7 +9277,7 @@ function _restoreCompressedFlags(meta, saved) {
                 summary: sf.summary,
                 isSummary: true,
                 _summaryId: sf._summaryId,
-                level: '摘要',
+                level: 'summary',
             });
         }
     }
@@ -9802,7 +9802,7 @@ function updateTokenCounter() {
         const tokens = estimateTokens(combined);
         el.textContent = `≈ ${tokens.toLocaleString()}`;
     } catch (err) {
-        console.warn('[Horae] Token 计数失败:', err);
+        console.warn('[Horae] Token 计数failed:', err);
         el.textContent = '--';
     }
 }
@@ -9834,7 +9834,7 @@ async function scrollToMessage(messageId) {
             showToast(t('toast.jumpFailed', { id: messageId }), 'warning');
         }
     } catch (err) {
-        console.warn('[Horae] 跳转失败:', err);
+        console.warn('[Horae] 跳转failed:', err);
         showToast(t('toast.jumpError', { error: err.message || 'unknown' }), 'error');
     }
 }
@@ -10049,7 +10049,7 @@ function importTheme() {
             showToast(t('toast.themeImported', { name: theme.name }), 'success');
         } catch (err) {
             showToast(t('toast.themeParseFailed'), 'error');
-            console.error('[Horae] 导入美化失败:', err);
+            console.error('[Horae] 导入美化failed:', err);
         }
     });
     input.click();
@@ -10939,7 +10939,7 @@ function addMessagePanel(messageEl, messageIndex) {
             refreshHoraePorts(messageEl);
         }
     } catch (err) {
-        console.error(`[Horae] addMessagePanel #${messageIndex} 失败:`, err);
+        console.error(`[Horae] addMessagePanel #${messageIndex} failed:`, err);
     }
 }
 
@@ -11151,7 +11151,7 @@ function buildPanelContent(messageIndex, meta) {
                 <div class="horae-event-editor">
                     <select class="horae-input-event-level">
                         <option value="">${t('levels.none')}</option>
-                        <option value="normal" ${eventLevel === '一般' || eventLevel === 'normal' ? 'selected' : ''}>${t('levels.normal')}</option>
+                        <option value="normal" ${eventLevel === 'normal' || eventLevel === 'normal' ? 'selected' : ''}>${t('levels.normal')}</option>
                         <option value="important" ${horaeIsImportant(eventLevel) ? 'selected' : ''}>${t('levels.important')}</option>
                         <option value="critical" ${horaeIsCritical(eventLevel) ? 'selected' : ''}>${t('levels.critical')}</option>
                     </select>
@@ -11223,13 +11223,13 @@ function bindPanelEvents(panelEl) {
         rescanBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
             rescanMessageMeta(messageId, panelEl).catch(err => {
-                console.error(`[Horae] 重扫消息失败 #${messageId}:`, err);
+                console.error(`[Horae] Rescan message failed #${messageId}:`, err);
             });
         });
         sideplayBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleSideplay(messageId, panelEl).catch(err => {
-                console.error(`[Horae] 切换番外标记失败 #${messageId}:`, err);
+                console.error(`[Horae] Toggle extra mark failed #${messageId}:`, err);
             });
         });
     }
@@ -11241,7 +11241,7 @@ function bindPanelEvents(panelEl) {
 
     panelEl.querySelector('.horae-btn-save')?.addEventListener('click', () => {
         savePanelData(panelEl, messageId).catch(err => {
-            console.error(`[Horae] 保存面板失败 #${messageId}:`, err);
+            console.error(`[Horae] Save panel failed #${messageId}:`, err);
         });
         panelDirty = false;
     });
@@ -11491,7 +11491,7 @@ async function runPanelAiAnalyze(messageId, panelEl, message) {
         refreshAllDisplays();
         showToast(t('toast.saveSuccess'), 'success');
     } catch (error) {
-        console.error('[Horae] AI分析失败:', error);
+        console.error('[Horae] AI分析failed:', error);
         showToast(t('toast.aiAnalysisFailed', { error: error.message }), 'error');
     } finally {
         _panelAiAnalyzeInProgress = false;
@@ -11600,7 +11600,7 @@ async function rescanMessageMeta(messageId, panelEl) {
         messageContent = context.chat[messageId].mes;
     }
 
-    // 如果chat中没有或为空，从DOM获取
+    // 如果chat中没有或为empty，从DOM获取
     if (!messageContent) {
         const mesTextEl = messageEl.querySelector('.mes_text');
         if (mesTextEl) {
@@ -11617,7 +11617,7 @@ async function rescanMessageMeta(messageId, panelEl) {
 
     if (parsed) {
         const existingMeta = horaeManager.getMessageMeta(messageId);
-        // 用 mergeParsedToMeta 以空 meta 为基础，确保所有字段一致处理
+        // 用 mergeParsedToMeta 以empty meta 为基础，确保所有字段一致处理
         const newMeta = horaeManager.mergeParsedToMeta(createEmptyMeta(), parsed);
 
         // 只保留原有的NPC数据（如果新解析中没有）
@@ -11662,7 +11662,7 @@ async function rescanMessageMeta(messageId, panelEl) {
 
         showToast(t('toast.saveSuccess'), 'success');
     } else {
-        // 无标签，清空数据（保留NPC）
+        // 无标签，清empty数据（保留NPC）
         const existingMeta = horaeManager.getMessageMeta(messageId);
         const newMeta = createEmptyMeta();
         if (existingMeta?.npcs) {
@@ -11791,7 +11791,7 @@ async function savePanelData(panelEl, messageId) {
             summary: eventSummary
         }, ...restEvents];
     } else if (restEvents.length > 0) {
-        // 第一条事件被清空但后续事件仍需保留
+        // 第一条事件被清empty但后续事件仍需保留
         meta.events = restEvents;
     }
     if (savedCompressedFlags?.length) {
@@ -11888,7 +11888,7 @@ async function savePanelData(panelEl, messageId) {
     }
 }
 
-/** 构建 <horae> 标签字符串 */
+/** 构建 <horae> 标签chars串 */
 function buildHoraeTagFromMeta(meta) {
     const lines = [];
 
@@ -11966,12 +11966,12 @@ function buildHoraeTagFromMeta(meta) {
                 npcLine = `npc:${name}`;
             }
             const extras = [];
-            if (info.gender) extras.push(`性别:${info.gender}`);
-            if (info.age) extras.push(`年龄:${info.age}`);
-            if (info.race) extras.push(`种族:${info.race}`);
-            if (info.job) extras.push(`职业:${info.job}`);
-            if (info.birthday) extras.push(`生日:${info.birthday}`);
-            if (info.note) extras.push(`补充:${info.note}`);
+            if (info.gender) extras.push(`gender:${info.gender}`);
+            if (info.age) extras.push(`age:${info.age}`);
+            if (info.race) extras.push(`race:${info.race}`);
+            if (info.job) extras.push(`job:${info.job}`);
+            if (info.birthday) extras.push(`birthday:${info.birthday}`);
+            if (info.note) extras.push(`note:${info.note}`);
             if (extras.length > 0) npcLine += `~${extras.join('~')}`;
             lines.push(npcLine);
         }
@@ -12014,14 +12014,14 @@ function buildHoraeTagFromMeta(meta) {
     return `<horae>\n${lines.join('\n')}\n</horae>`;
 }
 
-/** 构建 <horaeevent> 标签字符串 */
+/** 构建 <horaeevent> 标签chars串 */
 function buildHoraeEventTagFromMeta(meta) {
     const events = meta.events || (meta.event ? [meta.event] : []);
     if (events.length === 0) return '';
 
     const lines = events
         .filter(e => e.summary)
-        .map(e => `event:${e.level || '一般'}|${e.summary}`);
+        .map(e => `event:${e.level || 'normal'}|${e.summary}`);
 
     if (lines.length === 0) return '';
     return `<horaeevent>\n${lines.join('\n')}\n</horaeevent>`;
@@ -12063,7 +12063,7 @@ function injectHoraeTagToMessage(messageId, meta) {
         message.mes = mes;
         console.log(`[Horae] 已同步写入消息 #${messageId} 的标签`);
     } catch (error) {
-        console.error(`[Horae] 写入标签失败:`, error);
+        console.error(`[Horae] 写入标签failed:`, error);
     }
 }
 
@@ -13016,7 +13016,7 @@ function initSettingsEvents() {
                 updateTokenCounter();
                 showToast(t('toast.settingsImported', { n: keys.length }), 'success');
             } catch (err) {
-                console.error('[Horae] 导入配置失败:', err);
+                console.error('[Horae] 导入配置failed:', err);
                 showToast(t('toast.importFailed', { error: err.message }), 'error');
             }
         };
@@ -13418,7 +13418,7 @@ function initSettingsEvents() {
         const file = e.target.files[0];
         if (file) {
             importTable(file);
-            e.target.value = ''; // 清空以便可以再次选择同一文件
+            e.target.value = ''; // 清empty以便可以再次选择同一文件
         }
     });
     renderCustomTablesList();
@@ -14415,7 +14415,7 @@ async function _ensureVectorIndexBeforeRecall() {
     const { missing, indexable } = _countVectorIndexGap(chat);
     if (missing <= 0) return;
 
-    showToast(`检测到 ${missing}/${indexable} 条向量索引缺失，正在补建索引。请勿切换或退出聊天。`, 'warning');
+    showToast(t('toast.vectorIndexMissing', { missing, total: indexable }), 'warning');
 
     const runChatId = chatId;
     _vectorEnsureIndexChatId = runChatId;
@@ -14425,13 +14425,13 @@ async function _ensureVectorIndexBeforeRecall() {
         const result = await _vectorEnsureIndexPromise;
         const currentChatId = _deriveChatId(getContext());
         if (currentChatId === runChatId) {
-            showToast(`向量索引补建完成：新增 ${result.indexed} 条，跳过 ${result.skipped} 条。`, 'success');
+            showToast(t('toast.vectorIndexRebuilt', { indexed: result.indexed, skipped: result.skipped }), 'success');
         } else {
             console.warn(`[Horae] 向量索引补建完成，但聊天已切换: ${runChatId} -> ${currentChatId}`);
         }
     } catch (err) {
-        console.error('[Horae] 向量索引自动补建失败:', err);
-        showToast(`向量索引补建失败：${err?.message || err}`, 'error');
+        console.error('[Horae] 向量索引自动补建failed:', err);
+        showToast(t('toast.vectorIndexRebuildFailed', { error: err?.message || err }), 'error');
     } finally {
         if (_vectorEnsureIndexChatId === runChatId) {
             _vectorEnsureIndexPromise = null;
@@ -14509,7 +14509,7 @@ async function _initVectorModel() {
             const apiKey = settings.vectorApiKey;
             const apiModel = settings.vectorApiModel;
             if (!apiUrl || !apiKey || !apiModel) {
-                throw new Error('请填写完整的 API 地址、密钥和模型名称');
+                throw new Error(t('toast.vectorApiFillRequired'));
             }
             await vectorManager.initApi(apiUrl, apiKey, apiModel);
         } else {
@@ -14633,7 +14633,7 @@ async function scanHistoryWithProgress() {
         refreshAllDisplays();
         renderCustomTablesList();
     } catch (error) {
-        console.error('[Horae] 扫描失败:', error);
+        console.error('[Horae] 扫描failed:', error);
         showToast(t('toast.scanFailed', { error: error.message }), 'error');
     } finally {
         overlay.remove();
@@ -14803,10 +14803,10 @@ function _extractHoraeSummaryText(raw) {
 
 function _showHoraeSummaryFormatWarning(_stageLabel, reason) {
     if (reason === 'truncated') {
-        showToast('总结失败：AI回复截断', 'warning');
+        showToast(t('toast.summaryTruncated'), 'warning');
         return;
     }
-    showToast('总结失败：AI回复掉格式', 'warning');
+    showToast(t('toast.summaryFormatError'), 'warning');
 }
 
 function _splitMsgIndicesByLimits(chat, indices, maxMsgs, maxTokens) {
@@ -14862,7 +14862,7 @@ function _splitResummaryEventsByLimits(eventRecords, maxEvents, maxTokens) {
     let current = [];
     let tokenCount = 0;
     for (const e of records) {
-        const line = `[${e.level || '一般'}] ${e.date || '?'}${e.time ? ' ' + e.time : ''}: ${e.summary}`;
+        const line = `[${e.level || 'normal'}] ${e.date || '?'}${e.time ? ' ' + e.time : ''}: ${e.summary}`;
         const tok = estimateTokens(line);
         if (current.length > 0 && (current.length >= maxEvents || tokenCount + tok > maxTokens)) {
             chunks.push(current);
@@ -15027,7 +15027,7 @@ function _collectAutoResummaryPayload(chat, plan, cutoff) {
             msgIdx: anchorIdx,
             date,
             time,
-            level: `摘要L${s.depth}`,
+            level: `summaryL${s.depth}`,
             summary: cardText,
         });
     }
@@ -15051,14 +15051,14 @@ function _collectAutoResummaryPayload(chat, plan, cutoff) {
             if (evt.isSummary || evt._summaryId) continue;
             if (evt._compressedBy && activeSummaryIds.has(evt._compressedBy)) continue;
 
-            const key = `${msgIdx}|${evtIdx}|${date}|${time}|${evt.level || '一般'}|${evt.summary}`;
+            const key = `${msgIdx}|${evtIdx}|${date}|${time}|${evt.level || 'normal'}|${evt.summary}`;
             if (eventSeen.has(key)) continue;
             eventSeen.add(key);
             eventRecords.push({
                 msgIdx,
                 date,
                 time,
-                level: evt.level || '一般',
+                level: evt.level || 'normal',
                 summary: evt.summary,
             });
         }
@@ -15144,7 +15144,7 @@ async function _generateSummaryFromResummaryPayload(chat, payload, userName) {
         const response = await generateForSummary(prompt);
         const extracted = _extractHoraeSummaryText(response);
         if (!extracted.ok) {
-            _showHoraeSummaryFormatWarning('二次总结', extracted.reason);
+            _showHoraeSummaryFormatWarning(t('toast.resummary'), extracted.reason);
             return '';
         }
         chunkSummaries.push(extracted.text);
@@ -15165,12 +15165,12 @@ async function _generateSummaryFromResummaryPayload(chat, payload, userName) {
 
         const next = [];
         for (const group of groups) {
-            const eventText = group.map((text, i) => `[段${i + 1}] ${text}`).join('\n');
+            const eventText = group.map((text, i) => `[Part ${i + 1}] ${text}`).join('\n');
             const prompt = _buildAutoResummaryPrompt(userName, eventText, group.length);
             const response = await generateForSummary(prompt);
             const extracted = _extractHoraeSummaryText(response);
             if (!extracted.ok) {
-                _showHoraeSummaryFormatWarning('二次总结', extracted.reason);
+                _showHoraeSummaryFormatWarning(t('toast.resummary'), extracted.reason);
                 return '';
             }
             next.push(extracted.text);
@@ -15235,7 +15235,7 @@ async function _applyAutoResummary(chat, payload, summaryText) {
         if (!Array.isArray(chat[targetIdx].horae_meta.events)) chat[targetIdx].horae_meta.events = [];
         chat[targetIdx].horae_meta.events.push({
             is_important: true,
-            level: '摘要',
+            level: 'summary',
             summary: summaryText,
             isSummary: true,
             _summaryId: summaryId
@@ -15363,7 +15363,7 @@ function _buildEmbeddingRequest(rawUrl, apiKey, model, texts) {
 
 /** 通用：从端点拉取模型列表 */
 async function _fetchModelList(rawUrl, apiKey) {
-    if (!rawUrl || !apiKey) throw new Error('请先填写 API 地址和密钥');
+    if (!rawUrl || !apiKey) throw new Error(t('toast.vectorApiRequired'));
     const isGemini = _isGeminiEmbeddingEndpoint(rawUrl);
     if (isGemini) {
         const base = _geminiEmbeddingBase(rawUrl);
@@ -15695,8 +15695,8 @@ async function _corsAwareFetch(url, init) {
             return await fetch(proxyUrl, init);
         } catch (_) {
             throw new Error(
-                'API请求被浏览器CORS拦截，且酒馆代理不可用。\n' +
-                '请在 config.yaml 中设置 enableCorsProxy: true 后重启酒馆。'
+                t('toast.corsProxyRequired')
+
             );
         }
     }
@@ -15782,7 +15782,7 @@ async function generateWithDirectApi(prompt, profile = null, opts = {}) {
         body.safety_settings = blockNone;
         body.safetySettings = blockNone;
     }
-    console.log(`[Horae] 独立API请求: ${url}, 模型: ${body.model}`);
+    console.log(`[Horae] Auxiliary API请求: ${url}, 模型: ${body.model}`);
     const resp = await _corsAwareFetch(url, {
         method: 'POST',
         headers: {
@@ -15794,12 +15794,12 @@ async function generateWithDirectApi(prompt, profile = null, opts = {}) {
     if (!resp.ok) {
         const errText = await resp.text().catch(() => '');
         const hint = _httpStatusHint(resp.status);
-        throw new Error(`独立API ${resp.status}: ${errText.slice(0, 200)}${hint ? `\n💡 ${hint}` : ''}`);
+        throw new Error(`Auxiliary API ${resp.status}: ${errText.slice(0, 200)}${hint ? `\n💡 ${hint}` : ''}`);
     }
     const data = await resp.json();
     const finishReason = data?.choices?.[0]?.finish_reason || '';
     if (finishReason === 'content_filter' || finishReason === 'SAFETY') {
-        throw new Error('副API安全过滤拦截，建议：降低批次token上限 或 换用限制更宽松的模型');
+        throw new Error(t('toast.auxApiSafetyBlock'));
     }
     return data?.choices?.[0]?.message?.content || '';
 }
@@ -15886,7 +15886,7 @@ async function _geminiNativeRequest(prompt, rawUrl, model, apiKey, opts = {}) {
         headers['Authorization'] = `Bearer ${apiKey}`;
     }
 
-    console.log(`[Horae] Gemini原生API: ${endpointUrl}, threshold: ${threshold}`);
+    console.log(`[Horae] Gemini Native API: ${endpointUrl}, threshold: ${threshold}`);
 
     // ── 5. 发送请求 + 解析原生响应 ──
     const resp = await _corsAwareFetch(endpointUrl, {
@@ -15898,22 +15898,22 @@ async function _geminiNativeRequest(prompt, rawUrl, model, apiKey, opts = {}) {
     if (!resp.ok) {
         const errText = await resp.text().catch(() => '');
         const hint = _httpStatusHint(resp.status);
-        throw new Error(`Gemini原生API ${resp.status}: ${errText.slice(0, 200)}${hint ? `\n💡 ${hint}` : ''}`);
+        throw new Error(`Gemini Native API ${resp.status}: ${errText.slice(0, 200)}${hint ? `\n💡 ${hint}` : ''}`);
     }
 
     const data = await resp.json();
 
     if (data?.promptFeedback?.blockReason) {
-        throw new Error(`Gemini输入安全拦截: ${data.promptFeedback.blockReason}`);
+        throw new Error(t('toast.geminiInputBlocked', { reason: data.promptFeedback.blockReason }));
     }
 
     const candidates = data?.candidates;
     if (!candidates?.length) {
-        throw new Error('Gemini API未返回候选内容');
+        throw new Error(t('toast.geminiNoCandidate'));
     }
 
     if (candidates[0]?.finishReason === 'SAFETY') {
-        throw new Error('Gemini输出安全拦截，建议换用限制更宽松的模型');
+        throw new Error(t('toast.geminiOutputBlocked'));
     }
 
     const text = candidates[0]?.content?.parts
@@ -15922,7 +15922,7 @@ async function _geminiNativeRequest(prompt, rawUrl, model, apiKey, opts = {}) {
         ?.join('\n\n') || '';
 
     if (!text) {
-        throw new Error(`Gemini返回空内容 (finishReason: ${candidates[0]?.finishReason || '?'})`);
+        throw new Error(`Gemini returned empty content (finishReason: ${candidates[0]?.finishReason || '?'})`);
     }
 
     return text;
@@ -15983,7 +15983,7 @@ function _collectTailContinuousAutoSummaryEvents(chat, cutoff, summarizedIndices
         evtIdx: item.evtIdx,
         date: item.meta?.timestamp?.story_date || '?',
         time: item.meta?.timestamp?.story_time || '',
-        level: item.event?.level || '一般',
+        level: item.event?.level || 'normal',
         summary: item.event?.summary || ''
     }));
 }
@@ -16167,7 +16167,7 @@ async function checkAutoSummary() {
         // 独立检查：当同层摘要达到阈值时，自动进行更高层级再总结（可级联）
         await _runAutoResummaryIfNeeded(chat, cutoff);
 
-        // 收集已被摘要覆盖的消息索引（含展开状态，避免重复摘要）
+        // 收集已被摘要覆盖的消息索引 (incl 展开状态，避免重复摘要）
         // 优先用 coveredIndices（实际压缩集合），旧 entry 才回退到 range 全展开
         const summarizedIndices = new Set();
         const existingSums = chat[0]?.horae_meta?.autoSummaries || [];
@@ -16326,7 +16326,7 @@ async function checkAutoSummary() {
             .replace(/\{\{count\}\}/gi, String(bufferEvents.length))
             .replace(/\{\{user\}\}/gi, userName);
         if (includeFullText && sourceText && !hasFullTextPlaceholder) {
-            prompt += `\n\n【全文对话记录】：\n${sourceText}`;
+            prompt += `\n\n[Full Chat Record]：\n${sourceText}`;
         }
 
         const response = await generateForSummary(prompt);
@@ -16340,7 +16340,7 @@ async function checkAutoSummary() {
             if (extracted.reason === 'empty') {
                 showToast(t('toast.autoSummaryCleanedEmpty'), 'warning');
             } else {
-                _showHoraeSummaryFormatWarning('自动总结', extracted.reason);
+                _showHoraeSummaryFormatWarning(t('settings.autoSummary'), extracted.reason);
             }
             return;
         }
@@ -16392,7 +16392,7 @@ async function checkAutoSummary() {
         if (!targetMeta.events) targetMeta.events = [];
         targetMeta.events.push({
             is_important: true,
-            level: '摘要',
+            level: 'summary',
             summary: summaryText,
             isSummary: true,
             _summaryId: summaryId
@@ -16423,7 +16423,7 @@ async function checkAutoSummary() {
     }
 }
 
-/** 默认的剧情压缩提示词（含事件压缩和全文摘要两段，以分隔线区分） */
+/** 默认的剧情压缩提示词 (incl 事件压缩和全文摘要两段，以分隔线区分） */
 function getDefaultCompressPrompt() {
     return _getPromptDefaultFromResource('customCompressPrompt') || '';
 }
@@ -16537,7 +16537,7 @@ function _stripHoraeAnalysisInput(text) {
         .trim();
 }
 
-/** 判断消息是否为空层（同层系统等代码渲染的无实际叙事内容楼层） */
+/** 判断消息是否为empty层（同层系统等代码渲染的无实际叙事内容楼层） */
 function isEmptyOrCodeLayer(mes) {
     if (!mes) return true;
     const stripped = mes
@@ -16567,7 +16567,7 @@ async function batchAIScan() {
                 const nextMeta = nextMsg.horae_meta;
                 if (nextMeta?.events?.length > 0) { i++; continue; }
                 if (isEmptyOrCodeLayer(nextMsg.mes) && isEmptyOrCodeLayer(msg.mes)) { i++; skippedEmpty++; continue; }
-                const combined = `[USER行动]\n${_stripConfiguredTags(msg.mes)}\n\n[AI回复]\n${_stripConfiguredTags(nextMsg.mes)}`;
+                const combined = `[USER Action]\n${_stripConfiguredTags(msg.mes)}\n\n[AI Reply]\n${_stripConfiguredTags(nextMsg.mes)}`;
                 targets.push({ index: i + 1, text: combined });
                 i++;
             }
@@ -16674,12 +16674,12 @@ async function executeBatchScan(batches, options = {}) {
 
     // 动态构建允许的标签
     let allowedTags = 'time、item、event';
-    let forbiddenNote = '禁止输出 agenda/costume/location/atmosphere/characters';
+    let forbiddenNote = 'Do not output agenda/costume/location/atmosphere/characters';
     if (!includeNpc) forbiddenNote += '/npc';
     if (!includeAffection) forbiddenNote += '/affection';
     if (!includeScene) forbiddenNote += '/scene_desc';
     if (!includeRelationship) forbiddenNote += '/rel';
-    forbiddenNote += ' 等其他标签';
+    forbiddenNote += ' or other tags';
     if (includeNpc) allowedTags += '、npc';
     if (includeAffection) allowedTags += '、affection';
     if (includeScene) allowedTags += '、scene_desc';
@@ -16837,7 +16837,7 @@ event:Importance|Event Summary
             }
         } catch (err) {
             if (cancelled || err?.name === 'AbortError') break;
-            console.error(`[Horae] 第 ${b + 1} 批摘要失败:`, err);
+            console.error(`[Horae] 第 ${b + 1} 批摘要failed:`, err);
             showToast(t('toast.aiBatchFailed', { n: b + 1 }), 'error');
         }
 
@@ -16869,7 +16869,7 @@ function extractReviewCategories(scanResults) {
                     resultIndex: ri, field: 'events', subIndex: ei,
                     msgIndex: r.msgIndex,
                     time: meta.timestamp?.story_date || '',
-                    level: meta.events[ei].level || '一般',
+                    level: meta.events[ei].level || 'normal',
                     text: meta.events[ei].summary || ''
                 });
             }
@@ -17076,7 +17076,7 @@ function showScanReviewModal(scanResults, scanOptions) {
     modal.querySelector('#horae-review-confirm').addEventListener('click', async () => {
         // applyDeletedToResults 会直接修改 scanResults[ri].newMeta（即 chat 中的 meta 引用）
         applyDeletedToResults(scanResults, deletedSet, categories);
-        // 对被完全删空的 result，同步更新正文标签
+        // 对被完全删empty的 result，同步更新正文标签
         for (const r of scanResults) {
             if (!r._deleted) continue;
             injectHoraeTagToMessage(r.msgIndex, horaeManager.getMessageMeta(r.msgIndex) || createEmptyMeta());
@@ -17475,7 +17475,7 @@ function _buildCarryoverCompensationBlocks(events, chunkSize = 8) {
         const lines = part.map((evt, idx) => {
             const date = evt.date || '?';
             const time = evt.time ? ` ${evt.time}` : '';
-            const level = evt.level || '一般';
+            const level = evt.level || 'normal';
             return `${idx + 1}. [${date}${time}] [${level}] ${evt.summary}`;
         });
         blocks.push(lines.join('\n'));
@@ -17563,7 +17563,7 @@ function _collectCarryoverRecapTexts(sourceChat, cutoffIndex) {
 
             const date = meta.timestamp?.story_date || '?';
             const time = meta.timestamp?.story_time || '';
-            const level = evt.level || '一般';
+            const level = evt.level || 'normal';
             const key = `${i}|${date}|${time}|${level}|${summary}`;
             if (standaloneSeen.has(key)) continue;
             standaloneSeen.add(key);
@@ -17588,7 +17588,7 @@ function _collectCarryoverRecapTexts(sourceChat, cutoffIndex) {
 function _composeCarryoverRecapText(recapTexts) {
     if (!Array.isArray(recapTexts) || recapTexts.length === 0) return '';
     const lines = recapTexts.map((text, idx) => `${idx + 1}. ${text}`);
-    return `【承接旧对话剧情回顾（共${recapTexts.length}条）】\n${lines.join('\n')}`;
+    return `[Old Plot Recap (${recapTexts.length} entries)]\n${lines.join('\n')}`;
 }
 
 function _buildImportObjectFromChat(chat) {
@@ -17662,7 +17662,7 @@ function _stripFreshChatPreludeForCarryover(targetChat) {
 async function createNewChatWithCarryover() {
     const sourceChat = horaeManager.getChat();
     if (!Array.isArray(sourceChat) || sourceChat.length === 0) {
-        showToast('当前对话没有可携带的数据', 'warning');
+        showToast(t('toast.noCarryData'), 'warning');
         return;
     }
 
@@ -17678,27 +17678,18 @@ async function createNewChatWithCarryover() {
     const importObj = _buildImportObjectFromChat(sourceChat);
 
     if (importObj.data.length === 0 && carryMessages.length === 0 && !recapText) {
-        showToast('当前对话没有可携带的数据', 'warning');
+        showToast(t('toast.noCarryData'), 'warning');
         return;
     }
 
-    const confirmText = [
-        `将按“保留AI条数=${keepCount}”携带最近 AI 楼层，并创建新对话。`,
-        '',
-        `将携带AI楼层：${carryAiCount} 条`,
-        `实际携带消息：${carryMessages.length} 条（含夹带User）`,
-        `旧剧情回顾：${recapTexts.length} 条`,
-        '',
-        '继续吗？',
-    ].join('\n');
-    if (!confirm(confirmText)) return;
+    if (!confirm(t('confirm.carryConfirm', { keepCount, aiCount: carryAiCount, msgCount: carryMessages.length, recapCount: recapTexts.length }))) return;
 
     try {
         await getContext().saveChat();
         await doNewChat({ deleteCurrentChat: false });
 
         const targetChat = horaeManager.getChat();
-        if (!Array.isArray(targetChat)) throw new Error('新对话创建失败');
+        if (!Array.isArray(targetChat)) throw new Error(t('confirm.newChatCreateFailed'));
         if (targetChat.length === 0) targetChat.push(_createCarryoverAnchorMessage());
         const removedPreludeCount = carryMessages.length > 0 ? _stripFreshChatPreludeForCarryover(targetChat) : 0;
         if (targetChat.length === 0) targetChat.push(_createCarryoverAnchorMessage());
@@ -17712,7 +17703,7 @@ async function createNewChatWithCarryover() {
         if (recapText) {
             targetChat[0].horae_meta.events.unshift({
                 is_important: true,
-                level: '摘要',
+                level: 'summary',
                 summary: recapText,
                 isSummary: true,
                 _carryoverSeed: true,
@@ -17731,10 +17722,10 @@ async function createNewChatWithCarryover() {
         refreshAllDisplays();
         renderCustomTablesList();
 
-        showToast(`已创建新对话：AI ${carryAiCount} 条，实际消息 ${carryMessages.length} 条，旧剧情回顾 ${recapTexts.length} 条${removedPreludeCount > 0 ? `，已清理开场白 ${removedPreludeCount} 条` : ''}`, 'success');
+        showToast(t('toast.newChatCreated', { aiCount: carryAiCount, msgCount: carryMessages.length, recapCount: recapTexts.length }) + (removedPreludeCount > 0 ? t('toast.newChatCreatedWithCleanup', { preludeCount: removedPreludeCount }) : ''), 'success');
     } catch (error) {
-        console.error('[Horae] 创建携带记忆新对话失败:', error);
-        showToast(`创建新对话失败: ${error.message || error}`, 'error');
+        console.error('[Horae] 创建携带记忆新对话failed:', error);
+        showToast(t('toast.newChatFailed', { error: error.message || error }), 'error');
     }
 }
 
@@ -17803,7 +17794,7 @@ function importData() {
             }
             refreshAllDisplays();
         } catch (error) {
-            console.error('[Horae] 导入失败:', error);
+            console.error('[Horae] 导入failed:', error);
             showToast(t('toast.importFailed', { error: error.message }), 'error');
         }
     };
@@ -17821,7 +17812,7 @@ function _importAsInitialState(importObj, chat, options = {}) {
         .map(d => d.horae_meta)
         .filter(Boolean);
 
-    if (!allMetas.length) throw new Error('导出文件中无有效元数据');
+    if (!allMetas.length) throw new Error(t('toast.exportNoData'));
     if (!chat[0].horae_meta) chat[0].horae_meta = createEmptyMeta();
     const target = chat[0].horae_meta;
 
@@ -17871,7 +17862,7 @@ function _importAsInitialState(importObj, chat, options = {}) {
 
     const importedEvents = [];
     if (includeTimeline) {
-        // 导入所有事件（含摘要事件），保留 _compressedBy / _summaryId 引用
+        // 导入所有事件 (incl 摘要事件），保留 _compressedBy / _summaryId 引用
         for (const meta of allMetas) {
             if (!meta.events?.length) continue;
             for (const evt of meta.events) {
@@ -18047,7 +18038,7 @@ async function _generateForAiTasks(prompt, opts = {}) {
     try {
         return await context.generateRaw({ prompt: messages });
     } catch (errObjectStyle) {
-        console.warn('[Horae] generateRaw 对象式签名失败，回退旧版字符串签名:',
+        console.warn('[Horae] generateRaw object signature failed, falling back to old string signature:'),
             errObjectStyle?.message || errObjectStyle);
         const flatPrompt = messages
             .map(m => `[${String(m.role || 'system').toUpperCase()}]\n${m.content || ''}`)
@@ -18112,7 +18103,7 @@ async function analyzeMessageWithAI(messageContent, opts = {}) {
             return parsed;
         }
     } catch (error) {
-        console.error('[Horae] AI分析调用失败:', error);
+        console.error('[Horae] AI analysis call failed:'), error);
         throw error;
     }
 
@@ -18167,7 +18158,7 @@ function _buildAnalysisContext(state, targetIndex, userName) {
 
 /**
  * 发送前补齐上一条AI楼层：缺 horae/horaeevent 时触发。
- * 使用上下文增强的 analyzeMessageWithAI 进行完整分析（含轻量状态 + 上一条 USER 行动 + 角色身份），
+ * 使用上下文增强的 analyzeMessageWithAI 进行完整分析 (incl 轻量状态 + 上一条 USER 行动 + 角色身份），
  * 并通过 mergeParsedToMeta 写回所有已提取字段。
  * 只在「最后一条是USER消息」时触发，避免干扰 regenerate/swipe。
  */
@@ -18205,7 +18196,7 @@ async function _autoFillPreviousAiTimelineBeforeInjection(chat) {
     const cleanedTargetText = _stripHoraeAnalysisInput(sourceText);
     const targetTextForAnalysis = cleanedTargetText || sourceText;
 
-    console.log(`[Horae] 前置补全：检测到上一条AI楼层 #${targetIndex} 缺少时间线，尝试上下文增强分析`);
+    console.log(`[Horae] Pre-fill: Detected previous AI floor #${targetIndex} missing timeline, attempting context-enhanced analysis`);
     showToast(t('toast.autoFillPrevTimelineStart', { id: targetIndex }), 'info');
 
     let parsed = horaeManager.parseHoraeTag(sourceText);
@@ -18222,7 +18213,7 @@ async function _autoFillPreviousAiTimelineBeforeInjection(chat) {
                 noContextInjectionMarker: true,
             });
         } catch (err) {
-            console.warn(`[Horae] 前置补全失败 #${targetIndex}:`, err);
+            console.warn(`[Horae] Pre-fill failed #${targetIndex}:`, err);
             showToast(t('toast.aiEnrichFailed', { error: err?.message || err || 'unknown' }), 'error');
             return;
         }
@@ -18234,7 +18225,7 @@ async function _autoFillPreviousAiTimelineBeforeInjection(chat) {
         ? mergedMeta.events.filter(evt => evt?.summary && String(evt.summary).trim())
         : [];
     if (mergedEvents.length === 0) {
-        console.log(`[Horae] 前置补全跳过：#${targetIndex} 未提取到有效事件摘要`);
+        console.log(`[Horae] Pre-fill skipped: #${targetIndex} no valid event summary extracted`);
         return;
     }
 
@@ -18265,16 +18256,16 @@ async function _autoFillPreviousAiTimelineBeforeInjection(chat) {
             messageEl.classList.add('horae-processed');
         }
     } catch (err) {
-        console.warn(`[Horae] 前置补全面板刷新失败 #${targetIndex}:`, err);
+        console.warn(`[Horae] Pre-fill panel refresh failed #${targetIndex}:`, err);
     }
 
     try {
         await getContext().saveChat();
     } catch (err) {
-        console.warn('[Horae] 前置补全保存失败:', err);
+        console.warn('[Horae] Pre-fill save failed:'), err);
     }
 
-    console.log(`[Horae] 前置补全完成：已写回上一条AI楼层 #${targetIndex} 的完整解析结果`);
+    console.log(`[Horae] Pre-fill complete: Wrote back to previous AI floor #${targetIndex} full parsed result`);
     showToast(t('toast.autoFillPrevTimelineDone', { id: targetIndex }), 'success');
 }
 
@@ -18352,7 +18343,7 @@ async function onMessageReceived(messageId) {
             await getContext().saveChat();
         }
     } catch (err) {
-        console.error(`[Horae] onMessageReceived 处理消息 #${messageId} 失败:`, err);
+        console.error(`[Horae] onMessageReceived processing message #${messageId} failed:`, err);
     }
 
     // 无论上面是否出错，面板渲染和显示刷新必须执行
@@ -18360,7 +18351,7 @@ async function onMessageReceived(messageId) {
         refreshAllDisplays();
         renderCustomTablesList();
     } catch (err) {
-        console.error('[Horae] refreshAllDisplays 失败:', err);
+        console.error('[Horae] refreshAllDisplays failed:', err);
     }
 
     setTimeout(() => {
@@ -18372,7 +18363,7 @@ async function onMessageReceived(messageId) {
                 addMessagePanel(messageEl, messageId);
             }
         } catch (err) {
-            console.error(`[Horae] 面板渲染 #${messageId} 失败:`, err);
+            console.error(`[Horae] Panel render #${messageId} failed:`, err);
         }
     }, 100);
 
@@ -18382,10 +18373,10 @@ async function onMessageReceived(messageId) {
             if (meta) {
                 vectorManager.addMessage(messageId, meta).then(() => {
                     _updateVectorStatus();
-                }).catch(err => console.warn('[Horae] 向量索引失败:', err));
+                }).catch(err => console.warn('[Horae] 向量索引failed:', err));
             }
         } catch (err) {
-            console.warn('[Horae] 向量处理失败:', err);
+            console.warn('[Horae] 向量处理failed:', err);
         }
     }
 
@@ -18413,7 +18404,7 @@ async function onMessageDeleted() {
             await _reconcileAutoBufferVisibilityByKeepRecent();
         }
     } catch (err) {
-        console.warn('[Horae] 自动摘要显隐重算失败:', err);
+        console.warn('[Horae] 自动摘要显隐重算failed:', err);
     }
     await getContext().saveChat();
 
@@ -18464,11 +18455,11 @@ function onMessageEdited(messageId) {
                 const meta = horaeManager.getMessageMeta(messageId);
                 if (meta) {
                     vectorManager.addMessage(messageId, meta).catch(err =>
-                        console.warn('[Horae] 向量重建失败:', err));
+                        console.warn('[Horae] 向量重建failed:', err));
                 }
             }
         } catch (err) {
-            console.error(`[Horae] onMessageEdited #${messageId} 失败:`, err);
+            console.error(`[Horae] onMessageEdited #${messageId} failed:`, err);
         }
     }, 200);
 }
@@ -18800,7 +18791,7 @@ async function onPromptReady(eventData) {
                 (lastMsg.horae_meta._rpgChanges && Object.keys(lastMsg.horae_meta._rpgChanges).length > 0)
             )) {
                 skipLast = 1;
-                console.log('[Horae] 检测到swipe/regenerate，跳过末尾消息的旧记忆');
+                console.log('[Horae] swipe/regenerate detected, skipping old memory for last message');
             }
         }
 
@@ -18814,7 +18805,7 @@ async function onPromptReady(eventData) {
             : { mainPrompt: rawDataPrompt, timelinePrompt: '' };
 
         let recallPrompt = '';
-        console.log(`[Horae] 向量检查: vectorEnabled=${settings.vectorEnabled}, isReady=${vectorManager.isReady}, vectors=${vectorManager.vectors.size}`);
+        console.log(`[Horae] Vector check: vectorEnabled=${settings.vectorEnabled}, isReady=${vectorManager.isReady}, vectors=${vectorManager.vectors.size}`);
         if (skipVectorRecallOnce) {
             console.log('[Horae] Internal no-recall marker detected, skip vector recall for this request');
         } else if (settings.vectorEnabled && vectorManager.isReady) {
@@ -18822,7 +18813,7 @@ async function onPromptReady(eventData) {
                 await _ensureVectorIndexBeforeRecall();
                 const promptCoveredChatIndices = _collectPromptCoveredChatIndices(chat, eventData.chat);
                 if (promptCoveredChatIndices.size > 0) {
-                    console.log(`[Horae] Prompt已覆盖楼层: ${promptCoveredChatIndices.size}，召回将排除这些楼层`);
+                    console.log(`[Horae] Prompt covered floors: ${promptCoveredChatIndices.size}, recall will exclude these floors`);
                 }
                 recallPrompt = await vectorManager.generateRecallPrompt(
                     horaeManager,
@@ -18830,9 +18821,9 @@ async function onPromptReady(eventData) {
                     settings,
                     promptCoveredChatIndices
                 );
-                console.log(`[Horae] 向量召回结果: ${recallPrompt ? recallPrompt.length + ' 字符' : '空'}`);
+                console.log(`[Horae] Vector recall result: ${recallPrompt ? recallPrompt.length + ' chars' : 'empty'}`);
             } catch (err) {
-                console.error('[Horae] 向量召回失败:', err);
+                console.error('[Horae] 向量召回failed:', err);
             }
         }
 
@@ -18880,7 +18871,7 @@ async function onPromptReady(eventData) {
             const len = Array.isArray(eventData.chat) ? eventData.chat.length : 0;
             const insertIdx = Math.max(0, len - position);
             eventData.chat.splice(insertIdx, 0, { role: 'system', content: combinedPrompt });
-            console.log(`[Horae] 已注入上下文（预设@D），位置: -${position}${skipLast ? '（已跳过末尾消息）' : ''}${recallPrompt ? '（含向量召回）' : ''}`);
+            console.log(`[Horae] Injected context (preset @D), pos: -${position}${skipLast ? ' (skipped last msg)' : ''}${recallPrompt ? ' (incl 向量召回）' : ''}`);
         } else {
             // 系统 @D：保留原有按聊天楼层定位的注入逻辑
             if (timelinePrompt) {
@@ -18901,10 +18892,10 @@ async function onPromptReady(eventData) {
 
             const insertIdx = _resolveInsertIndexByChatAnchor(chat, eventData.chat, position);
             eventData.chat.splice(insertIdx, 0, { role: 'system', content: combinedPrompt });
-            console.log(`[Horae] 已注入上下文，位置: -${position}${skipLast ? '（已跳过末尾消息）' : ''}${recallPrompt ? '（含向量召回）' : ''}`);
+            console.log(`[Horae] Injected context, pos: -${position}${skipLast ? ' (skipped last msg)' : ''}${recallPrompt ? ' (incl 向量召回）' : ''}`);
         }
     } catch (error) {
-        console.error('[Horae] 注入上下文失败:', error);
+        console.error('[Horae] 注入上下文failed:', error);
     }
 }
 
@@ -18941,7 +18932,7 @@ function _rebuildGlobalDataForCurrentChat() {
                     }
                 }
             }
-            console.log(`[Horae] 清理了 ${orphaned.length} 条孤立摘要`);
+            console.log(`[Horae] Cleaned up  ${orphaned.length}  orphaned summaries`);
         }
     }
 }
@@ -19004,11 +18995,11 @@ async function onChatChanged() {
                     }
                 }
                 if (backfilled > 0) {
-                    console.log(`[Horae] 摘要迁移：从 events 回填 ${backfilled} 条 summaryText 到 autoSummaries`);
+                    console.log(`[Horae] Summary migration: Backfilled ${backfilled}  summaryText to autoSummaries`);
                 }
             }
         } catch (e) {
-            console.warn('[Horae] 摘要迁移失败：', e);
+            console.warn('[Horae] Summary migration failed:'), e);
         }
 
         _rebuildGlobalDataForCurrentChat();
@@ -19016,7 +19007,7 @@ async function onChatChanged() {
         renderCustomTablesList();
         renderDicePanel();
     } catch (err) {
-        console.error('[Horae] onChatChanged 初始化失败:', err);
+        console.error('[Horae] onChatChanged 初始化failed:', err);
     }
     _chatFullyLoaded = true;
 
@@ -19026,9 +19017,9 @@ async function onChatChanged() {
             const chatId = ctx?.chatId || _deriveChatId(ctx);
             vectorManager.loadChat(chatId, horaeManager.getChat()).then(() => {
                 _updateVectorStatus();
-            }).catch(err => console.warn('[Horae] 加载向量索引失败:', err));
+            }).catch(err => console.warn('[Horae] 加载向量索引failed:', err));
         } catch (err) {
-            console.warn('[Horae] 向量加载失败:', err);
+            console.warn('[Horae] 向量加载failed:', err);
         }
     }
 
@@ -19056,7 +19047,7 @@ async function onChatChanged() {
                 setTimeout(() => _showPendingScanRecoveryModal(_pChat, _pending, count), 1000);
             }
         } catch (err) {
-            console.error('[Horae] onChatChanged 面板渲染失败:', err);
+            console.error('[Horae] onChatChanged 面板渲染failed:', err);
         }
     }, 500);
 }
@@ -19076,7 +19067,7 @@ function onMessageRendered(messageId) {
                 messageEl.classList.add('horae-processed');
             }
         } catch (err) {
-            console.error(`[Horae] onMessageRendered #${messageId} 失败:`, err);
+            console.error(`[Horae] onMessageRendered #${messageId} failed:`, err);
         }
     }, 100);
 }
@@ -19132,7 +19123,7 @@ function onSwipePanel(messageId) {
             refreshAllDisplays();
             renderCustomTablesList();
         } catch (err) {
-            console.error(`[Horae] onSwipePanel #${messageId} 失败:`, err);
+            console.error(`[Horae] onSwipePanel #${messageId} failed:`, err);
         }
 
         if (settings.showMessagePanel) {
@@ -19285,7 +19276,7 @@ function showTutorialStep(step, current, total, isLast) {
 // ============================================
 
 jQuery(async () => {
-    console.log(`[Horae] 开始加载 v${VERSION}...`);
+    console.log(`[Horae] Loading v${VERSION}...`);
 
     _publishHoraeApi();
 
@@ -19360,13 +19351,13 @@ jQuery(async () => {
         ], { once: true }); // 在D9999注入一个定位符
     });
 
-    // 并行自动摘要：用户发消息时并行触发（独立API走直接HTTP，不影响主连接）
+    // 并行自动摘要：用户发消息时并行触发（Auxiliary API走直接HTTP，不影响主连接）
     if (event_types.USER_MESSAGE_RENDERED) {
         eventSource.on(event_types.USER_MESSAGE_RENDERED, () => {
             if (!settings.enabled || !settings.autoSummaryEnabled || !settings.sendTimeline) return;
             _autoSummaryRanThisTurn = true;
             checkAutoSummary().catch((e) => {
-                console.warn('[Horae] 并行自动摘要失败，将在AI回复后重试:', e);
+                console.warn('[Horae] Parallel auto-summary failed, retrying after AI reply:'), e);
                 _autoSummaryRanThisTurn = false;
             });
         });
@@ -19387,5 +19378,5 @@ jQuery(async () => {
 
     isInitialized = true;
     _chatFullyLoaded = true;
-    console.log(`[Horae] v${VERSION} 加载完成！作者: SenriYuki`);
+    console.log(`[Horae] v${VERSION} Loaded! Author: SenriYuki`);
 });

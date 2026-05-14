@@ -114,7 +114,7 @@
                     <!-- 待办多选模式工具栏 -->
                     <div id="horae-agenda-multiselect-bar" class="horae-multiselect-bar" style="display: none;">
                         <div class="horae-multiselect-info">
-                            <span id="horae-agenda-selected-count">0</span> 项已选
+                            <span id="horae-agenda-selected-count">0</span> selected
                         </div>
                         <div class="horae-multiselect-actions">
                             <button id="horae-btn-agenda-select-all" class="horae-icon-btn small" data-i18n-title="tooltip.selectAll" title="">
@@ -165,7 +165,7 @@
                 <!-- 时间线多选模式工具栏 -->
                 <div id="horae-timeline-multiselect-bar" class="horae-multiselect-bar" style="display: none;">
                     <div class="horae-multiselect-info">
-                        <span id="horae-timeline-selected-count">0</span> 项已选
+                        <span id="horae-timeline-selected-count">0</span> selected
                     </div>
                     <div class="horae-multiselect-actions">
                         <button id="horae-btn-timeline-select-all" class="horae-icon-btn small" data-i18n-title="tooltip.selectAll" title="">
@@ -223,7 +223,7 @@
                     </div>
                     <div id="horae-npc-multiselect-bar" class="horae-multiselect-bar" style="display: none;">
                         <div class="horae-multiselect-info">
-                            <span id="horae-npc-selected-count">0</span> 项已选
+                            <span id="horae-npc-selected-count">0</span> selected
                         </div>
                         <div class="horae-multiselect-actions">
                             <button id="horae-btn-npc-select-all" class="horae-icon-btn small" data-i18n-title="tooltip.selectAll" title="">
@@ -286,7 +286,7 @@
                 <!-- 多选模式工具栏 -->
                 <div id="horae-items-multiselect-bar" class="horae-multiselect-bar" style="display: none;">
                     <div class="horae-multiselect-info">
-                        <span id="horae-items-selected-count">0</span> 项已选
+                        <span id="horae-items-selected-count">0</span> selected
                     </div>
                     <div class="horae-multiselect-actions">
                         <button id="horae-btn-items-select-all" class="horae-icon-btn small" data-i18n-title="tooltip.selectAll" title="">
@@ -325,7 +325,7 @@
                     <div class="horae-empty-state">
                         <i class="fa-solid fa-map-location-dot"></i>
                         <span data-i18n="locations.noLocations">暂无场景记忆</span>
-                        <span data-i18n="locations.noLocationsHint" style="font-size:11px;opacity:0.6;margin-top:4px;">开启「设置 → 场景记忆」后，AI会在首次到达新地点时自动记录</span>
+                        <span data-i18n="locations.noLocationsHint" style="font-size:11px;opacity:0.6;margin-top:4px;">After enabling "Settings → Location Memory", AI will automatically record new locations upon first arrival</span>
                     </div>
                 </div>
             </div>
@@ -589,7 +589,7 @@
                             <label data-i18n="settings.auxApiModel">模型</label>
                             <div style="display:flex; gap:4px; align-items:center;">
                                 <select id="horae-setting-aux-api-model" class="horae-edit-field" style="flex:1; min-width:0;">
-                                    <option value="">-- 请先拉取模型列表 --</option>
+                                    <option value="">-- Fetch models first --</option>
                                 </select>
                                 <button id="horae-btn-fetch-models" class="horae-btn" style="white-space:nowrap; padding:4px 8px;" data-i18n-title="tooltip.fetchModels" title="">
                                     <i class="fa-solid fa-arrows-rotate"></i>
@@ -688,7 +688,7 @@
                                 <i class="fa-solid fa-circle-info"></i>
                                 输入自定义CSS覆盖插件样式。适合进阶用户微调配色。修改后切换焦点即生效。
                             </span>
-                            <textarea id="horae-custom-css" class="horae-prompt-textarea" rows="6" placeholder="/* 在此输入自定义CSS */"></textarea>
+                            <textarea id="horae-custom-css" class="horae-prompt-textarea" rows="6" placeholder="/* Enter custom CSS here */"></textarea>
                         </div>
                     </div>
                 </div>
@@ -1122,7 +1122,7 @@
                                     <label data-i18n="vector.embeddingModelLabel">Embedding 模型</label>
                                     <div style="display:flex; gap:4px; align-items:center;">
                                         <select id="horae-setting-vector-api-model" class="horae-edit-field" style="flex:1; min-width:0;">
-                                            <option value="">-- 请先拉取模型列表 --</option>
+                                            <option value="">-- Fetch models first --</option>
                                         </select>
                                         <button id="horae-btn-fetch-embed-models" class="horae-btn" style="white-space:nowrap; padding:4px 8px;" data-i18n-title="tooltip.fetchModels" title="">
                                             <i class="fa-solid fa-arrows-rotate"></i>
@@ -1262,7 +1262,7 @@
                                         <label data-i18n="vector.rerankModel">Rerank 模型</label>
                                         <div style="display:flex; gap:4px; align-items:center;">
                                             <select id="horae-setting-vector-rerank-model" class="horae-edit-field" style="flex:1; min-width:0;">
-                                                <option value="">-- 请先拉取模型列表 --</option>
+                                                <option value="">-- Fetch models first --</option>
                                             </select>
                                             <button id="horae-btn-fetch-rerank-models" class="horae-btn" style="white-space:nowrap; padding:4px 8px;" data-i18n-title="tooltip.fetchModels" title="">
                                                 <i class="fa-solid fa-arrows-rotate"></i>
