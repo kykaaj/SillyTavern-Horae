@@ -482,6 +482,28 @@ function applyI18nToDOM(root) {
 }
 
 /**
+ * Translate internal Chinese level values to display text.
+ * Internal data stores levels as '一般'/'重要'/'关键' etc.
+ * This function returns the localized display text.
+ */
+function translateLevelForDisplay(level) {
+    if (!level) return '';
+    const map = {
+        '一般': t('levels.normal') || 'Normal',
+        '重要': t('levels.important') || 'Important',
+        '关键': t('levels.critical') || 'Critical',
+        '關鍵': t('levels.critical') || 'Critical',
+        'General': t('levels.normal') || 'Normal',
+        'Important': t('levels.important') || 'Important',
+        'Key': t('levels.critical') || 'Critical',
+        'normal': t('levels.normal') || 'Normal',
+        'important': t('levels.important') || 'Important',
+        'critical': t('levels.critical') || 'Critical',
+    };
+    return map[level] || level;
+}
+
+/**
  * 检查是否为新版导航栏
  */
 function isNewNavbarVersion() {
@@ -2082,7 +2104,7 @@ function updateTimelineDisplay() {
         const levelClass = isSummary ? 'summary' :
             (e.event?.level === '关键' || e.event?.level === '關鍵') ? 'critical' :
                 e.event?.level === '重要' ? 'important' : '';
-        const levelBadge = e.event?.level ? `<span class="horae-level-badge ${levelClass}">${e.event.level}</span>` : '';
+        const levelBadge = e.event?.level ? `<span class="horae-level-badge ${levelClass}">${translateLevelForDisplay(e.event.level)}</span>` : '';
 
         const dateStr = e.timestamp?.story_date || '?';
         const parsed = parseStoryDate(dateStr);
@@ -16913,7 +16935,7 @@ function showScanReviewModal(scanResults, scanOptions) {
     const deletedSet = new Set();
 
     const tabs = [
-        { id: 'events', label: '剧情轨迹', icon: 'fa-clock-rotate-left', items: categories.events },
+        { id: 'events', label: t('tabs.timeline') || 'Timeline', icon: 'fa-clock-rotate-left', items: categories.events },
         { id: 'items', label: t('tabs.items'), icon: 'fa-box-open', items: categories.items },
         { id: 'npcs', label: t('tabs.characters'), icon: 'fa-user', items: categories.npcs },
         { id: 'affection', label: t('characters.affection'), icon: 'fa-heart', items: categories.affection },
@@ -16940,7 +16962,7 @@ function showScanReviewModal(scanResults, scanOptions) {
         const itemsHtml = tab.items.map(item => {
             const itemKey = escapeHtml(makeReviewKey(item));
             const levelAttr = item.level ? ` data-level="${escapeHtml(item.level)}"` : '';
-            const levelBadge = item.level ? `<span class="horae-level-badge ${(item.level === '关键' || item.level === '關鍵') ? 'critical' : item.level === '重要' ? 'important' : ''}" style="font-size:10px;margin-right:4px;">${escapeHtml(item.level)}</span>` : '';
+            const levelBadge = item.level ? `<span class="horae-level-badge ${(item.level === '关键' || item.level === '關鍵') ? 'critical' : item.level === '重要' ? 'important' : ''}" style="font-size:10px;margin-right:4px;">${escapeHtml(translateLevelForDisplay(item.level))}</span>` : '';
             const descHtml = item.desc ? `<div class="horae-review-item-sub" style="font-style:italic;opacity:0.8;">📝 ${escapeHtml(item.desc)}</div>` : '';
             return `<div class="horae-review-item" data-key="${itemKey}"${levelAttr}>
                 <div class="horae-review-item-body">

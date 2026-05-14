@@ -1,7 +1,8 @@
 /** Horae - 时间工具函数 */
 
-/** 中文周几映射 */
+/** Weekday names: Chinese for date parsing, English for display */
 const WEEKDAY_NAMES = ['日', '一', '二', '三', '四', '五', '六'];
+const WEEKDAY_NAMES_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 /** 季节名称 */
 const SEASONS = ['冬季', '冬季', '春季', '春季', '春季', '夏季', '夏季', '夏季', '秋季', '秋季', '秋季', '冬季'];
@@ -304,34 +305,34 @@ export function getRelativeTimeMeta(days, options = {}) {
 export function formatRelativeTime(days, options = {}) {
     const meta = getRelativeTimeMeta(days, options);
     switch (meta.key) {
-        case 'unknown': return '未知';
-        case 'special_earlier': return '较早';
-        case 'special_after': return '之后';
-        case 'special_before': return '之前';
-        case 'today': return '今天';
-        case 'yesterday': return '昨天';
-        case 'day_before_yesterday': return '前天';
-        case 'three_days_ago': return '大前天';
-        case 'tomorrow': return '明天';
-        case 'day_after_tomorrow': return '后天';
-        case 'in_three_days': return '大后天';
-        case 'last_weekday': return `上周${WEEKDAY_NAMES[meta.weekday]}`;
-        case 'week_before_last_weekday': return `上上周${WEEKDAY_NAMES[meta.weekday]}`;
-        case 'next_weekday': return `下周${WEEKDAY_NAMES[meta.weekday]}`;
-        case 'week_after_next_weekday': return `下下周${WEEKDAY_NAMES[meta.weekday]}`;
-        case 'last_month_day': return `上个月${meta.day}号`;
-        case 'next_month_day': return `下个月${meta.day}号`;
-        case 'last_year_date': return `去年${meta.month}月${meta.day}日`;
-        case 'year_before_last_date': return `前年${meta.month}月${meta.day}日`;
-        case 'days_ago': return `${meta.value}天前`;
-        case 'days_later': return `${meta.value}天后`;
-        case 'months_ago': return `${meta.value}个月前`;
-        case 'months_later': return `${meta.value}个月后`;
-        case 'years_months_ago': return `${meta.years}年${meta.months}个月前`;
-        case 'years_months_later': return `${meta.years}年${meta.months}个月后`;
-        case 'years_ago': return `${meta.years}年前`;
-        case 'years_later': return `${meta.years}年后`;
-        default: return '未知';
+        case 'unknown': return 'Unknown';
+        case 'special_earlier': return 'Earlier';
+        case 'special_after': return 'After';
+        case 'special_before': return 'Before';
+        case 'today': return 'Today';
+        case 'yesterday': return 'Yesterday';
+        case 'day_before_yesterday': return '2 days ago';
+        case 'three_days_ago': return '3 days ago';
+        case 'tomorrow': return 'Tomorrow';
+        case 'day_after_tomorrow': return 'In 2 days';
+        case 'in_three_days': return 'In 3 days';
+        case 'last_weekday': return `Last ${WEEKDAY_NAMES_EN[meta.weekday]}`;
+        case 'week_before_last_weekday': return `2 weeks ago ${WEEKDAY_NAMES_EN[meta.weekday]}`;
+        case 'next_weekday': return `Next ${WEEKDAY_NAMES_EN[meta.weekday]}`;
+        case 'week_after_next_weekday': return `In 2 weeks ${WEEKDAY_NAMES_EN[meta.weekday]}`;
+        case 'last_month_day': return `Last month ${meta.day}th`;
+        case 'next_month_day': return `Next month ${meta.day}th`;
+        case 'last_year_date': return `Last year ${meta.month}/${meta.day}`;
+        case 'year_before_last_date': return `2 years ago ${meta.month}/${meta.day}`;
+        case 'days_ago': return `${meta.value}d ago`;
+        case 'days_later': return `In ${meta.value}d`;
+        case 'months_ago': return `${meta.value}mo ago`;
+        case 'months_later': return `In ${meta.value}mo`;
+        case 'years_months_ago': return `${meta.years}y ${meta.months}mo ago`;
+        case 'years_months_later': return `In ${meta.years}y ${meta.months}mo`;
+        case 'years_ago': return `${meta.years}y ago`;
+        case 'years_later': return `In ${meta.years}y`;
+        default: return 'Unknown';
     }
 }
 
@@ -366,7 +367,7 @@ export function formatStoryDate(dateObj, includeWeekday = false) {
         // setFullYear 避免年份自动偏移
         const date = new Date(0);
         date.setFullYear(refYear, dateObj.month - 1, dateObj.day);
-        const weekday = WEEKDAY_NAMES[date.getDay()];
+        const weekday = WEEKDAY_NAMES_EN[date.getDay()];
         dateStr += ` (${weekday})`;
     }
     
@@ -411,7 +412,7 @@ export function generateTimeReference(currentDate) {
     const getDateString = (daysOffset) => {
         const d = new Date(baseDate.getTime());
         d.setDate(d.getDate() + daysOffset);
-        const weekday = WEEKDAY_NAMES[d.getDay()];
+        const weekday = WEEKDAY_NAMES_EN[d.getDay()];
         return `${d.getMonth() + 1}/${d.getDate()} (${weekday})`;
     };
     
@@ -428,7 +429,7 @@ export function generateTimeReference(currentDate) {
 /** 计算两个日期之间的详细差异 */
 export function calculateDetailedRelativeTime(fromDateStr, toDateStr) {
     const days = calculateRelativeTime(fromDateStr, toDateStr);
-    if (days === null) return { days: null, relative: '未知' };
+    if (days === null) return { days: null, relative: 'Unknown' };
     
     const from = parseStoryDate(fromDateStr);
     const to = parseStoryDate(toDateStr);

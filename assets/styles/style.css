@@ -2212,7 +2212,7 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-npc-appearance::before {
-    content: "外貌: ";
+    content: "Appearance: ";
     opacity: 0.7;
 }
 
@@ -2222,7 +2222,7 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-npc-personality::before {
-    content: "性格: ";
+    content: "Personality: ";
     opacity: 0.7;
 }
 
@@ -2232,7 +2232,7 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-npc-relationship::before {
-    content: "关系: ";
+    content: "Rel: ";
     opacity: 0.7;
 }
 
@@ -2297,7 +2297,7 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-npc-note::before {
-    content: "备注: ";
+    content: "Note: ";
     opacity: 0.7;
     font-style: normal;
 }
