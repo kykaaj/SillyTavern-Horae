@@ -488,19 +488,25 @@ function applyI18nToDOM(root) {
  */
 function translateLevelForDisplay(level) {
     if (!level) return '';
+    const l = level.toLowerCase();
     const map = {
         '一般': t('levels.normal') || 'Normal',
         '重要': t('levels.important') || 'Important',
         '关键': t('levels.critical') || 'Critical',
         '關鍵': t('levels.critical') || 'Critical',
-        'General': t('levels.normal') || 'Normal',
-        'Important': t('levels.important') || 'Important',
-        'Key': t('levels.critical') || 'Critical',
-        'normal': t('levels.normal') || 'Normal',
+        '摘要': t('levels.summary') || 'Summary',
+        'general': t('levels.normal') || 'Normal',
         'important': t('levels.important') || 'Important',
+        'key': t('levels.critical') || 'Critical',
+        'normal': t('levels.normal') || 'Normal',
         'critical': t('levels.critical') || 'Critical',
+        'обычное': t('levels.normal') || 'Normal',
+        'важное': t('levels.important') || 'Important',
+        'ключевое': t('levels.critical') || 'Critical',
+        'сводка': t('levels.summary') || 'Summary',
+        'summary': t('levels.summary') || 'Summary',
     };
-    return map[level] || level;
+    return map[l] || level;
 }
 
 function horaeIsCritical(level) {
@@ -3152,7 +3158,7 @@ async function compressSelectedTimelineEvents() {
         if (evt._carryoverSeed) continue;
         const date = meta.timestamp?.story_date || '?';
         const time = meta.timestamp?.story_time || '';
-        const isSummary = evt.isSummary || evt.level === '摘要';
+        const isSummary = evt.isSummary || evt.level === '摘要' || evt.level === 'summary';
         // _summaryId 缺失时通过 msgIdx + summaryText 反查（兼容旧版数据丢字段的场景）
         let _summaryId = evt._summaryId || null;
         if (isSummary && !_summaryId) {
@@ -3791,10 +3797,10 @@ function updateCharactersDisplay() {
                     genderClass = 'horae-gender-main';
                 } else {
                     const g = (info.gender || '').toLowerCase();
-                    if (/^(男|male|m|雄|公|♂)$/.test(g)) {
+                    if (/^(男|male|m|雄|公|♂|мужчина|мужской|муж|м\.?|парень)$/.test(g)) {
                         genderIcon = 'fa-solid fa-person';
                         genderClass = 'horae-gender-male';
-                    } else if (/^(女|female|f|雌|母|♀)$/.test(g)) {
+                    } else if (/^(女|female|f|雌|母|♀|женщина|женский|жен|ж\.?|девушка)$/.test(g)) {
                         genderIcon = 'fa-solid fa-person-dress';
                         genderClass = 'horae-gender-female';
                     } else {
@@ -3903,9 +3909,9 @@ function updateCharactersDisplay() {
                         } else {
                             const g = (item.dataset.npcGender || '').toLowerCase();
                             let match = false;
-                            if (filter === 'male') match = /^(男|male|m|雄|公)$/.test(g);
-                            else if (filter === 'female') match = /^(女|female|f|雌|母)$/.test(g);
-                            else if (filter === 'other') match = !(/^(男|male|m|雄|公)$/.test(g) || /^(女|female|f|雌|母)$/.test(g));
+                            if (filter === 'male') match = /^(男|male|m|雄|公|♂|мужчина|мужской|муж|м\.?|парень)$/.test(g);
+                            else if (filter === 'female') match = /^(女|female|f|雌|母|♀|женщина|женский|жен|ж\.?|девушка)$/.test(g);
+                            else if (filter === 'other') match = !(/^(男|male|m|雄|公|♂|мужчина|мужской|муж|м\.?|парень)$/.test(g) || /^(女|female|f|雌|母|♀|женщина|женский|жен|ж\.?|девушка)$/.test(g));
                             item.style.display = match ? '' : 'none';
                         }
                     });
@@ -4288,9 +4294,9 @@ function openItemEditModal(itemName) {
                     <div class="horae-edit-field">
                         <label>${t('label.importance')}</label>
                         <select id="edit-item-importance">
-                            <option value="" ${!item.importance || item.importance === '一般' || item.importance === '' ? 'selected' : ''}>${t('levels.normal')}</option>
-                            <option value="!" ${horaeIsImportant(item.importance) ? 'selected' : ''}>${t('levels.important')} !</option>
-                            <option value="!!" ${horaeIsCritical(item.importance) ? 'selected' : ''}>${t('levels.critical')} !!</option>
+                            <option value="normal" ${!item.importance || item.importance === '一般' || item.importance === 'normal' || item.importance === '' ? 'selected' : ''}>${t('levels.normal')}</option>
+                            <option value="important" ${horaeIsImportant(item.importance) ? 'selected' : ''}>${t('levels.important')}</option>
+                            <option value="critical" ${horaeIsCritical(item.importance) ? 'selected' : ''}>${t('levels.critical')}</option>
                         </select>
                     </div>
                     <div class="horae-edit-field">
@@ -5008,6 +5014,7 @@ function openNpcEditModal(npcName) {
             newData._ageRefDate = storyDate;
         }
 
+        const isSummaryLevel = newLevel === '摘要' || newLevel === 'summary';
         const isRename = newName !== npcName;
 
         // 改名：级联迁移所有消息中的 key + 记录曾用名
@@ -5143,10 +5150,10 @@ function openEventEditModal(messageId, eventIndex = 0) {
                     <div class="horae-edit-field">
                         <label>${t('label.eventLevel')}</label>
                         <select id="edit-event-level">
-                            <option value="一般" ${event.level === '一般' || !event.level ? 'selected' : ''}>${t('levels.normal')}</option>
-                            <option value="重要" ${horaeIsImportant(event.level) ? 'selected' : ''}>${t('levels.important')}</option>
-                            <option value="关键" ${horaeIsCritical(event.level) ? 'selected' : ''}>${t('levels.critical')}</option>
-                            <option value="摘要" ${event.level === '摘要' ? 'selected' : ''}>${t('levels.summary')}</option>
+                            <option value="normal" ${event.level === '一般' || event.level === 'normal' || !event.level ? 'selected' : ''}>${t('levels.normal')}</option>
+                            <option value="important" ${horaeIsImportant(event.level) ? 'selected' : ''}>${t('levels.important')}</option>
+                            <option value="critical" ${horaeIsCritical(event.level) ? 'selected' : ''}>${t('levels.critical')}</option>
+                            <option value="summary" ${event.level === '摘要' || event.level === 'summary' ? 'selected' : ''}>${t('levels.summary')}</option>
                         </select>
                     </div>
                     <div class="horae-edit-field">
@@ -11144,9 +11151,9 @@ function buildPanelContent(messageIndex, meta) {
                 <div class="horae-event-editor">
                     <select class="horae-input-event-level">
                         <option value="">${t('levels.none')}</option>
-                        <option value="一般" ${eventLevel === '一般' ? 'selected' : ''}>${t('levels.normal')}</option>
-                        <option value="重要" ${horaeIsImportant(eventLevel) ? 'selected' : ''}>${t('levels.important')}</option>
-                        <option value="关键" ${horaeIsCritical(eventLevel) ? 'selected' : ''}>${t('levels.critical')}</option>
+                        <option value="normal" ${eventLevel === '一般' || eventLevel === 'normal' ? 'selected' : ''}>${t('levels.normal')}</option>
+                        <option value="important" ${horaeIsImportant(eventLevel) ? 'selected' : ''}>${t('levels.important')}</option>
+                        <option value="critical" ${horaeIsCritical(eventLevel) ? 'selected' : ''}>${t('levels.critical')}</option>
                     </select>
                     <input type="text" class="horae-input-event-summary" value="${escapeHtml(eventSummary)}" placeholder="${t('placeholder.eventSummary')}">
                 </div>
@@ -17545,7 +17552,7 @@ function _collectCarryoverRecapTexts(sourceChat, cutoffIndex) {
             const summary = typeof evt.summary === 'string' ? evt.summary.trim() : '';
             if (!summary) continue;
 
-            const isSummaryEvent = !!(evt.isSummary || evt.level === '摘要' || evt._summaryId);
+            const isSummaryEvent = !!(evt.isSummary || evt.level === '摘要' || evt.level === 'summary' || evt._summaryId);
             if (isSummaryEvent) {
                 pushRecap(summary);
                 continue;

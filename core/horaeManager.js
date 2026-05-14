@@ -107,6 +107,15 @@ function findExistingItemByBaseName(stateItems, newName) {
 }
 
 /** Horae 管理器 */
+function normalizeLevel(l) {
+    if (!l) return 'normal';
+    l = l.toLowerCase();
+    if (l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l === 'ключевое') return 'critical';
+    if (l === '重要' || l === 'important' || l === '!' || l === 'важное') return 'important';
+    if (l === '摘要' || l === 'summary' || l === 'сводка') return 'summary';
+    return 'normal';
+}
+
 class HoraeManager {
     constructor() {
         this.context = null;
@@ -533,7 +542,7 @@ class HoraeManager {
                 const evt = metaEvents[j];
                 if (!evt?.summary) continue;
                 
-                if (filterLevel !== 'all' && evt.level !== filterLevel) {
+                if (filterLevel !== 'all' && normalizeLevel(evt.level) !== normalizeLevel(filterLevel)) {
                     continue;
                 }
                 
@@ -1071,12 +1080,12 @@ class HoraeManager {
                 });
                 
                 const criticalAndImportant = sortedEvents.filter(e =>
-                    _isCrit(e.event?.level) || _isImp(e.event?.level) || e.event?.level === '摘要' || e.event?.isSummary
+                    _isCrit(e.event?.level) || _isImp(e.event?.level) || e.event?.level === '摘要' || e.event?.level === 'summary' || e.event?.isSummary
                 );
                 const depthRaw = parseInt(this.settings?.contextDepth, 10);
                 const contextDepth = Number.isFinite(depthRaw) ? Math.max(0, depthRaw) : 100;
                 const normalEventsAll = sortedEvents.filter(e =>
-                    !_isCrit(e.event?.level) && !_isImp(e.event?.level) && e.event?.level !== '摘要' && !e.event?.isSummary
+                    !_isCrit(e.event?.level) && !_isImp(e.event?.level) && e.event?.level !== '摘要' && e.event?.level !== 'summary' && !e.event?.isSummary
                 );
                 const normalEvents = contextDepth > 0 ? normalEventsAll.slice(-contextDepth) : [];
                 
@@ -1095,7 +1104,7 @@ class HoraeManager {
                 }
 
                 for (const e of allToShow) {
-                    const isSummary = e.event?.isSummary || e.event?.level === '摘要';
+                    const isSummary = e.event?.isSummary || e.event?.level === '摘要' || e.event?.level === 'summary';
                     if (isSummary) {
                         const dateRange = e.event?._summaryId ? _sumDateRanges[e.event._summaryId] : '';
                         const dateTag = dateRange ? `·${dateRange}` : '';
@@ -3321,7 +3330,7 @@ class HoraeManager {
                         if (!exists) {
                             meta.events.push({
                                 summary: sEvt.summary,
-                                level: sEvt.level || '摘要',
+                                level: sEvt.level || 'summary',
                                 isSummary: true,
                                 _summaryId: sEvt._summaryId,
                             });
