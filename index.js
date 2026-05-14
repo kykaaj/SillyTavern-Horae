@@ -16657,65 +16657,62 @@ async function executeBatchScan(batches, options = {}) {
             let extraFormat = '';
             let extraRules = '';
             if (includeNpc) {
-                extraFormat += `\nnpc:Имя персонажа|Внешность=Характер@Отношение к ${userName}~gender:значение~age:значение~race:значение~job:значение (только при первом появлении или изменении)`;
-                extraRules += `\n· NPC: полная запись при первом появлении (с расширенными полями ~), далее только при изменениях`;
+                extraFormat += `\nnpc:Name|Appearance=Personality@Opinion~gender:Value~age:Value~race:Value~job:Value (only at first appearance or when changed)`;
+                extraRules += `\n· NPC: full record at first appearance, then only when changed. Use concise English.`;
             }
             if (includeAffection) {
-                extraFormat += `\naffection:Имя персонажа=Числовое значение (только отношение NPC к ${userName}, извлечённое из текста)`;
-                extraRules += `\n· Affection: только числовые значения, явно упомянутые в тексте. Запрещено додумывать`;
+                extraFormat += `\naffection:CharacterA>CharacterB=ScoreChange|Reason (Score: -10 to +10, only on explicit change)`;
+                extraRules += `\n· Affection: only numerical values explicitly mentioned in text. Do not invent.`;
             }
             if (includeScene) {
-                extraFormat += `\nlocation:Текущее место (место сцены, уровни через точку, например «Таверна·Зал»)\nscene_desc:Находится в... Фиксированное физическое описание места (50-150 слов, только при первом посещении или постоянном изменении)`;
-                extraRules += `\n· Сцена: строка location обязательна для каждого сообщения. scene_desc только при первом прибытии в новое место`;
+                extraFormat += `\nlocation:Location Name (only when changed)\nscene_desc:Environment details (only on first visit)`;
+                extraRules += `\n· Location/Scene: write only when location changes or is explicitly described.`;
             }
             if (includeRelationship) {
-                extraFormat += `\nrel:ПерсонажА>ПерсонажБ=Тип отношения|Примечание (при изменении отношений между персонажами)`;
-                extraRules += `\n· Отношения: только при создании или изменении. Формат: rel:ПерсонажА>ПерсонажБ=Тип отношения, примечание не обязательно`;
+                extraFormat += `\nrel:CharacterA>CharacterB=RelationType|Note (only when changed)`;
+                extraRules += `\n· Relationship: only when created or changed. Format: rel:A>B=Type|Note`;
             }
 
-            batchPrompt = `Вы — помощник по анализу сюжета. Проанализируйте следующие записи диалога сообщение за сообщением и извлеките [${allowedTags}] для каждого.
+            batchPrompt = `You are a story analysis assistant. Analyze the dialogue records message by message and extract [${allowedTags}] for each in ENGLISH.
 
-Основные принципы:
-- Извлекайте только ту информацию, которая явно присутствует в тексте. Не придумывайте факты.
-- Каждое сообщение анализируется отдельно и отделяется строкой ===Message#номер===.
-- Строго выводите только теги ${allowedTags}. ${forbiddenNote}
+Core Principles:
+- Extract ONLY information explicitly present. Do not invent facts.
+- Analyze each message independently, separated by ===Message#number===.
+- STRICTLY output only the tags ${allowedTags}. ${forbiddenNote}
 
 ${messagesBlock}
 
-【Формат вывода】Для каждого сообщения используйте следующий формат:
+[Output Format] For each message:
 
-===Message#номер===
+===Message#number===
 <horae>
-time:дата время (извлеките из текста, например 2026/2/4 15:00 или Третий день месяца инея, Сумерки)
-item:эмодзиНазвание(количество)|описание=владелец@место (для новых предметов; для обычных предметов описание можно опустить)
-item!:эмодзиНазвание(количество)|описание=владелец@место (для важных предметов описание обязательно)
-item-:Название предмета (использованный/потерянный/израсходованный предмет)${extraFormat}
+time:Date Time (extract from text, e.g. 2026/2/4 15:00 or Winter evening)
+item:emojiName(Amount)|Description=Owner@ExactLocation (For new/changed items)
+item!:emojiName(Amount)|Description=Owner@ExactLocation (For important items)
+item-:ItemName (For used/lost items)${extraFormat}
 </horae>
 <horaeevent>
-event:Важность|Описание события
+event:Importance|Event Summary
 </horaeevent>
 
-【Правила】
-· time: извлеките дату и время из текущей сцены, обязательно (если нет точного времени, сделайте вывод из контекста).
-· event: ключевые события в этом сообщении. Минимум один event на сообщение.
-· Предметы записываются только при получении, расходе или изменении статуса. Если изменений нет, строку item не пишите.
-· Формат item: эмодзи в начале, например 🔑🍞. Если предмет один, не пишите (1). Место должно быть точным (❌на полу ✅на столе в зале таверны).
-· Оценка важности (event): повседневный диалог = normal, продвижение сюжета = important, ключевой поворот = critical.
-· ${userName} — имя главного героя.${extraRules}
-· Ещё раз: разрешены только теги ${allowedTags}. ${forbiddenNote}
+[Rules]
+· time: Extract date and time for the current scene. Required.
+· event: Key events happening in this message. At least one event per message.
+· Items: Record only when acquired, consumed, or status changes. Use precise locations.
+· Event Importance: normal dialogue = normal, plot progression = important, key turning point = critical.
+· ${userName} is the main character's name.${extraRules}
+· Write ALL output (descriptions, summaries, notes) in concise ENGLISH to save tokens.
 
-═══ Правила написания 【Резюме события (event)】 ═══
-★ Главная цель: предоставить будущему ИИ «предысторию» без потерь. Должно быть конкретным и информативным (80-150 слов).
-★ Обязательные элементы (5W1H):
-  ① Ключевое взаимодействие: Кто кому что сделал/сказал? (конкретные действия или ключевые фразы).
-  ② Изменение состояния/настроения: Какие тонкие изменения произошли в психологии, отношении или связях персонажей?
-  ③ Новая информация/результаты: Как продвинулся сюжет в этом раунде?
-  ④ Зацепки/Интрига (если есть): Какие нерешенные вопросы остались?
-★ Строго запрещены общие фразы:
-  ❌ Неправильно: "{{user}} и Аллен болтали в таверне, им было весело..."
-  ✅ Правильно: "{{user}} в таверне расспрашивал Аллена о торговце на чёрном рынке..."
-★ Запрещено придумывать: не пишите эмоции, не указанные в тексте.
-★ Запрещено резюмировать атмосферу: никаких субъективных фраз вроде «выглядит жизненно», «атмосфера стала...».`;
+=== Event Summary (event) Rules ===
+★ Goal: Provide a lossless recap for future AI context. Must be concise (30-80 words).
+★ Must include (5W1H):
+  1. Key interaction: Who did/said what?
+  2. Mood change: Any psychological shifts?
+  3. New info: How did the plot progress?
+  4. Suspense: Any unresolved issues?
+★ NO generalizations. Be specific.
+★ NO fabrications.
+★ NO atmospheric summaries.`;
         }
 
         try {
