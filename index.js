@@ -19320,9 +19320,10 @@ jQuery(async () => {
     await initDrawer();
     initTabs();
     initSettingsEvents();
-    syncSettingsToUI();
 
     horaeManager.init(getContext(), settings);
+    syncSettingsToUI();
+
     _publishHoraeApi();
     _portsReady = true;
 

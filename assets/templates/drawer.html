@@ -1249,13 +1249,13 @@
                                     <div class="horae-setting-item">
                                         <label data-i18n="vector.rerankUrl">
                                             Rerank API 地址（选填）
-                                            <input type="text" id="horae-setting-vector-rerank-url" placeholder="留空则复用 Embedding API 地址">
+                                            <input type="text" id="horae-setting-vector-rerank-url" data-i18n="[placeholder]vector.rerankUrlPlaceholder" placeholder="Leave empty to reuse Embedding API URL">
                                         </label>
                                     </div>
                                     <div class="horae-setting-item">
                                         <label data-i18n="vector.rerankKey">
                                             Rerank API 密钥（选填）
-                                            <input type="password" id="horae-setting-vector-rerank-key" placeholder="留空则复用 Embedding API 密钥">
+                                            <input type="password" id="horae-setting-vector-rerank-key" data-i18n="[placeholder]vector.rerankKeyPlaceholder" placeholder="Leave empty to reuse Embedding API key">
                                         </label>
                                     </div>
                                     <div class="horae-setting-item">
@@ -1387,9 +1387,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-system-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词..."></textarea>
+                            <textarea id="horae-custom-system-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.emptyPlaceholder" placeholder="Leave empty to use default..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-system-prompt-count">0</span> 字符
+                                <span id="horae-system-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
                         
@@ -1400,9 +1400,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-batch-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词..."></textarea>
+                            <textarea id="horae-custom-batch-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.emptyPlaceholder" placeholder="Leave empty to use default..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-batch-prompt-count">0</span> 字符
+                                <span id="horae-batch-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1413,9 +1413,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-analysis-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词..."></textarea>
+                            <textarea id="horae-custom-analysis-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.emptyPlaceholder" placeholder="Leave empty to use default..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-analysis-prompt-count">0</span> 字符
+                                <span id="horae-analysis-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1426,9 +1426,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-compress-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词。可用 {{events}} 代表事件文本，{{fulltext}} 代表全文，{{user}} 代表主角名..."></textarea>
+                            <textarea id="horae-custom-compress-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.compressPlaceholder" placeholder="Leave empty for default. Use {{events}}, {{fulltext}}, {{user}}..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-compress-prompt-count">0</span> 字符
+                                <span id="horae-compress-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1439,9 +1439,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-auto-summary-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词。可用 {{events}} 代表事件概要，{{fulltext}} 代表全文，{{user}} 代表主角名..."></textarea>
+                            <textarea id="horae-custom-auto-summary-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.autoSummaryPlaceholder" placeholder="Leave empty for default. Use {{events}}, {{fulltext}}, {{user}}..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-auto-summary-prompt-count">0</span> 字符
+                                <span id="horae-auto-summary-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1452,9 +1452,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-auto-resummary-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词。可用 {{events}} 代表事件概要，{{count}} 代表事件数量，{{user}} 代表主角名..."></textarea>
+                            <textarea id="horae-custom-auto-resummary-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.autoResummaryPlaceholder" placeholder="Leave empty for default. Use {{events}}, {{count}}, {{user}}..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-auto-resummary-prompt-count">0</span> 字符
+                                <span id="horae-auto-resummary-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1465,9 +1465,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-tables-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词..."></textarea>
+                            <textarea id="horae-custom-tables-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.emptyPlaceholder" placeholder="Leave empty to use default..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-tables-prompt-count">0</span> 字符
+                                <span id="horae-tables-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1478,9 +1478,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-location-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词..."></textarea>
+                            <textarea id="horae-custom-location-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.emptyPlaceholder" placeholder="Leave empty to use default..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-location-prompt-count">0</span> 字符
+                                <span id="horae-location-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1491,9 +1491,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-relationship-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词..."></textarea>
+                            <textarea id="horae-custom-relationship-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.emptyPlaceholder" placeholder="Leave empty to use default..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-relationship-prompt-count">0</span> 字符
+                                <span id="horae-relationship-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1504,9 +1504,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-mood-prompt" class="horae-prompt-textarea" rows="6" placeholder="留空使用默认提示词..."></textarea>
+                            <textarea id="horae-custom-mood-prompt" class="horae-prompt-textarea" rows="6" data-i18n="[placeholder]prompts.emptyPlaceholder" placeholder="Leave empty to use default..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-mood-prompt-count">0</span> 字符
+                                <span id="horae-mood-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
 
@@ -1517,9 +1517,9 @@
                                     <i class="fa-solid fa-rotate-left"></i> 恢复默认
                                 </button>
                             </div>
-                            <textarea id="horae-custom-rpg-prompt" class="horae-prompt-textarea" rows="8" placeholder="留空使用默认提示词..."></textarea>
+                            <textarea id="horae-custom-rpg-prompt" class="horae-prompt-textarea" rows="8" data-i18n="[placeholder]prompts.emptyPlaceholder" placeholder="Leave empty to use default..."></textarea>
                             <div class="horae-prompt-char-count">
-                                <span id="horae-rpg-prompt-count">0</span> 字符
+                                <span id="horae-rpg-prompt-count">0</span> <span data-i18n="prompts.chars">chars</span>
                             </div>
                         </div>
                     </div>
