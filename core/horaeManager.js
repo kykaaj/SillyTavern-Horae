@@ -1024,9 +1024,11 @@ class HoraeManager {
                 
                 const currentDate = state.timestamp?.story_date || '';
                 
+                const _isCrit = (l) => { const v = (l||'').toLowerCase(); return v === '关键' || v === '關鍵' || v === 'critical' || v === 'key' || v === '!!' || v === 'ключевое'; };
+                const _isImp = (l) => { const v = (l||'').toLowerCase(); return v === '重要' || v === 'important' || v === '!' || v === 'важное'; };
                 const getLevelMark = (level) => {
-                    if (level === '关键' || level === '關鍵') return '★';
-                    if (level === '重要') return '●';
+                    if (_isCrit(level)) return '★';
+                    if (_isImp(level)) return '●';
                     return '○';
                 };
                 
@@ -1069,12 +1071,12 @@ class HoraeManager {
                 });
                 
                 const criticalAndImportant = sortedEvents.filter(e =>
-                    e.event?.level === '关键' || e.event?.level === '關鍵' || e.event?.level === '重要' || e.event?.level === '摘要' || e.event?.isSummary
+                    _isCrit(e.event?.level) || _isImp(e.event?.level) || e.event?.level === '摘要' || e.event?.isSummary
                 );
                 const depthRaw = parseInt(this.settings?.contextDepth, 10);
                 const contextDepth = Number.isFinite(depthRaw) ? Math.max(0, depthRaw) : 100;
                 const normalEventsAll = sortedEvents.filter(e =>
-                    (e.event?.level === '一般' || !e.event?.level) && !e.event?.isSummary
+                    !_isCrit(e.event?.level) && !_isImp(e.event?.level) && e.event?.level !== '摘要' && !e.event?.isSummary
                 );
                 const normalEvents = contextDepth > 0 ? normalEventsAll.slice(-contextDepth) : [];
                 

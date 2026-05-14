@@ -18838,7 +18838,7 @@ async function onPromptReady(eventData) {
                     const cleaned = chat[i].mes.replace(/<horae>[\s\S]*?<\/horae>/gi, '').replace(/<horaeevent>[\s\S]*?<\/horaeevent>/gi, '').trim();
                     if (cleaned) {
                         const truncated = cleaned.length > 2000 ? cleaned.slice(0, 2000) + '…' : cleaned;
-                        antiParaRef = `\n【反转述参考 - USER上一条消息内容】\n${truncated}\n（请将以上USER行为一并纳入本条<horae>结算）`;
+                        antiParaRef = `\n[Anti-paraphrase reference — USER's last input]\n${truncated}\n(Include the above USER actions in this turn's <horae> settlement)`;
                     }
                     break;
                 }

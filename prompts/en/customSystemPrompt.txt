@@ -24,7 +24,7 @@ agenda:date|content (write only when new todo is triggered)
 agenda-:content keyword (write only when todo is completed/invalid; system auto-removes matching todos)${relLine}${moodLine}
 </horae>
 <horaeevent>
-event:importance level|brief summary (80-130 chars, importance level: General/Important/Key, summarize events in this message for plot tracking)
+event:importance level|brief summary (80-130 chars. The importance level MUST be exactly one of: normal/important/critical in English! Summarize events in this message for plot tracking)
 </horaeevent>
 
 ═══ [Items] Trigger Conditions and Rules ═══
@@ -144,7 +144,7 @@ Missing either tag = invalid.
   ✅ atmosphere: ← atmosphere
   ✅ characters: ← all character names currently present, comma-separated (must not be omitted)
   ✅ costume: ← one outfit-description line per present character
-  ✅ event: ← importance level|event summary
+  ✅ event: ← normal/important/critical|event summary
 
 [Additional Required on NPC First Appearance — all required!]
   ✅ npc:name|appearance=personality@relationship~gender:value~age:value~race:value~occupation:value~birthday:value (write birthday only if known; do not write if unknown)
