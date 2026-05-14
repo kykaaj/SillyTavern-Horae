@@ -503,6 +503,18 @@ function translateLevelForDisplay(level) {
     return map[level] || level;
 }
 
+function horaeIsCritical(level) {
+    if (!level) return false;
+    const l = level.toLowerCase();
+    return l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!';
+}
+
+function horaeIsImportant(level) {
+    if (!level) return false;
+    const l = level.toLowerCase();
+    return l === '重要' || l === 'important' || l === '!';
+}
+
 /**
  * 检查是否为新版导航栏
  */
@@ -2102,8 +2114,8 @@ function updateTimelineDisplay() {
         );
         const relTime = result.relative;
         const levelClass = isSummary ? 'summary' :
-            (e.event?.level === '关键' || e.event?.level === '關鍵') ? 'critical' :
-                e.event?.level === '重要' ? 'important' : '';
+            horaeIsCritical(e.event?.level) ? 'critical' :
+                horaeIsImportant(e.event?.level) ? 'important' : '';
         const levelBadge = e.event?.level ? `<span class="horae-level-badge ${levelClass}">${translateLevelForDisplay(e.event.level)}</span>` : '';
 
         const dateStr = e.timestamp?.story_date || '?';
@@ -2882,7 +2894,7 @@ function openTimelineInsertEventModal(refMsgIdx, refEvtIdx, isAbove) {
         if (!summary) { showToast(t('toast.enterSummary'), 'warning'); return; }
 
         const newEvent = {
-            is_important: level === '重要' || level === '关键' || level === '關鍵',
+            is_important: horaeIsImportant(level) || horaeIsCritical(level),
             level: level,
             summary: summary
         };
@@ -4160,8 +4172,8 @@ function updateItemsDisplay() {
     listEl.innerHTML = entries.map(([name, info]) => {
         const icon = info.icon || '📦';
         const importance = info.importance || '';
-        const isCritical = importance === '!!' || importance === '关键' || importance === '關鍵' || importance === 'critical';
-        const isImportant = importance === '!' || importance === '重要' || importance === 'important';
+        const isCritical = horaeIsCritical(importance);
+        const isImportant = horaeIsImportant(importance);
         const importanceClass = isCritical ? 'critical' : isImportant ? 'important' : 'normal';
         const importanceLabel = isCritical ? t('levels.critical') : isImportant ? t('levels.important') : '';
         const importanceBadge = importanceLabel ? `<span class="horae-item-importance ${importanceClass}">${importanceLabel}</span>` : '';
@@ -4276,8 +4288,8 @@ function openItemEditModal(itemName) {
                         <label>${t('label.importance')}</label>
                         <select id="edit-item-importance">
                             <option value="" ${!item.importance || item.importance === '一般' || item.importance === '' ? 'selected' : ''}>${t('levels.normal')}</option>
-                            <option value="!" ${item.importance === '!' || item.importance === '重要' ? 'selected' : ''}>${t('levels.important')} !</option>
-                            <option value="!!" ${item.importance === '!!' || item.importance === '关键' || item.importance === '關鍵' ? 'selected' : ''}>${t('levels.critical')} !!</option>
+                            <option value="!" ${horaeIsImportant(item.importance) ? 'selected' : ''}>${t('levels.important')} !</option>
+                            <option value="!!" ${horaeIsCritical(item.importance) ? 'selected' : ''}>${t('levels.critical')} !!</option>
                         </select>
                     </div>
                     <div class="horae-edit-field">
@@ -5131,8 +5143,8 @@ function openEventEditModal(messageId, eventIndex = 0) {
                         <label>${t('label.eventLevel')}</label>
                         <select id="edit-event-level">
                             <option value="一般" ${event.level === '一般' || !event.level ? 'selected' : ''}>${t('levels.normal')}</option>
-                            <option value="重要" ${event.level === '重要' ? 'selected' : ''}>${t('levels.important')}</option>
-                            <option value="关键" ${event.level === '关键' || event.level === '關鍵' ? 'selected' : ''}>${t('levels.critical')}</option>
+                            <option value="重要" ${horaeIsImportant(event.level) ? 'selected' : ''}>${t('levels.important')}</option>
+                            <option value="关键" ${horaeIsCritical(event.level) ? 'selected' : ''}>${t('levels.critical')}</option>
                             <option value="摘要" ${event.level === '摘要' ? 'selected' : ''}>${t('levels.summary')}</option>
                         </select>
                     </div>
@@ -5198,14 +5210,14 @@ function openEventEditModal(messageId, eventIndex = 0) {
             const isSummaryLevel = newLevel === '摘要';
             if (chatMeta.events[eventIndex]) {
                 chatMeta.events[eventIndex] = {
-                    is_important: newLevel === '重要' || newLevel === '关键' || newLevel === '關鍵',
+                    is_important: horaeIsImportant(newLevel) || horaeIsCritical(newLevel),
                     level: newLevel,
                     summary: newSummary,
                     ...(isSummaryLevel ? { isSummary: true } : {})
                 };
             } else {
                 chatMeta.events.push({
-                    is_important: newLevel === '重要' || newLevel === '关键' || newLevel === '關鍵',
+                    is_important: horaeIsImportant(newLevel) || horaeIsCritical(newLevel),
                     level: newLevel,
                     summary: newSummary,
                     ...(isSummaryLevel ? { isSummary: true } : {})
@@ -11132,8 +11144,8 @@ function buildPanelContent(messageIndex, meta) {
                     <select class="horae-input-event-level">
                         <option value="">${t('levels.none')}</option>
                         <option value="一般" ${eventLevel === '一般' ? 'selected' : ''}>${t('levels.normal')}</option>
-                        <option value="重要" ${eventLevel === '重要' ? 'selected' : ''}>${t('levels.important')}</option>
-                        <option value="关键" ${eventLevel === '关键' || eventLevel === '關鍵' ? 'selected' : ''}>${t('levels.critical')}</option>
+                        <option value="重要" ${horaeIsImportant(eventLevel) ? 'selected' : ''}>${t('levels.important')}</option>
+                        <option value="关键" ${horaeIsCritical(eventLevel) ? 'selected' : ''}>${t('levels.critical')}</option>
                     </select>
                     <input type="text" class="horae-input-event-summary" value="${escapeHtml(eventSummary)}" placeholder="${t('placeholder.eventSummary')}">
                 </div>
@@ -11766,7 +11778,7 @@ async function savePanelData(panelEl, messageId) {
     const restEvents = Array.isArray(existingMeta?.events) ? existingMeta.events.slice(1) : [];
     if (eventLevel && eventSummary) {
         meta.events = [{
-            is_important: eventLevel === '重要' || eventLevel === '关键' || eventLevel === '關鍵',
+            is_important: horaeIsImportant(eventLevel) || horaeIsCritical(eventLevel),
             level: eventLevel,
             summary: eventSummary
         }, ...restEvents];
@@ -16963,7 +16975,7 @@ function showScanReviewModal(scanResults, scanOptions) {
         const itemsHtml = tab.items.map(item => {
             const itemKey = escapeHtml(makeReviewKey(item));
             const levelAttr = item.level ? ` data-level="${escapeHtml(item.level)}"` : '';
-            const levelBadge = item.level ? `<span class="horae-level-badge ${(item.level === '关键' || item.level === '關鍵') ? 'critical' : item.level === '重要' ? 'important' : ''}" style="font-size:10px;margin-right:4px;">${escapeHtml(translateLevelForDisplay(item.level))}</span>` : '';
+            const levelBadge = item.level ? `<span class="horae-level-badge ${horaeIsCritical(item.level) ? 'critical' : horaeIsImportant(item.level) ? 'important' : ''}" style="font-size:10px;margin-right:4px;">${escapeHtml(translateLevelForDisplay(item.level))}</span>` : '';
             const descHtml = item.desc ? `<div class="horae-review-item-sub" style="font-style:italic;opacity:0.8;">📝 ${escapeHtml(item.desc)}</div>` : '';
             return `<div class="horae-review-item" data-key="${itemKey}"${levelAttr}>
                 <div class="horae-review-item-body">
