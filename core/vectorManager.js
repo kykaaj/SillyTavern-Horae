@@ -1704,22 +1704,40 @@ export class VectorManager {
         if (result.days === null || result.days === undefined) return '';
 
         const meta = getRelativeTimeMeta(result.days, { fromDate: result.fromDate, toDate: result.toDate });
-        const WD = ['日', '一', '二', '三', '四', '五', '六'];
+        
+        const lang = this._activeKeywordLang || 'en';
+        const L = (zh, en, ja, ko, ru) => {
+            if (lang === 'zh-CN' || lang === 'zh-TW') return zh;
+            if (lang === 'ja') return ja;
+            if (lang === 'ko') return ko;
+            if (lang === 'ru') return ru;
+            return en;
+        };
+
+        const wd = (weekday) => L(
+            ['日','一','二','三','四','五','六'][weekday],
+            ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][weekday],
+            ['日','月','火','水','木','金','土'][weekday],
+            ['일','월','화','수','목','금','토'][weekday],
+            ['вс','пн','вт','ср','чт','пт','сб'][weekday]
+        );
+
+        let text = '';
         switch (meta.key) {
-            case 'today': return '(今天)';
-            case 'yesterday': return '(昨天)';
-            case 'day_before_yesterday': return '(前天)';
-            case 'three_days_ago': return '(大前天)';
-            case 'last_weekday': return `(上周${WD[meta.weekday]})`;
-            case 'week_before_last_weekday': return `(上上周${WD[meta.weekday]})`;
-            case 'last_month_day': return `(上个月${meta.day}号)`;
-            case 'last_year_date': return `(去年${meta.month}月${meta.day}日)`;
-            case 'year_before_last_date': return `(前年${meta.month}月${meta.day}日)`;
-            case 'days_ago': return `(${meta.value}天前)`;
-            case 'months_ago': return `(${meta.value}个月前)`;
-            case 'years_ago': return `(${meta.years}年前)`;
+            case 'today': text = L('今天','today','今日','오늘','сегодня'); break;
+            case 'yesterday': text = L('昨天','yesterday','昨日','어제','вчера'); break;
+            case 'day_before_yesterday': text = L('前天','day before yesterday','一昨日','그저께','позавчера'); break;
+            case 'three_days_ago': text = L('大前天','3 days ago','3日前','그끄저께','3 дня назад'); break;
+            case 'last_weekday': text = L(`上周${wd(meta.weekday)}`, `last ${wd(meta.weekday)}`, `先週${wd(meta.weekday)}`, `지난주 ${wd(meta.weekday)}`, `прошлый ${wd(meta.weekday)}`); break;
+            case 'week_before_last_weekday': text = L(`上上周${wd(meta.weekday)}`, `week before last ${wd(meta.weekday)}`, `先々週${wd(meta.weekday)}`, `지지난주 ${wd(meta.weekday)}`, `позапрошлый ${wd(meta.weekday)}`); break;
+            case 'last_month_day': text = L(`上个月${meta.day}号`, `last month ${meta.day}`, `先月${meta.day}日`, `지난달 ${meta.day}일`, `прошлый месяц ${meta.day}-го`); break;
+            case 'last_year_date': text = L(`去年${meta.month}月${meta.day}日`, `last year ${meta.month}/${meta.day}`, `去年${meta.month}月${meta.day}日`, `작년 ${meta.month}월 ${meta.day}일`, `прошлый год ${meta.month}/${meta.day}`); break;
+            case 'year_before_last_date': text = L(`前年${meta.month}月${meta.day}日`, `year before last ${meta.month}/${meta.day}`, `一昨年${meta.month}月${meta.day}日`, `재작년 ${meta.month}월 ${meta.day}일`, `позапрошлый год ${meta.month}/${meta.day}`); break;
+            case 'days_ago': text = L(`${meta.value}天前`, `${meta.value} days ago`, `${meta.value}日前`, `${meta.value}일 전`, `${meta.value} дн. назад`); break;
+            case 'months_ago': text = L(`${meta.value}个月前`, `${meta.value} months ago`, `${meta.value}ヶ月前`, `${meta.value}개월 전`, `${meta.value} мес. назад`); break;
+            case 'years_ago': text = L(`${meta.years}年前`, `${meta.years} years ago`, `${meta.years}年前`, `${meta.years}년 전`, `${meta.years} г. назад`); break;
         }
-        return '';
+        return text ? `(${text})` : '';
     }
 
     // ========================================
