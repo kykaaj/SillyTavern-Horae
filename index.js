@@ -13,7 +13,7 @@ import { slideToggle } from '/lib.js';
 import { horaeManager, createEmptyMeta, getItemBaseName } from './core/horaeManager.js';
 import { vectorManager } from './core/vectorManager.js';
 import { calculateRelativeTime, calculateDetailedRelativeTime, formatRelativeTime, generateTimeReference, getCurrentSystemTime, formatStoryDate, formatFullDateTime, parseStoryDate, setTimeLocale } from './utils/timeUtils.js';
-import { t, tForLang, initI18n, getLanguage, isZhLocale, setLanguage, detectEffectiveAiLangIsZh, detectEffectiveAiLang } from './core/i18n.js';
+import { t, tForLang, initI18n, getLanguage, isZhLocale, setLanguage, detectEffectiveAiLangIsZh, detectEffectiveAiLang, getLangEnforcementInstruction } from './core/i18n.js';
 import { initPromptDefaults, ensurePromptDefaults, ensurePresetPrompts, getPromptDefaultSync, getPresetPromptsSync, BUILTIN_PRESET_IDS } from './core/promptDefaults.js';
 
 // ============================================
@@ -3257,7 +3257,8 @@ async function compressSelectedTimelineEvents() {
             return `[${e.level}] ${timeStr}: ${e.summary}`;
         }).join('\n');
 
-        const fullTemplate = settings.customCompressPrompt || getDefaultCompressPrompt();
+        let fullTemplate = settings.customCompressPrompt || getDefaultCompressPrompt();
+        fullTemplate += getLangEnforcementInstruction(settings);
         const section = parseCompressPrompt(fullTemplate, mode);
         const prompt = section
             .replace(/\{\{events\}\}/gi, mode === 'event' ? sourceText : eventText)
@@ -14689,7 +14690,8 @@ function _getSummaryEntryRange(entry) {
 }
 
 function _buildAutoSummaryPrompt(userName, eventText, sourceText, count) {
-    const autoSumTemplate = settings.customAutoSummaryPrompt || getDefaultAutoSummaryPrompt();
+    let autoSumTemplate = settings.customAutoSummaryPrompt || getDefaultAutoSummaryPrompt();
+    autoSumTemplate += getLangEnforcementInstruction(settings);
     return autoSumTemplate
         .replace(/\{\{events\}\}/gi, eventText || '')
         .replace(/\{\{fulltext\}\}/gi, sourceText || '')
@@ -14698,7 +14700,8 @@ function _buildAutoSummaryPrompt(userName, eventText, sourceText, count) {
 }
 
 function _buildAutoResummaryPrompt(userName, eventText, count) {
-    const autoResumTemplate = settings.customAutoResummaryPrompt || getDefaultAutoResummaryPrompt();
+    let autoResumTemplate = settings.customAutoResummaryPrompt || getDefaultAutoResummaryPrompt();
+    autoResumTemplate += getLangEnforcementInstruction(settings);
     return autoResumTemplate
         .replace(/\{\{events\}\}/gi, eventText || '')
         .replace(/\{\{fulltext\}\}/gi, '')
@@ -16306,7 +16309,8 @@ async function checkAutoSummary() {
         const sourceText = fullTexts.join('\n\n');
 
         const eventText = bufferEvents.map(e => `[${e.level}] ${e.date}${e.time ? ' ' + e.time : ''}: ${e.summary}`).join('\n');
-        const autoSumTemplate = settings.customAutoSummaryPrompt || getDefaultAutoSummaryPrompt();
+        let autoSumTemplate = settings.customAutoSummaryPrompt || getDefaultAutoSummaryPrompt();
+        autoSumTemplate += getLangEnforcementInstruction(settings);
         const includeFullText = _getAutoSummarySourceMode() === 'fulltext';
         const hasFullTextPlaceholder = /\{\{fulltext\}\}/i.test(autoSumTemplate);
         let prompt = autoSumTemplate
@@ -18071,7 +18075,8 @@ async function analyzeMessageWithAI(messageContent, opts = {}) {
         }
     }
 
-    const template = settings.customAnalysisPrompt || getDefaultAnalysisPrompt();
+    let template = settings.customAnalysisPrompt || getDefaultAnalysisPrompt();
+    template += getLangEnforcementInstruction(settings);
     let analysisPrompt = template
         .replace(/\{\{user\}\}/gi, userName)
         .replace(/\{\{context\}\}/gi, contextText)

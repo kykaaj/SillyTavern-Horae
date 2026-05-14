@@ -4,7 +4,7 @@
  */
 
 import { parseStoryDate, calculateRelativeTime, calculateDetailedRelativeTime, generateTimeReference, formatRelativeTime, formatFullDateTime, getRelativeTimeMeta } from '../utils/timeUtils.js';
-import { detectEffectiveAiLangIsZh, detectEffectiveAiLang } from './i18n.js';
+import { detectEffectiveAiLangIsZh, detectEffectiveAiLang, getLangEnforcementInstruction } from './i18n.js';
 import { getPromptDefaultSync } from './promptDefaults.js';
 
 /**
@@ -3384,13 +3384,13 @@ class HoraeManager {
             for (const [key, value] of Object.entries(fieldLines)) {
                 custom = custom.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), value);
             }
-            return custom + subs;
+            return custom + subs + getLangEnforcementInstruction(this.settings);
         }
 
         const base = this.getDefaultSystemPrompt({ systemPromptAddition: subs })
             .replace(/\{\{user\}\}/gi, userName)
             .replace(/\{\{char\}\}/gi, charName);
-        return '\n' + base;
+        return '\n' + base + getLangEnforcementInstruction(this.settings);
     }
 
     getDefaultSystemPrompt(vars = null) {

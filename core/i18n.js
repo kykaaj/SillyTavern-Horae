@@ -175,6 +175,17 @@ export function detectEffectiveAiLangIsZh(settings) {
     return ZH_LANGS.has(detectEffectiveAiLang(settings));
 }
 
+export function getLangEnforcementInstruction(settings) {
+    const lang = detectEffectiveAiLang(settings);
+    if (lang === 'en') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in English, regardless of the language of the chat history.';
+    if (lang === 'zh-CN') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Simplified Chinese, regardless of the language of the chat history.';
+    if (lang === 'zh-TW') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Traditional Chinese, regardless of the language of the chat history.';
+    if (lang === 'ja') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Japanese, regardless of the language of the chat history.';
+    if (lang === 'ko') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Korean, regardless of the language of the chat history.';
+    if (lang === 'ru') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Russian, regardless of the language of the chat history.';
+    return '';
+}
+
 function _pickFallback(lang) {
     return ZH_LANGS.has(lang) ? _zhFallback : _enFallback;
 }
