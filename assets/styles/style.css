@@ -812,9 +812,11 @@ body > .horae-port-bottom-bar {
 
 /* 已压缩但切换为原始视图的事件 */
 .horae-timeline-item.horae-compressed-restored {
-    border: 1px dashed var(--horae-border);
+    border-top: 1px dashed var(--horae-border);
+    border-right: 1px dashed var(--horae-border);
+    border-bottom: 1px dashed var(--horae-border);
+    border-left-style: dashed;
     opacity: 0.75;
-    border-left-width: 3px;
 }
 
 /* 摘要折叠指示条（inactive 状态） */
