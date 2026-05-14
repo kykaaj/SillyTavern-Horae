@@ -1,167 +1,57 @@
-# Horae v1.14.0 - Memory Engine for SillyTavern
+# Horae (Localized Fork) - Memory Engine for SillyTavern
 
-**English** | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md)
+**Русский** | [English](#english)
 
-Image
+Это форк расширения [SillyTavern-Horae](https://github.com/SenriYuki/SillyTavern-Horae), полностью очищенный от захардкоженных китайских промптов и строк.
 
-> *Horae — Greek goddesses who governed the orderly progression of time*
+### Почему этот форк существует?
+В оригинальной версии Horae многие системные промпты (для саммари, временных меток и логики) были жёстко прописаны на китайском языке внутри кода. Из-за этого даже при смене языка в настройках, в конспектах и логах постоянно всплывала «китайщина», которая сбивала ИИ с толку.
 
-Long-form RP players know the pain: AI memory is basically a goldfish. Yesterday's events become "this morning," costumes change between paragraphs, NPC relationships flip, gifted items vanish, and discarded ones reappear.
-
-**Horae gives your AI a reliable memory ledger using structured time anchors.**
-
----
-
-## Features
-
-### Core Memory System
-
-- **Timeline Tracking** — Events are timestamped with relative time calculations ("yesterday", "last Wednesday", "2 months ago"). AI finally knows the difference.
-- **Costume Lock** — Each character's current outfit is recorded and only sent for present characters. No more phantom wardrobe changes.
-- **NPC Tracking** — Appearance, personality, relationships tracked independently. Ages advance with story time. Relationship prompts are strictly enforced.
-- **Item Inventory** — Unique ID system with Normal / Important / Critical tiers. Smart quantity parsing, auto-detection of consumed items.
-- **Agenda** — AI automatically records plot promises and deadlines. Completed items are auto-removed.
-- **Mood & Relationships** — Emotion tracking keeps characters consistent. Relationship network records bonds between characters. Both are change-driven: zero output when nothing changes.
-- **Scene Memory** — Records fixed physical features of locations for consistent descriptions across visits.
-
-### RPG System (Modular)
-
-- **Status Bars** — HP/MP/SP with custom names, colors. Dozens of status effect icons.
-- **Attribute Panel** — Multi-dimensional stats (STR/DEX/CON/INT/WIS/CHA) with radar chart.
-- **Skills** — Track skill ownership, levels, and descriptions.
-- **Equipment** — Per-character slot configs with 6 racial templates (Human, Orc, Centaur, Lamia, Winged, Demon). Custom templates supported.
-- **Reputation** — Custom faction categories with sub-dimensions.
-- **Level / XP** — Experience formula with visual progress bars.
-- **Currency** — Custom denominations with emoji icons and exchange rates.
-- **Strongholds** — Tree-structured base/territory management.
-- All modules are **independently toggleable**. Disabled = zero token cost.
-
-### Smart Token Management
-
-- **Auto Summary & Hide** — Automatically compresses old messages into AI-generated summaries. Original messages are `/hide`d to save tokens. Summaries can be toggled back to original events anytime.
-- **Vector Memory** — Semantic search engine that recalls hidden details when conversation touches historical events. Runs locally via Web Worker — zero API cost.
-- **AI Batch Scan** — One-click retroactive analysis of entire chat history.
-- **Auxiliary API** — Route AI analysis, auto-summary, smart enrich, and manual compression through a separate OpenAI-compatible endpoint. Requests are queued to avoid auxiliary endpoint rate spikes, and API credentials are never exported with Horae config profiles.
-- **Change-Driven Output** — AI only outputs what changed this turn. No redundant state dumps.
-
-### User Experience
-
-- **Custom Tables** — Excel-style tables with AI auto-fill, row/column locking, undo/redo.
-- **Theme Designer** — Visual theme editor with hue/saturation sliders, image decorations, day/night modes. Export & share themes as JSON.
-- **Interactive Tutorial** — First-time users get a guided walkthrough of all features.
-- **Custom Prompts** — Full control over system injection, batch scan, compression, and RPG prompts. Preset save/load system.
-- **Config Profiles** — Export all settings as a JSON file. Card authors can share configs for one-click setup.
+**Что исправлено:**
+- Все скрытые китайские промпты вынесены в систему локализации (`i18n`).
+- Исправлены ошибки в коде, приводившие к крашу расширения на не-китайских локалях.
+- Полностью переведены на русский/английский технические теги векторной памяти (даты, статусы, события).
+- Сохранена полная совместимость со старыми чатами (расширение всё еще понимает старые китайские теги в истории, но само пишет уже на человеческом языке).
 
 ---
 
-## Installation
+## English <a name="english"></a>
 
-1. Open SillyTavern → Extensions panel (puzzle icon) → **Install Extension**
-2. Paste this repository's Git URL and click Install
-3. Refresh the page — done!
+This is a fork of the [SillyTavern-Horae](https://github.com/SenriYuki/SillyTavern-Horae) extension, fully cleaned of hardcoded Chinese prompts and logic.
 
-> The companion regex is **auto-injected** on first load. No manual import needed.
+### Why does this fork exist?
+In the original version of Horae, many system prompts (for summaries, timestamps, and core logic) were hardcoded in Chinese directly within the code. Consequently, even when changing the language in the settings, "Chinese leftovers" would constantly appear in notes and logs, often confusing the AI.
 
----
-
-## Compatibility
-
-- **SillyTavern**: 1.13.0+ (AI analysis requires 1.13.5+)
-- **Platforms**: Desktop + Mobile
+**What has been fixed:**
+- All hidden Chinese prompts have been migrated to the localization system (`i18n`).
+- Code syntax errors that caused the extension to crash on non-Chinese locales have been resolved.
+- Technical tags for vector memory (dates, statuses, events) are now fully localized.
+- Full backward compatibility with old chat logs is maintained (the extension still understands legacy Chinese tags in history but generates new data in your preferred language).
 
 ---
 
-## Public API (for other extensions / presets)
+## Installation / Установка
 
-After Horae loads, a read-only API is available at `window.Horae`:
+1. Откройте SillyTavern → Панель расширений (иконка пазла) → **Install Extension**.
+2. Вставьте URL этого репозитория: `https://github.com/kykaaj/SillyTavern-Horae.git`
+3. Нажмите Install и обновите страницу.
+
+---
+
+## Developer Note: Localization / Заметка для разработчиков
+
+Если вы планируете вносить изменения в код этого форка, пожалуйста, **не используйте захардкоженные строки** (особенно китайские) ни в `index.js`, ни в HTML. 
+
+Используйте встроенную функцию `L()` для динамических строк или `t()` для интерфейса:
 
 ```js
-// Check if Horae is installed and enabled
-window.Horae?.isEnabled()        // → true / false
+// ✅ Правильно (автоматический выбор языка для ИИ)
+const text = L('Китайский', 'English', 'Japanese', 'Korean', 'Русский');
 
-// Read current world state (time, location, characters, costumes, items, mood, npcs…)
-window.Horae?.getLatestState()   // → state object
-
-// Read timeline events
-window.Horae?.getEvents(10)      // → last 10 events
-
-// Read settings (shallow copy)
-window.Horae?.getSettings()
-
-// Version string
-window.Horae?.version            // → "1.14.0"
+// ✅ Правильно (для UI элементов)
+showToast(t('common.saveSuccess'), 'success');
 ```
-
-Settings change events are broadcast via SillyTavern's `eventSource`:
-
-```js
-eventSource.on('horae:settingsChanged', (data) => {
-    console.log('Horae enabled:', data.enabled);
-});
-```
-
-> All methods are **read-only**. No write operations are exposed.
 
 ---
-
-## Language Support
-
-
-| Language                   | Status |
-| -------------------------- | ------ |
-| 简体中文 (Simplified Chinese)  | ✅ Full |
-| 繁體中文 (Traditional Chinese) | ✅ Full |
-| English                    | ✅ Full |
-| 한국어 (Korean)               | ✅ Full |
-| 日本語 (Japanese)             | ✅ Full |
-| Русский (Russian)          | ✅ Full |
-
-
-**Want Horae in your language?** Open an [Issue](https://github.com/SenriYuki/SillyTavern-Horae/issues) or submit a PR with a translation file! See `locales/en.json` for the translation template.
-
----
-
-## What's New in v1.14.0
-
-### Auxiliary API
-
-- New standalone **Auxiliary API** settings section for OpenAI-compatible endpoints.
-- Choose where to use it: AI analysis / magic wand / pre-send timeline fill, auto-summary + AI smart enrich, or manual multi-select compression.
-- Auxiliary API requests run through a serial queue to reduce endpoint 429s.
-- Fallback to the main API is available but off by default.
-- API URL, key, and model are excluded from Horae config profile exports.
-
-See [CHANGELOG](CHANGELOG.md) for full version history.
-
----
-
-Bug reports and suggestions are welcome!
-
-> ⚠️ This is a side project — replies may be delayed. Thank you for your patience.
-
-**Author: SenriYuki**
-
-### Translation Credits
-
-- **Russian (Русский)** — [@KiskaSora](https://github.com/KiskaSora)
-
-### Credits
-
-- [@baibai-git](https://github.com/baibai-git) — PR #5 integration contribution
-
-### Developer Note: Localization
-
-If you are contributing code to this extension, please ensure that all new UI strings, toasts, and confirmation dialogs are localized. **Do not hardcode Chinese strings into `index.js` or HTML files.**
-
-Instead, add your strings to `locales/en.json` (and other translation files if possible) and use the `t('namespace.key')` function:
-```js
-// ❌ Incorrect
-showToast('保存成功', 'success');
-
-// ✅ Correct
-showToast(t('toast.saveSuccess'), 'success');
-```
-For HTML templates, use the `data-i18n` attribute:
-```html
-<span data-i18n="settings.newFeature">New Feature</span>
-```
+**Original Author:** SenriYuki  
+**Fork maintainer:** kykaaj
