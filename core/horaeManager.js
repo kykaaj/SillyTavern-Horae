@@ -1072,7 +1072,7 @@ class HoraeManager {
                     e.event?.level === '关键' || e.event?.level === '關鍵' || e.event?.level === '重要' || e.event?.level === '摘要' || e.event?.isSummary
                 );
                 const depthRaw = parseInt(this.settings?.contextDepth, 10);
-                const contextDepth = Number.isFinite(depthRaw) ? Math.max(0, depthRaw) : 15;
+                const contextDepth = Number.isFinite(depthRaw) ? Math.max(0, depthRaw) : 100;
                 const normalEventsAll = sortedEvents.filter(e =>
                     (e.event?.level === '一般' || !e.event?.level) && !e.event?.isSummary
                 );

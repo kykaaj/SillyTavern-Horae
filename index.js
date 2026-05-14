@@ -129,7 +129,7 @@ const DEFAULT_SETTINGS = {
     pinnedNpcs: [],    // 用户手动标记的重要角色列表（特殊边框）
     // 发送给AI的内容控制
     sendTimeline: true,    // 发送剧情轨迹（关闭则无法计算相对时间）
-    contextDepth: 15,      // 一般级别剧情轨迹数量
+    contextDepth: 100,      // 一般级别剧情轨迹数量
     sendCharacters: true,  // 发送角色信息（服装、好感度）
     sendItems: true,       // 发送物品栏
     customTables: [],      // 自定义表格 [{id, name, rows, cols, data, prompt}]
@@ -13093,7 +13093,7 @@ function initSettingsEvents() {
 
     $('#horae-setting-context-depth').on('change', function () {
         const val = parseInt(this.value, 10);
-        settings.contextDepth = Number.isNaN(val) ? 15 : Math.max(0, val);
+        settings.contextDepth = Number.isNaN(val) ? 100 : Math.max(0, val);
         this.value = settings.contextDepth;
         saveSettings();
         horaeManager.init(getContext(), settings);
@@ -14106,7 +14106,7 @@ function syncSettingsToUI() {
     $('#horae-setting-injection-position').val(settings.injectionPosition);
     $('#horae-setting-timeline-injection-mode').val(settings.timelineInjectionMode === 'separate' ? 'separate' : 'inline');
     $('#horae-setting-send-timeline').prop('checked', settings.sendTimeline);
-    $('#horae-setting-context-depth').val(Number.isFinite(parseInt(settings.contextDepth, 10)) ? Math.max(0, parseInt(settings.contextDepth, 10)) : 15);
+    $('#horae-setting-context-depth').val(Number.isFinite(parseInt(settings.contextDepth, 10)) ? Math.max(0, parseInt(settings.contextDepth, 10)) : 100);
     $('#horae-setting-send-characters').prop('checked', settings.sendCharacters);
     $('#horae-setting-send-items').prop('checked', settings.sendItems);
 
