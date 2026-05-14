@@ -12,7 +12,7 @@ import { slideToggle } from '/lib.js';
 
 import { horaeManager, createEmptyMeta, getItemBaseName } from './core/horaeManager.js';
 import { vectorManager } from './core/vectorManager.js';
-import { calculateRelativeTime, calculateDetailedRelativeTime, formatRelativeTime, generateTimeReference, getCurrentSystemTime, formatStoryDate, formatFullDateTime, parseStoryDate } from './utils/timeUtils.js';
+import { calculateRelativeTime, calculateDetailedRelativeTime, formatRelativeTime, generateTimeReference, getCurrentSystemTime, formatStoryDate, formatFullDateTime, parseStoryDate, setTimeLocale } from './utils/timeUtils.js';
 import { t, tForLang, initI18n, getLanguage, isZhLocale, setLanguage, detectEffectiveAiLangIsZh, detectEffectiveAiLang } from './core/i18n.js';
 import { initPromptDefaults, ensurePromptDefaults, ensurePresetPrompts, getPromptDefaultSync, getPresetPromptsSync, BUILTIN_PRESET_IDS } from './core/promptDefaults.js';
 
@@ -12164,6 +12164,7 @@ function initSettingsEvents() {
         settings.uiLanguage = this.value;
         saveSettings();
         const newLang = await setLanguage(this.value === 'auto' ? 'auto' : this.value);
+        setTimeLocale(newLang);
         await ensurePromptDefaults(detectEffectiveAiLang(settings));
         horaeManager.init(getContext(), settings);
         _refreshSystemPromptDisplay();
@@ -19269,6 +19270,7 @@ jQuery(async () => {
     const pluginBasePath = `/scripts/extensions/${EXTENSION_FOLDER}`;
     await initI18n(pluginBasePath, settings);
     _i18nReady = true;
+    setTimeLocale(getLanguage());
     await initPromptDefaults(pluginBasePath, detectEffectiveAiLang(settings));
 
     if (_ensureLocalizedRpgDefaults({ force: _isFirstTimeUser }) || _normalizeRpgSettingsInPlace()) {

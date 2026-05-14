@@ -1,8 +1,68 @@
-/** Horae - 时间工具函数 */
+/** Horae - Time utility functions */
 
-/** Weekday names: Chinese for date parsing, English for display */
+/** Chinese weekday names — kept for date PARSING only */
 const WEEKDAY_NAMES = ['日', '一', '二', '三', '四', '五', '六'];
-const WEEKDAY_NAMES_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+/** Locale-specific display strings */
+const _locales = {
+    en: {
+        weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        unknown: 'Unknown', earlier: 'Earlier', after: 'After', before: 'Before',
+        today: 'Today', yesterday: 'Yesterday',
+        dayBeforeYesterday: '2 days ago', threeDaysAgo: '3 days ago',
+        tomorrow: 'Tomorrow', dayAfterTomorrow: 'In 2 days', inThreeDays: 'In 3 days',
+        lastWeekday: (wd) => `Last ${wd}`,
+        weekBeforeLastWeekday: (wd) => `2 wks ago ${wd}`,
+        nextWeekday: (wd) => `Next ${wd}`,
+        weekAfterNextWeekday: (wd) => `In 2 wks ${wd}`,
+        lastMonthDay: (d) => `Last month ${d}th`,
+        nextMonthDay: (d) => `Next month ${d}th`,
+        lastYearDate: (m, d) => `Last year ${m}/${d}`,
+        yearBeforeLastDate: (m, d) => `2 years ago ${m}/${d}`,
+        daysAgo: (n) => `${n}d ago`,
+        daysLater: (n) => `In ${n}d`,
+        monthsAgo: (n) => `${n}mo ago`,
+        monthsLater: (n) => `In ${n}mo`,
+        yearsMonthsAgo: (y, m) => `${y}y ${m}mo ago`,
+        yearsMonthsLater: (y, m) => `In ${y}y ${m}mo`,
+        yearsAgo: (y) => `${y}y ago`,
+        yearsLater: (y) => `In ${y}y`,
+    },
+    ru: {
+        weekdays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+        unknown: 'Неизвестно', earlier: 'Ранее', after: 'Позже', before: 'До',
+        today: 'Сегодня', yesterday: 'Вчера',
+        dayBeforeYesterday: 'Позавчера', threeDaysAgo: '3 дня назад',
+        tomorrow: 'Завтра', dayAfterTomorrow: 'Послезавтра', inThreeDays: 'Через 3 дня',
+        lastWeekday: (wd) => `Прош. ${wd}`,
+        weekBeforeLastWeekday: (wd) => `2 нед. назад ${wd}`,
+        nextWeekday: (wd) => `След. ${wd}`,
+        weekAfterNextWeekday: (wd) => `Через 2 нед. ${wd}`,
+        lastMonthDay: (d) => `Прош. мес. ${d}-е`,
+        nextMonthDay: (d) => `След. мес. ${d}-е`,
+        lastYearDate: (m, d) => `Прош. год ${d}.${m}`,
+        yearBeforeLastDate: (m, d) => `Позапрош. год ${d}.${m}`,
+        daysAgo: (n) => `${n} дн. назад`,
+        daysLater: (n) => `Через ${n} дн.`,
+        monthsAgo: (n) => `${n} мес. назад`,
+        monthsLater: (n) => `Через ${n} мес.`,
+        yearsMonthsAgo: (y, m) => `${y} г. ${m} мес. назад`,
+        yearsMonthsLater: (y, m) => `Через ${y} г. ${m} мес.`,
+        yearsAgo: (y) => `${y} г. назад`,
+        yearsLater: (y) => `Через ${y} г.`,
+    },
+};
+
+let _displayLocale = _locales.en;
+
+/** Set the display locale for time formatting. Call from index.js during init. */
+export function setTimeLocale(lang) {
+    if (lang && lang.startsWith('ru')) {
+        _displayLocale = _locales.ru;
+    } else {
+        _displayLocale = _locales.en;
+    }
+}
 
 /** 季节名称 */
 const SEASONS = ['冬季', '冬季', '春季', '春季', '春季', '夏季', '夏季', '夏季', '秋季', '秋季', '秋季', '冬季'];
@@ -304,35 +364,37 @@ export function getRelativeTimeMeta(days, options = {}) {
 /** 格式化相对时间描述 */
 export function formatRelativeTime(days, options = {}) {
     const meta = getRelativeTimeMeta(days, options);
+    const L = _displayLocale;
+    const wd = (i) => L.weekdays[i];
     switch (meta.key) {
-        case 'unknown': return 'Unknown';
-        case 'special_earlier': return 'Earlier';
-        case 'special_after': return 'After';
-        case 'special_before': return 'Before';
-        case 'today': return 'Today';
-        case 'yesterday': return 'Yesterday';
-        case 'day_before_yesterday': return '2 days ago';
-        case 'three_days_ago': return '3 days ago';
-        case 'tomorrow': return 'Tomorrow';
-        case 'day_after_tomorrow': return 'In 2 days';
-        case 'in_three_days': return 'In 3 days';
-        case 'last_weekday': return `Last ${WEEKDAY_NAMES_EN[meta.weekday]}`;
-        case 'week_before_last_weekday': return `2 weeks ago ${WEEKDAY_NAMES_EN[meta.weekday]}`;
-        case 'next_weekday': return `Next ${WEEKDAY_NAMES_EN[meta.weekday]}`;
-        case 'week_after_next_weekday': return `In 2 weeks ${WEEKDAY_NAMES_EN[meta.weekday]}`;
-        case 'last_month_day': return `Last month ${meta.day}th`;
-        case 'next_month_day': return `Next month ${meta.day}th`;
-        case 'last_year_date': return `Last year ${meta.month}/${meta.day}`;
-        case 'year_before_last_date': return `2 years ago ${meta.month}/${meta.day}`;
-        case 'days_ago': return `${meta.value}d ago`;
-        case 'days_later': return `In ${meta.value}d`;
-        case 'months_ago': return `${meta.value}mo ago`;
-        case 'months_later': return `In ${meta.value}mo`;
-        case 'years_months_ago': return `${meta.years}y ${meta.months}mo ago`;
-        case 'years_months_later': return `In ${meta.years}y ${meta.months}mo`;
-        case 'years_ago': return `${meta.years}y ago`;
-        case 'years_later': return `In ${meta.years}y`;
-        default: return 'Unknown';
+        case 'unknown': return L.unknown;
+        case 'special_earlier': return L.earlier;
+        case 'special_after': return L.after;
+        case 'special_before': return L.before;
+        case 'today': return L.today;
+        case 'yesterday': return L.yesterday;
+        case 'day_before_yesterday': return L.dayBeforeYesterday;
+        case 'three_days_ago': return L.threeDaysAgo;
+        case 'tomorrow': return L.tomorrow;
+        case 'day_after_tomorrow': return L.dayAfterTomorrow;
+        case 'in_three_days': return L.inThreeDays;
+        case 'last_weekday': return L.lastWeekday(wd(meta.weekday));
+        case 'week_before_last_weekday': return L.weekBeforeLastWeekday(wd(meta.weekday));
+        case 'next_weekday': return L.nextWeekday(wd(meta.weekday));
+        case 'week_after_next_weekday': return L.weekAfterNextWeekday(wd(meta.weekday));
+        case 'last_month_day': return L.lastMonthDay(meta.day);
+        case 'next_month_day': return L.nextMonthDay(meta.day);
+        case 'last_year_date': return L.lastYearDate(meta.month, meta.day);
+        case 'year_before_last_date': return L.yearBeforeLastDate(meta.month, meta.day);
+        case 'days_ago': return L.daysAgo(meta.value);
+        case 'days_later': return L.daysLater(meta.value);
+        case 'months_ago': return L.monthsAgo(meta.value);
+        case 'months_later': return L.monthsLater(meta.value);
+        case 'years_months_ago': return L.yearsMonthsAgo(meta.years, meta.months);
+        case 'years_months_later': return L.yearsMonthsLater(meta.years, meta.months);
+        case 'years_ago': return L.yearsAgo(meta.years);
+        case 'years_later': return L.yearsLater(meta.years);
+        default: return L.unknown;
     }
 }
 
@@ -367,7 +429,7 @@ export function formatStoryDate(dateObj, includeWeekday = false) {
         // setFullYear 避免年份自动偏移
         const date = new Date(0);
         date.setFullYear(refYear, dateObj.month - 1, dateObj.day);
-        const weekday = WEEKDAY_NAMES_EN[date.getDay()];
+        const weekday = _displayLocale.weekdays[date.getDay()];
         dateStr += ` (${weekday})`;
     }
     
@@ -412,7 +474,7 @@ export function generateTimeReference(currentDate) {
     const getDateString = (daysOffset) => {
         const d = new Date(baseDate.getTime());
         d.setDate(d.getDate() + daysOffset);
-        const weekday = WEEKDAY_NAMES_EN[d.getDay()];
+        const weekday = _displayLocale.weekdays[d.getDay()];
         return `${d.getMonth() + 1}/${d.getDate()} (${weekday})`;
     };
     
@@ -429,7 +491,7 @@ export function generateTimeReference(currentDate) {
 /** 计算两个日期之间的详细差异 */
 export function calculateDetailedRelativeTime(fromDateStr, toDateStr) {
     const days = calculateRelativeTime(fromDateStr, toDateStr);
-    if (days === null) return { days: null, relative: 'Unknown' };
+    if (days === null) return { days: null, relative: _displayLocale.unknown };
     
     const from = parseStoryDate(fromDateStr);
     const to = parseStoryDate(toDateStr);
