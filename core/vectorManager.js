@@ -425,7 +425,9 @@ export class VectorManager {
         const storyTime = lastMeta?.timestamp?.story_time || currentState.timestamp?.story_time || '';
         if (storyDate || storyTime) {
             const timeText = [storyDate, storyTime].filter(Boolean).join(' ');
-            parts.push(`时间 ${timeText}`);
+            const lang = this._activeKeywordLang || 'en';
+            const label = (lang === 'ru') ? 'Время' : (lang.startsWith('zh')) ? '时间' : 'Time';
+            parts.push(`${label} ${timeText}`);
         }
 
         if (currentState.scene?.location) parts.push(currentState.scene.location);
@@ -450,8 +452,15 @@ export class VectorManager {
      */
     buildMergedRecallQuery(stateQuery, userQuery) {
         const sections = [];
-        if (stateQuery) sections.push(`[当前情境] ${stateQuery}`);
-        if (userQuery) sections.push(`[玩家输入] ${userQuery}`);
+        const lang = this._activeKeywordLang || 'en';
+        const L = (zh, en, ru) => {
+            if (lang === 'ru') return ru;
+            if (lang.startsWith('zh')) return zh;
+            return en;
+        };
+
+        if (stateQuery) sections.push(`[${L('当前情境', 'Current Context', 'Текущая ситуация')}] ${stateQuery}`);
+        if (userQuery) sections.push(`[${L('玩家输入', 'User Input', 'Ввод игрока')}] ${userQuery}`);
         return sections.join('\n').trim();
     }
 
