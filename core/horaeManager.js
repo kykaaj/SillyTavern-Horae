@@ -1404,16 +1404,12 @@ class HoraeManager {
                     const levelRaw = parts[0].trim();
                     const summary = parts.slice(1).join('|').trim();
                     
-                    let level = '一般';
-                    if (levelRaw === '关键' || levelRaw === '關鍵' || levelRaw.toLowerCase() === 'critical') {
-                        level = '关键';
-                    } else if (levelRaw === '重要' || levelRaw.toLowerCase() === 'important') {
-                        level = '重要';
-                    }
+                    const l = levelRaw.toLowerCase();
+                    const isImp = l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l === '重要' || l === 'important' || l === '!';
                     
                     result.events.push({
-                        is_important: level === '重要' || level === '关键',
-                        level: level,
+                        is_important: isImp,
+                        level: levelRaw,
                         summary: summary
                     });
                 }
@@ -4354,16 +4350,12 @@ class HoraeManager {
                 const levelRaw = parts[0].trim();
                 const summary = parts.slice(1).join('|').trim();
                 
-                let level = '一般';
-                if (levelRaw === '关键' || levelRaw === '關鍵' || levelRaw.toLowerCase() === 'critical') {
-                    level = '关键';
-                } else if (levelRaw === '重要' || levelRaw.toLowerCase() === 'important') {
-                    level = '重要';
-                }
+                const l = levelRaw.toLowerCase();
+                const isImp = l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l === '重要' || l === 'important' || l === '!';
                 
                 result.events.push({
-                    is_important: level === '重要' || level === '关键',
-                    level: level,
+                    is_important: isImp,
+                    level: levelRaw,
                     summary: summary
                 });
                 hasAnyData = true;

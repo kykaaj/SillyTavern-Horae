@@ -24,6 +24,6 @@ Rules:
 · If the message has significant plot development, record at least one event.
 · Daily actions and background = normal; information driving the plot = important; irreversible decisions, revelations, death, betrayal, contracts, and movement of key items = critical.
 · "event" should usually be 50-100 characters: capture actions, clues, promises, emotional shifts, item movement, location, and time.
-· Record items ONLY upon receipt, consumption, or change in quantity, owner, or location. If no change, omit the item lines.
+· Record items ONLY upon receipt, consumption, or change in quantity, owner, or location. If no change, omit the item lines. Prefix item names with a matching emoji (e.g., 🔑Bell, 🍞Bread).
 · For a single item, do not write (1). Location must be precise: not "on the floor", but "on the table in the back room of the tavern".
 · Avoid empty generalizations. Be specific: "Marina on the chapel steps handed {{user}} an old bell and asked them to come behind the altar at the full moon."
