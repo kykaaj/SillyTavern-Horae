@@ -1405,7 +1405,7 @@ class HoraeManager {
                     const summary = parts.slice(1).join('|').trim();
                     
                     const l = levelRaw.toLowerCase();
-                    const isImp = l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l === '重要' || l === 'important' || l === '!';
+                    const isImp = l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l === 'ключевое' || l === '重要' || l === 'important' || l === '!' || l === 'важное';
                     
                     result.events.push({
                         is_important: isImp,
@@ -4351,7 +4351,7 @@ class HoraeManager {
                 const summary = parts.slice(1).join('|').trim();
                 
                 const l = levelRaw.toLowerCase();
-                const isImp = l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l === '重要' || l === 'important' || l === '!';
+                const isImp = l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l === 'ключевое' || l === '重要' || l === 'important' || l === '!' || l === 'важное';
                 
                 result.events.push({
                     is_important: isImp,

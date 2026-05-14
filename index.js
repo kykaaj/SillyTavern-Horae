@@ -506,13 +506,13 @@ function translateLevelForDisplay(level) {
 function horaeIsCritical(level) {
     if (!level) return false;
     const l = level.toLowerCase();
-    return l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!';
+    return l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l === 'ключевое';
 }
 
 function horaeIsImportant(level) {
     if (!level) return false;
     const l = level.toLowerCase();
-    return l === '重要' || l === 'important' || l === '!';
+    return l === '重要' || l === 'important' || l === '!' || l === 'важное';
 }
 
 /**
