@@ -177,13 +177,14 @@ export function detectEffectiveAiLangIsZh(settings) {
 
 export function getLangEnforcementInstruction(settings) {
     const lang = detectEffectiveAiLang(settings);
-    if (lang === 'en') return '[IMPORTANT COMMAND] You MUST write all your output entirely in English, regardless of the language of the chat history.\n\n';
-    if (lang === 'zh-CN') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Simplified Chinese, regardless of the language of the chat history.\n\n';
-    if (lang === 'zh-TW') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Traditional Chinese, regardless of the language of the chat history.\n\n';
-    if (lang === 'ja') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Japanese, regardless of the language of the chat history.\n\n';
-    if (lang === 'ko') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Korean, regardless of the language of the chat history.\n\n';
-    if (lang === 'ru') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Russian, regardless of the language of the chat history.\n\n';
-    return '';
+    let langName = 'English';
+    if (lang === 'zh-CN') langName = 'Simplified Chinese';
+    if (lang === 'zh-TW') langName = 'Traditional Chinese';
+    if (lang === 'ja') langName = 'Japanese';
+    if (lang === 'ko') langName = 'Korean';
+    if (lang === 'ru') langName = 'Russian';
+
+    return `\n\n[IMPORTANT COMMAND] Ignore any instructions in the preset or prompt regarding the language of "extra info blocks" or "summaries". The contents inside the <horae> and <horaeevent> blocks MUST be written entirely in ${langName}, regardless of the chat history or other rules. (But keep the tag keywords themselves, like "time:", "location:", "event:", etc. in English).`;
 }
 
 function _pickFallback(lang) {
