@@ -1,37 +1,40 @@
-次のAI返信テキストを分析し、明示されている事実だけを指定形式で抽出してください。存在しない項目は書かず、推測で作らないでください。
+Please analyze the following AI reply text, extract key information, and output it in the specified format. Core principle: only extract information explicitly mentioned in the text. If a field is absent, do not write it. Fabrication is forbidden.
 
-【参考状態（このメッセージ以前の既知情報。読み取り専用参考であり、本メッセージの新規事実として扱わないこと）】
+[Reference State (known info before this message; read-only reference, do not treat as new facts for this message)]
 {{context}}
 
-【前回のユーザー行動】
+[Previous User Action]
 {{previousUserMessage}}
 
-【分析対象テキスト】
+[Text to Analyze]
 {{content}}
 
-【出力形式】
+[Output Format]
 <horae>
-time:日付と時刻（必須。明示がなければ文脈に合う具体的な時刻を補う。「不明」「ある日」は使わない）
-location:現在地（必須）
-atmosphere:場面の雰囲気${sceneDescLine}
-characters:その場にいる人物をカンマ区切りで書く（必須）
-costume:人物名=服装の完全な描写（必須。人物ごとに1行）
-item:絵文字物品名(数量)|説明=持ち主@正確な位置
-item!:絵文字物品名(数量)|説明=持ち主@正確な位置
-item!!:絵文字物品名(数量)|説明=持ち主@正確な位置
-item-:物品名
-affection:人物名=好感度数値
-npc:人物名|外見=性格@{{user}}との関係~gender:value~age:value~race:value~job:value~birthday:value${relLine}${moodLine}
-agenda:作成日|予定や約束の内容
-agenda-:予定のキーワード
+time:date time (required, e.g., 2026/2/4 15:00 or First Day of Frostfall Moon 19:50. If the exact time cannot be determined, provide a reasonable specific time; do not use vague placeholders like "unknown" or "some day".)
+location:current location (required)
+atmosphere:atmosphere${sceneDescLine}
+characters:characters present, comma-separated (required)
+costume:character name=full outfit description (required, one line per character, do not merge with semicolons)
+item:emoji item name(quantity)|description=holder@exact location (only newly acquired or changed items)
+item!:emoji item name(quantity)|description=holder@exact location (important items, description required)
+item!!:emoji item name(quantity)|description=holder@exact location (key items, description must be detailed)
+item-:item name (consumed/lost items)
+affection:character name=affection value (only NPC affection toward {{user}}, do not record {{user}} themselves, do not append notes after the number)
+npc:character name|appearance=personality@relationship with {{user}}~gender:male or female~age:number~race:race name~occupation:occupation name${relLine}${moodLine}
+agenda:date established|todo content (write only when new agreements/plans/foreshadowing appear; relative time must include absolute date in parentheses)
+agenda-:content keyword (write when todo is completed/invalid/canceled; system auto-removes matching todo)
 </horae>
 <horaeevent>
-event:重要度|要約（40-70文字、重要度：normal/important/critical、本メッセージのイベント要約を記録、ストーリー追跡用）
+event:importance level|brief summary (50-80 chars, General/Important/Key)
 </horaeevent>
 
-【発動条件】
-· 物品：入手、消費、数量・持ち主・位置・性質の変化がある時だけ書く。単品に(1)は付けない。
-· 人物：初登場は外見、性格、関係、gender/age/race/job を含める。以後は変化した項目だけ書く。
-· 好感度：人物が{{user}}に向ける好感度だけを書く。初対面0〜20、顔見知り30〜50、友人50〜70、恋人70〜90を目安にする。
-· 予定：新しい約束、計画、伏線が出た時だけ agenda: を書く。完了や取消は agenda-: で消す。
-· event は <horaeevent> 内に置く。<horae> 内に入れない。
+[Trigger Conditions] Only output a field when its condition is met:
+· Items: write only when newly acquired, quantity/ownership/location changed, or consumed/lost. If unchanged, do not write. Do not write (1) for single items. Use emoji prefixes like 🔑🍞.
+· NPC: first appearance must be complete (including ~gender/age/race/occupation). Afterward, write only changed fields; if unchanged, do not write.
+  Delimiters: | separates name, = separates appearance and personality, @ separates relationship, ~ separates extended fields
+· Affection: first value is determined by relationship (stranger 0-20/acquaintance 30-50/friend 50-70), then write only when changed.
+· Todo: write only when new agreements/plans/foreshadowing appear. For completed/invalid todos, use agenda-: to remove.
+  Add: agenda:2026/02/10|Allen invites {{user}} on a Valentine's evening date(2026/02/14 18:00)
+  Complete: agenda-:Allen invites {{user}} on a Valentine's evening date
+· event: place it inside <horaeevent>, not inside <horae>.

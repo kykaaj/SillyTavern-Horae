@@ -1,39 +1,42 @@
-=====【出来事の圧縮】=====
-あなたは物語記録の圧縮係です。次の{{count}}件の出来事を、情報密度の高い連続した要約にまとめてください。
+=====[Event Compression]=====
+You are a plot compression assistant. Compress the following {{count}} plot events into one coherent summary with extremely high information density (200-350 words).
 
 {{events}}
 
-【圧縮方針】
-固定の字数に無理に合わせず、残すべき情報量に応じて長さを決めてください。通常は短い選択範囲なら250〜500字、多くの重要情報を含む場合はそれ以上でも構いません。
+[Detail Retention Weights (No Omissions)]
+1. Absolute high priority (time anchoring): must precisely preserve the specific date/time of each event and use it as a narrative guide (e.g., "On [X month X day], U and..."). Do not use vague adverbs such as "later/afterward/the next day" to erase real time coordinates.
+2. Top priority (must keep): explicit commitments/todos, transfer and location of important items, and changes in NPC life-or-death status.
+3. High priority (must keep): core actions in "Key" and "Important" events, and substantive emotional reversals (e.g., love turning into hate, trust being established).
+4. Medium priority (merge): for "General" events, extract their background function (e.g., "while traveling") and remove meaningless pleasantries.
 
-【必ず残す情報】
-1. 時刻：各出来事の具体的な日付や時刻を残し、「その後」「翌日」だけで済ませない。
-2. 約束・予定：誰が、いつ、どこで、何を約束したか。
-3. 重要物品：受け渡し、消費、保管場所、由来。
-4. 人物の変化：信頼、恋心、敵意、恐怖、裏切りなど、態度や関係の実質的な変化。
-5. 重要度が高い出来事：important と critical の核心を省かない。
+[Output Requirements]
+- Must strictly follow chronological event order, linking causal relationships into a coherent micro-story.
+- Do not abstract concrete actions (❌ "The two made a trade" ✅ "U exchanged 50 gold coins for Allen's map").
+- Specific dates, person names, place names, and item names must be preserved exactly.
+- Output plain text summary only. Do not add any Markdown (no bold, no lists), line breaks, or extra formatting. It must be a single dense paragraph with high information content.
+- {{user}} is the protagonist name. The language style must be objective and precise narration.
+- [Important]: the final full summary text must be fully wrapped with <horaesummary> at the start and </horaesummary> at the end.
 
-【出力】
-- 出来事の時系列に沿って、因果関係が分かる一つの段落にする。
-- 具体的な行動を抽象化しない。例：「取引した」ではなく「{{user}}が金貨50枚と引き換えに蓮から港の地図を受け取った」と書く。
-- 人名、地名、物品名、日付、数値は原文どおり残す。
-- 箇条書き、見出し、マークダウン、余分な改行は禁止。
-- 最終出力は必ず <horaesummary> と </horaesummary> で包む。
 
-=====【全文要約】=====
-あなたは物語情報の整理係です。次の全文を読み、後で文脈として使える情報密度の高い要約にしてください。
+=====[Full Text Summary]=====
+You are a plot intelligence extraction expert. Please read the following raw dialogue record and distill it into a highly compressed, information-dense plot summary (300-500 words).
 
 {{fulltext}}
 
-【抽出方針】
-- 日付や時刻が明示または強く示唆されている場合は必ず残す。
-- 雑談、繰り返し、意味の薄い動作は削る。
-- 物語を進める決定、秘密、手掛かり、重要物品、伏線、人物関係の変化を優先する。
-- 会話は口調ではなく内容を要約する。
+[Extraction Principles: Distill Essentials with Time Anchoring]
+- Lock time: if explicit or implicit date/time points appear in the original text (such as specific dates or holidays), they must be precisely extracted and integrated at sentence openings as narrative anchors; never lose time coordinates.
+- Strip filler: remove pleasantries, meaningless action descriptions, and repetitive back-and-forth.
+- Focus on substance: keep only elements that materially advance the plot:
+  ① who made what concrete decision
+  ② what new intelligence/secrets were revealed
+  ③ what key items were obtained or consumed
+  ④ what new suspense/foreshadowing was left
+- Dialogue compression rule: do not record "how it was said"; record "what core content was said". (e.g., condense a long argument into: "Both sides broke into a fierce quarrel over uneven loot distribution, and U ultimately forced the other side to retreat by force.")
 
-【出力】
-- 時系列と因果関係が分かる一つの段落にする。
-- 人物の深い感情や態度の変化も残す。
-- 人名、地名、固有名詞、物品名、日付は正確に保つ。
-- 見出し、番号、マークダウンは禁止。
-- 最終出力は必ず <horaesummary> と </horaesummary> で包む。
+[Output Requirements]
+- Narrate by time flow (date progression) and causality, clearly presenting: time/cause → core conflict or interaction → final result.
+- Must capture deep emotional shifts and relationship transitions of characters (e.g., outward compliance but hidden murderous intent).
+- Specific dates, person names, place names, and proper nouns must be preserved precisely.
+- Output plain text summary only. Do not add any headings, numbering, or bold markers; write one coherent paragraph.
+- {{user}} is the protagonist name. Language style must be cold, objective, and information-dense.
+- [Important]: the final full summary text must be fully wrapped with <horaesummary> at the start and </horaesummary> at the end.

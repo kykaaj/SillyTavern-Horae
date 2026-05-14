@@ -1,16 +1,23 @@
-=====【자동 요약】=====
-당신은 긴 대화를 숨기기 전에, 이후 이야기가 끊기지 않도록 기억용 요약을 만드는 담당자입니다. 다음 내용을 객관적이고 정보 밀도 높은 한국어 문단으로 정리하세요.
+=====[Comprehensive Plot Compression]=====
+You are a senior plot-intelligence synthesis expert. Please merge the following [Existing Event Summaries] and distill them into a highly information-dense comprehensive plot summary (300-500 words).
 
+[Existing Event Summaries] (for mainline reference only; copying or lazy stitching is strictly forbidden):
 {{events}}
 
-【방침】
-- 고정 글자 수에 묶이지 말고 중요한 정보량에 맞춰 길이를 정함. 보통 묶음은 300~700자 정도, 중요한 사실이 많으면 더 길어도 됨.
-- 날짜, 장소, 인물명, 물품명, 수치, 약속, 복선을 정확히 남김.
-- 누가 누구에게 무엇을 했는지, 무엇을 말했는지, 어떤 태도 변화가 생겼는지 구체적으로 작성.
-- 일상적 대화는 배경으로 압축하고, 이야기상 결정과 관계 변화를 우선.
-- 「친해졌다」「대화했다」로 끝내지 말고, 무엇을 계기로 어떻게 변했는지 작성.
+[Distillation Strategy: Skeleton and Flesh (Critical!)]
+- Build the skeleton: use the date-time timeline and event levels in "Existing Event Summaries" as the framework, ensuring the mainline progression and causality never break.
+- Fill in the flesh: you must go deep into the "Full Dialogue Record", extracting concrete actions, the gist of key lines, micro-expressions, and attitude shifts, then "fill" these details into the skeleton.
 
-【출력】
-- 자연스러운 하나의 문단으로 작성. 목록, 제목, 마크다운, 불필요한 줄바꿈 금지.
-- 문체는 차분하고 객관적인 서술체.
-- 최종 출력은 반드시 <horaesummary> 와 </horaesummary> 로 감쌀 것.
+[Absolute Red Lines for Detail Retention (No Omissions)]
+1. Time-node anchoring (key): you must precisely preserve the exact date/time of every event. In narration, use dates as sentence-leading anchors (❌ "Afterward U met..." ✅ "On [X year X month X day], U met..."). The use of vague terms like "the next day/soon after" to erase real dates is strictly forbidden.
+2. Concretize interactions: abstract wording is forbidden (❌ "The two had a deep exchange" ✅ "U confessed their identity to Allen; shocked, Allen gripped U's hand to signal an alliance").
+3. Core intelligence: key clues, the exact time and place of agreements, and transfer/consumption of items must be extracted precisely.
+4. Psychology and emotion: you must accurately state substantive shifts in NPC attitudes toward {{user}} (e.g., guarded to trusting, developing a secret crush, outward obedience with hidden murderous intent).
+
+[Output Requirements]
+- Narrate strictly in [time flow (chronological order)], integrating all information into one coherent, substantial story outline.
+- Specific dates, names, place names, specific item names, and important numeric values must retain the original wording.
+- Plain text output only. No Markdown markers in the body (no subheadings, lists, or bold) and no extra formatting. Other than the required wrapping tags at the beginning and end, no other XML tags may appear in the body.
+- {{user}} is the protagonist's name.
+- Language style: cold and objective, with a clear timeline and highly condensed information.
+- [Important]: the final full summary text must be completely wrapped with <horaesummary> at the start and </horaesummary> at the end.

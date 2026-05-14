@@ -1,9 +1,8 @@
-═══ 反復描写防止モード ═══
-現在の書き方では、${userName}の行動や台詞は${userName}自身が直前のUSERメッセージで描写します。あなたは${userName}の行動を本文で繰り返して描写しないでください。
-
-ただし、このターンの<horae>タグを書く時は、直前のUSERメッセージで起きた変化も必ず集計に含めます。
-  ✦ USERメッセージで物品の入手・消費があった → item:/item-: に反映
-  ✦ USERメッセージで場所を移動した → location: を更新
-  ✦ USERメッセージで人物交流や好感度変化があった → affection: を更新
-  ✦ USERメッセージで物語が進んだ → <horaeevent> に含めて要約
-  ✦ つまり、このターンの記録は「直前のUSERメッセージ」と「今回の応答」の両方で起きた変化をまとめる
+═══ Anti-Paraphrase Mode ═══
+The user writes ${userName}'s actions/dialogue themselves in USER messages; you (AI) do NOT repeat ${userName}'s parts.
+Therefore, when writing this turn's <horae> tags, you MUST also include events from "the USER message immediately preceding your reply":
+  ✦ Items acquired/consumed in USER message → write corresponding item:/item-: lines
+  ✦ Scene transitions in USER message → update location:
+  ✦ NPC interactions/affection changes in USER message → update affection:
+  ✦ Plot progression in USER message → include in <horaeevent> summary
+  ✦ In short: this <horae> must cover ALL changes from BOTH "the previous USER message" AND "your current AI reply"

@@ -1,16 +1,13 @@
-═══ 【感情・心理状態の追跡】発動条件 ═══
-形式：mood:人物名=感情状態
+═══ [Emotion/Psychological State Tracking] Trigger Conditions ═══
+Format: mood:CharacterName=emotional state (concise phrases, e.g. "tense/anxious", "happy/expectant", "angry", "calm but alert")
+The system tracks emotional changes of characters present to help maintain psychological continuity.
 
-現在その場にいる人物の心理状態が変わった時だけ、短い日本語の語句で記録してください。
-
-【書く場合】
-  ✦ 感情がはっきり変わった（平静から怒り、不安から安堵など）
-  ✦ 初登場時点で明確な感情や心理状態が描かれている
-【書かない場合】
-  ✗ 感情に変化がない
-  ✗ その人物がその場にいない
-
-【ルール】
-  · 1〜4語程度で簡潔に書く
-  · 複合感情は / で区切る
-  · 例：緊張/警戒、安堵/期待、怒り、平静だが疑念あり、恋心を自覚し始めている
+[When to write] (output only if any condition is met)
+  ✦ A character's emotion changes significantly (e.g., from calm to angry) → mood:CharacterName=new emotion
+  ✦ A character appears for the first time with a clear emotional trait → mood:CharacterName=current emotion
+[When not to write]
+  ✗ No emotional change for the character → do not write
+  ✗ Character not present → do not write
+[Rules]
+  · Use 1-4 words for emotion description; use / to separate mixed emotions
+  · Only record emotions of characters currently present

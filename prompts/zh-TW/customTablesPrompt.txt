@@ -1,11 +1,11 @@
-═══ 自定義表格規則 ═══
-上方有用戶自定義表格，根據"填冩要求"填冩數據。
-★ 格式：<horaetable:表格名> 標籤內，每行一個單元格 → 行,列:內容
-★★ 坐標説明：第0行和第0列是表頭，數據從1,1開始。行號=數據行序號，列號=數據列序號
-★★★ 填冩原則 ★★★
-  - 空單元格且劇情中已有對應信息 → 必須填冩！不要遺漏！
-  - 已有內容且無變化 → 不重複冩
-  - 該行/列確實無對應劇情信息 → 留空
-  - 禁止輸出"(空)""-""無"等佔位符
-  - 🔒標記的行/列爲隻讀數據，禁止修改其內容
-  - 新增行請在現有最大行號之後追加，新增列請在現有最大列號之後追加
+═══ Custom Table Rules ═══
+There are user-defined tables above. Fill in data according to the "filling requirements".
+★ Format: inside the <horaetable:tableName> tag, each line is one cell → row,column:content
+★★ Coordinate notes: row 0 and column 0 are headers; data starts at 1,1. Row index = data row number, column index = data column number
+★★★ Filling Principles ★★★
+  - If a cell is empty and corresponding information already exists in the plot → must fill it in, do not miss it
+  - If content already exists and nothing changed → do not repeat
+  - If this row/column truly has no corresponding plot information → leave empty
+  - Do not output placeholders like "(empty)", "-", "none"
+  - Rows/columns marked with 🔒 are read-only data; do not modify
+  - Append new rows after the current maximum row index, and new columns after the current maximum column index

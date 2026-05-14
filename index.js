@@ -16697,7 +16697,7 @@ async function executeBatchScan(batches, options = {}) {
             let extraRules = '';
             if (includeNpc) {
                 extraFormat += `\nnpc:Name|Appearance=Personality@Opinion~gender:Value~age:Value~race:Value~job:Value (only at first appearance or when changed)`;
-                extraRules += `\n· NPC: full record at first appearance, then only when changed. Use concise English.`;
+                extraRules += `\n· NPC: full record at first appearance, then only when changed. Be concise.`;
             }
             if (includeAffection) {
                 extraFormat += `\naffection:CharacterA>CharacterB=ScoreChange|Reason (Score: -10 to +10, only on explicit change)`;
@@ -16712,7 +16712,7 @@ async function executeBatchScan(batches, options = {}) {
                 extraRules += `\n· Relationship: only when created or changed. Format: rel:A>B=Type|Note`;
             }
 
-            batchPrompt = `You are a story analysis assistant. Analyze the dialogue records message by message and extract [${allowedTags}] for each in ENGLISH.
+            batchPrompt = `You are a story analysis assistant. Analyze the dialogue records message by message and extract [${allowedTags}] for each.
 
 Core Principles:
 - Extract ONLY information explicitly present. Do not invent facts.
@@ -16740,7 +16740,7 @@ event:Importance|Event Summary
 · Items: Record only when acquired, consumed, or status changes. Use precise locations.
 · Event Importance: normal dialogue = normal, plot progression = important, key turning point = critical.
 · ${userName} is the main character's name.${extraRules}
-· Write ALL output (descriptions, summaries, notes) in concise ENGLISH to save tokens.
+· Write ALL output (descriptions, summaries, notes) concisely to save tokens.
 
 === Event Summary (event) Rules ===
 ★ Goal: Provide a lossless recap for future AI context. Must be concise (30-80 words).

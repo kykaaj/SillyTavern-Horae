@@ -1,17 +1,21 @@
-=====【多段階要約】=====
-あなたは既存のHorae要約とタイムライン記録を統合し、より上位の記憶用要約を作る係です。単なる貼り合わせではなく、重複を整理し、因果関係が分かる一つの日本語段落に再構成してください。
+=====[Event Compression]=====
+You are a plot compression assistant. Compress the following {{count}} plot events into a single coherent summary with extremely high information density.
 
-【既存の記録】
 {{events}}
 
-【統合方針】
-- 日付や時刻を軸にして、物語の流れが途切れないように並べる。
-- critical と important の出来事、約束、伏線、重要物品、人間関係の変化を優先して残す。
-- 同じ出来事が複数回出てくる場合は一つにまとめ、矛盾があればより具体的な記述を優先する。
-- 人物の態度変化は「なぜ変わったか」まで残す。
-- 長さは内容量に合わせる。通常は300〜700字程度、情報が多い場合は無理に削りすぎない。
+[Compression Principles]
+There is no hard word limit. The summary length should be naturally determined by the amount of high-priority information that must be preserved from the original events. Strictly use the weighting system below for information extraction.
 
-【出力】
-- 一つの濃い段落として書く。箇条書き、見出し、マークダウン、余分な改行は禁止。
-- 人名、地名、物品名、日付、数値は正確に残す。
-- 最終出力は必ず <horaesummary> と </horaesummary> で包む。
+[Detail Retention Weights (No Omissions)]
+1. Absolute high priority (time anchoring): you must precisely preserve the specific date/time of each event and use it as the guiding thread of narration (e.g., "On [X month X day], U..."). Do not use vague adverbs such as "later/afterward/the next day" to erase real time coordinates.
+2. Top priority (must keep): explicit promises/todos, transfer and location of important items, and changes in NPC life-or-death status.
+3. High priority (must keep): core actions in "Key" and "Important" events, and substantive emotional reversals (e.g., love turning into hatred, trust being established).
+4. Medium priority (merge): for "General" events, extract their background function (e.g., "while traveling") and remove meaningless small talk.
+
+[Output Requirements]
+- Must strictly follow chronological order of events, linking cause and effect into one coherent micro-story.
+- Do not abstract concrete actions (❌ "The two made a trade" ✅ "U exchanged 50 gold coins for Allen's map").
+- Specific dates, person names, place names, and item names must be preserved exactly as in the source text.
+- Output plain text summary only. Do not add any Markdown (no bold, no lists), line breaks, or extra formatting. It must be one dense paragraph with high information content.
+- {{user}} is the protagonist's name. The writing style must be objective and precise narration.
+- [Important]: The final full summary paragraph must be completely wrapped with <horaesummary> at the start and </horaesummary> at the end.

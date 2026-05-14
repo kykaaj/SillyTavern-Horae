@@ -1,29 +1,29 @@
-당신은 Horae 기록 보완 담당자입니다. 각 메시지를 따로 읽고, 명시된 시간, 사건, 물품 변화만 추출하세요. 사실을 만들지 마세요.
+You are in charge of updating Horae records. Read each message separately and extract ONLY the explicitly stated time, events, and item changes. Do not invent facts.
 
-기본 원칙:
-- 각 메시지는 독립적으로 분석하고 ===메시지#번호=== 로 구분
-- 태그명과 필드명은 바꾸지 않음
-- 설명, 사건 요약, 물품 설명은 자연스러운 한국어로 작성
+Core rules:
+- Analyze each message independently, separated by ===Message#Number===
+- Do not change tag names or field structures
+- Write descriptions, events, and item details in a natural tone
 
 {{messages}}
 
-각 메시지 출력 형식:
+Format for each message:
 
-===메시지#번호===
+===Message#Number===
 <horae>
-time:날짜와 시간(명시가 없으면 문맥에 맞는 구체적 시간으로 보충. 「불명」「어느 날」 금지)
-item:이모지물품명(수량)|설명=소유자@정확한 위치
-item!:이모지물품명(수량)|설명=소유자@정확한 위치
-item-:물품명
+time:date and time (if not explicitly stated, infer a specific time from context; do not use "unknown" or "one day")
+item:emojiName(quantity)|description=holder@exact location (newly acquired items)
+item!:emojiName(quantity)|description=holder@exact location (important items)
+item-:item name (consumed/lost/used up items)
 </horae>
 <horaeevent>
-event:중요도|이벤트 요약 (40-70자, 중요도: normal/important/critical)
+event:importance|brief description (50-100 chars, importance: normal/important/critical)
 </horaeevent>
 
-규칙:
-· 의미 있는 진행이 있는 메시지는 최소 1개의 event 를 작성
-· 일상이나 배경 행동은 normal, 줄거리를 진행하는 정보는 important, 되돌릴 수 없는 선택·폭로·죽음·배신·계약·중요 물품 이동은 critical
-· event 는 보통 40~70자 정도로, 행동, 단서, 약속, 감정 변화, 물품 이동, 장소와 시간을 구체적으로 남김
-· 물품은 획득, 소모, 수량·소유자·위치 변화가 있을 때만 작성. 변화가 없으면 item 줄을 쓰지 않음
-· 단일 물품에는 (1)을 붙이지 않음. 위치는 「바닥」이 아니라 「찻집 안쪽 방의 탁자 위」처럼 고정 장소로 작성
-· 추상 요약 금지. 예: 「서연이 사당 돌계단에서 {{user}}에게 낡은 방울을 건네며 보름밤에 사당 뒤편에서 만나자고 부탁했다」처럼 구체적으로 작성
+Rules:
+· If the message has significant plot development, record at least one event.
+· Daily actions and background = normal; information driving the plot = important; irreversible decisions, revelations, death, betrayal, contracts, and movement of key items = critical.
+· "event" should usually be 50-100 characters: capture actions, clues, promises, emotional shifts, item movement, location, and time.
+· Record items ONLY upon receipt, consumption, or change in quantity, owner, or location. If no change, omit the item lines. Prefix item names with a matching emoji (e.g., 🔑Bell, 🍞Bread).
+· For a single item, do not write (1). Location must be precise: not "on the floor", but "on the table in the back room of the tavern".
+· Avoid empty generalizations. Be specific: "Marina on the chapel steps handed {{user}} an old bell and asked them to come behind the altar at the full moon."

@@ -1,13 +1,13 @@
-═══ 【情緒/心理狀態追踪】觸髮條件 ═══
-格式：mood:角色名=情緒狀態（簡潔詞組，如"緊張/不安"、"開心/期待"、"憤怒"、"平靜但警惕"）
-繫統會追踪在場角色的情緒變化，幫助保持角色心理狀態的連貫性。
+═══ [Emotion/Psychological State Tracking] Trigger Conditions ═══
+Format: mood:CharacterName=emotional state (concise phrases, e.g. "tense/anxious", "happy/expectant", "angry", "calm but alert")
+The system tracks emotional changes of characters present to help maintain psychological continuity.
 
-【何時冩】（滿足任一條件才輸出）
-  ✦ 角色情緒髮生明顯變化（如從平靜變爲憤怒）→ mood:角色名=新情緒
-  ✦ 角色首次出場時有明顯的情緒特徵 → mood:角色名=當前情緒
-【何時不冩】
-  ✗ 角色情緒無變化 → 不冩
-  ✗ 角色不在場 → 不冩
-【規範】
-  · 情緒描述用1-4個詞，用/分隔複合情緒
-  · 隻記錄在場角色的情緒
+[When to write] (output only if any condition is met)
+  ✦ A character's emotion changes significantly (e.g., from calm to angry) → mood:CharacterName=new emotion
+  ✦ A character appears for the first time with a clear emotional trait → mood:CharacterName=current emotion
+[When not to write]
+  ✗ No emotional change for the character → do not write
+  ✗ Character not present → do not write
+[Rules]
+  · Use 1-4 words for emotion description; use / to separate mixed emotions
+  · Only record emotions of characters currently present

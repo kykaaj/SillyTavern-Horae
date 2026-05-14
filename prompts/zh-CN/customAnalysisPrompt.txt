@@ -1,40 +1,40 @@
-请分析以下 AI 回复文本，提取关键信息并以指定格式输出。核心原则：只提取文本中明确提到的信息，没有的字段不写，禁止编造。
+Please analyze the following AI reply text, extract key information, and output it in the specified format. Core principle: only extract information explicitly mentioned in the text. If a field is absent, do not write it. Fabrication is forbidden.
 
-【参考状态（该楼层之前的已知信息，只读参考，不要视为本楼层新增事实）】
+[Reference State (known info before this message; read-only reference, do not treat as new facts for this message)]
 {{context}}
 
-【上一条用户行动】
+[Previous User Action]
 {{previousUserMessage}}
 
-【待分析文本】
+[Text to Analyze]
 {{content}}
 
-【输出格式】
+[Output Format]
 <horae>
-time:日期 时间（必填，如 2026/2/4 15:00 或 霜降月第一日 19:50。在无法确定时间时，请编一个合理的具体时间，禁止使用“未知”，“某日”等无意义表述）
-location:当前地点（必填）
-atmosphere:氛围${sceneDescLine}
-characters:在场角色,逗号分隔（必填）
-costume:角色名=完整服装描述（必填，每人一行，禁止分号合并）
-item:emoji物品名(数量)|描述=持有者@精确位置（仅新获得或有变化的物品）
-item!:emoji物品名(数量)|描述=持有者@精确位置（重要物品，描述必填）
-item!!:emoji物品名(数量)|描述=持有者@精确位置（关键道具，描述必须详细）
-item-:物品名（消耗/丢失的物品）
-affection:角色名=好感度数值（仅NPC对{{user}}的好感，禁止记录{{user}}自己，禁止数值后加注解）
-npc:角色名|外貌=性格@与{{user}}的关系~性别:男或女~年龄:数字~种族:种族名~职业:职业名${relLine}${moodLine}
-agenda:订立日期|待办内容（仅在出现新约定/计划/伏笔时写入，相对时间须括号标注绝对日期）
-agenda-:内容关键词（待办已完成/失效/取消时写入，系统自动移除匹配的待办）
+time:date time (required, e.g., 2026/2/4 15:00 or First Day of Frostfall Moon 19:50. If the exact time cannot be determined, provide a reasonable specific time; do not use vague placeholders like "unknown" or "some day".)
+location:current location (required)
+atmosphere:atmosphere${sceneDescLine}
+characters:characters present, comma-separated (required)
+costume:character name=full outfit description (required, one line per character, do not merge with semicolons)
+item:emoji item name(quantity)|description=holder@exact location (only newly acquired or changed items)
+item!:emoji item name(quantity)|description=holder@exact location (important items, description required)
+item!!:emoji item name(quantity)|description=holder@exact location (key items, description must be detailed)
+item-:item name (consumed/lost items)
+affection:character name=affection value (only NPC affection toward {{user}}, do not record {{user}} themselves, do not append notes after the number)
+npc:character name|appearance=personality@relationship with {{user}}~gender:male or female~age:number~race:race name~occupation:occupation name${relLine}${moodLine}
+agenda:date established|todo content (write only when new agreements/plans/foreshadowing appear; relative time must include absolute date in parentheses)
+agenda-:content keyword (write when todo is completed/invalid/canceled; system auto-removes matching todo)
 </horae>
 <horaeevent>
-event:重要程度|事件简述（30-50字，一般/重要/关键）
+event:importance level|brief summary (50-80 chars, General/Important/Key)
 </horaeevent>
 
-【触发条件】只在满足条件时才输出对应字段：
-· 物品：仅新获得、数量/归属/位置改变、消耗丢失时写。无变化不写。单件不写(1)。emoji前缀如🔑🍞。
-· NPC：首次出场必须完整（含~性别/年龄/种族/职业）。之后仅变化的字段写，无变化不写。
-  分隔符：| 分名字，= 分外貌和性格，@ 分关系，~ 分扩展字段
-· 好感度：首次按关系判定（陌生0-20/熟人30-50/朋友50-70），之后仅变化时写。
-· 待办：仅出现新约定/计划/伏笔时写。已完成/失效的待办用 agenda-: 移除。
-  新增：agenda:2026/02/10|艾伦邀请{{user}}情人节晚上约会(2026/02/14 18:00)
-  完成：agenda-:艾伦邀请{{user}}情人节晚上约会
-· event：放在<horaeevent>内，不放在<horae>内。
+[Trigger Conditions] Only output a field when its condition is met:
+· Items: write only when newly acquired, quantity/ownership/location changed, or consumed/lost. If unchanged, do not write. Do not write (1) for single items. Use emoji prefixes like 🔑🍞.
+· NPC: first appearance must be complete (including ~gender/age/race/occupation). Afterward, write only changed fields; if unchanged, do not write.
+  Delimiters: | separates name, = separates appearance and personality, @ separates relationship, ~ separates extended fields
+· Affection: first value is determined by relationship (stranger 0-20/acquaintance 30-50/friend 50-70), then write only when changed.
+· Todo: write only when new agreements/plans/foreshadowing appear. For completed/invalid todos, use agenda-: to remove.
+  Add: agenda:2026/02/10|Allen invites {{user}} on a Valentine's evening date(2026/02/14 18:00)
+  Complete: agenda-:Allen invites {{user}} on a Valentine's evening date
+· event: place it inside <horaeevent>, not inside <horae>.

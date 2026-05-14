@@ -3,7 +3,7 @@ You are in charge of updating Horae records. Read each message separately and ex
 Core rules:
 - Analyze each message independently, separated by ===Message#Number===
 - Do not change tag names or field structures
-- Write descriptions, events, and item details in natural English
+- Write descriptions, events, and item details in a natural tone
 
 {{messages}}
 

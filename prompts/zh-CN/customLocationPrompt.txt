@@ -1,29 +1,29 @@
-═══ 【场景记忆】触发条件 ═══
-格式：scene_desc:位于…。该地点的固定物理特征描述（50-150字）
-场景记忆记录地点的核心布局和永久性特征（建筑结构、固定家具、空间特点），用于保持跨回合的场景描写一致性。
+═══ [Scene Memory] Trigger Conditions ═══
+Format: scene_desc:Located at .... Description of this location's fixed physical features (50-150 words)
+Scene memory records a location's core layout and permanent traits (architectural structure, fixed furniture, spatial characteristics) to keep scene descriptions consistent across turns.
 
-【地点／位于 格式】★★★ 严格遵守层级规则 ★★★
-  · 描述开头先写「位于」标明该地点相对于直接上级的方位，再写该地点自身的物理特征
-  · 子级地点（含·分隔符的地名）：「位于」只写相对于父级建筑内部的方位（如哪一楼、哪个方向），绝对禁止包含父级的外部地理位置
-  · 父级/顶级地点：「位于」才写外部地理位置（如哪个大陆、哪片森林旁）
-  · 系统会自动同时发送父级描述给AI，子级无需也不应重复父级信息
-    ✓ 无名酒馆·客房203 → scene_desc:位于2楼东侧。边间，采光佳，单人木床靠墙，窗户朝东
-    ✓ 无名酒馆·大厅 → scene_desc:位于1楼。挑高木质空间，正中是长吧台，散落数张圆桌
-    ✓ 无名酒馆 → scene_desc:位于OO大陆北方XX森林边上。两层木石结构，一楼大厅和吧台，二楼客房区
-    ✗ 无名酒馆·客房203 → scene_desc:位于OO大陆北方XX森林边上的无名酒馆2楼…（❌ 子级禁止写父级的外部地理信息）
-    ✗ 无名酒馆·大厅 → scene_desc:位于森林边上的无名酒馆1楼…（❌ 同上）
-【地名规范】
-  · 多级地点用·分隔：建筑·区域（如「无名酒馆·大厅」「皇宫·地牢」）
-  · 同一地点必须始终使用与上方[场景|...]中完全一致的名称，禁止缩写或改写
-  · 不同建筑的同名区域各自独立记录（如「无名酒馆·大厅」和「皇宫·大厅」是不同地点）
-【何时写】
-  ✦ 首次到达一个新地点 → 必须写scene_desc，描述该地点的固定物理特征
-  ✦ 地点发生永久性物理变化（如被破坏、重新装修）→ 写更新后的scene_desc
-【何时不写】
-  ✗ 回到已记录的旧地点且无物理变化 → 不写
-  ✗ 季节/天气/氛围变化 → 不写（这些是临时变化，不属于固定特征）
-【描述规范】
-  · 只写固定/永久性的物理特征：空间结构、建筑材质、固定家具、窗户朝向、标志性装饰
-  · 不写临时性状态：当前光照、天气、人群、季节装饰、临时摆放的物品
-  · 禁止照搬场景记忆原文到正文，将其作为背景参考，以当前时间/天气/光线/角色视角重新描写
-  · 上方[场景记忆|...]是系统已记录的该地点特征，描写该场景时保持这些核心要素不变，同时根据时间/季节/剧情自由发挥变化细节
+[Location/"Located at" Format] ★★★ Strictly follow hierarchy rules ★★★
+  · Start with "Located at" to indicate this place's position relative to its direct parent, then describe this place's own physical features
+  · Child locations (names containing the "·" separator): in "Located at", only write position within the parent building (e.g., which floor, which direction); never include the parent's external geography
+  · Parent/top-level locations: only here should "Located at" include external geography (e.g., which continent, beside which forest)
+  · The system automatically sends parent descriptions to the AI, so child entries do not need and should not repeat parent information
+    ✓ Nameless Tavern·Room 203 → scene_desc:Located on the east side of the 2nd floor. Corner room with good daylight, single wooden bed against the wall, east-facing window
+    ✓ Nameless Tavern·Hall → scene_desc:Located on the 1st floor. High-ceiling wooden space, long bar counter in the center, several round tables scattered around
+    ✓ Nameless Tavern → scene_desc:Located on the northern edge of XX Forest on OO Continent. Two-story wood-and-stone structure, hall and bar on the first floor, guest rooms on the second floor
+    ✗ Nameless Tavern·Room 203 → scene_desc:Located on the 2nd floor of Nameless Tavern by XX Forest in northern OO Continent... (❌ child entries must not include parent external geography)
+    ✗ Nameless Tavern·Hall → scene_desc:Located on the 1st floor of Nameless Tavern by the forest... (❌ same)
+[Place Name Rules]
+  · Use "·" for multi-level locations: Building·Area (e.g., "Nameless Tavern·Hall", "Palace·Dungeon")
+  · The same location must always use exactly the same name as in [Scene|...] above; no abbreviations or rewrites
+  · Same-named areas in different buildings are tracked independently (e.g., "Nameless Tavern·Hall" and "Palace·Hall" are different locations)
+[When to write]
+  ✦ First arrival at a new location → must write scene_desc describing its fixed physical traits
+  ✦ Permanent physical changes at a location (e.g., destroyed, renovated) → write updated scene_desc
+[When not to write]
+  ✗ Return to a previously recorded location with no physical change → do not write
+  ✗ Seasonal/weather/atmosphere changes → do not write (these are temporary and not fixed traits)
+[Description Rules]
+  · Only write fixed/permanent physical traits: spatial structure, building materials, fixed furniture, window orientation, iconic decorations
+  · Do not write temporary states: current lighting, weather, crowds, seasonal decorations, temporarily placed items
+  · Do not copy scene-memory text verbatim into the main body; use it as background reference and rewrite based on current time/weather/light/character perspective
+  · [Scene Memory|...] above contains system-recorded traits for this location; keep these core elements unchanged while freely varying details according to time/season/plot
