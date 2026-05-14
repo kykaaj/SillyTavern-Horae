@@ -177,12 +177,12 @@ export function detectEffectiveAiLangIsZh(settings) {
 
 export function getLangEnforcementInstruction(settings) {
     const lang = detectEffectiveAiLang(settings);
-    if (lang === 'en') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in English, regardless of the language of the chat history.';
-    if (lang === 'zh-CN') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Simplified Chinese, regardless of the language of the chat history.';
-    if (lang === 'zh-TW') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Traditional Chinese, regardless of the language of the chat history.';
-    if (lang === 'ja') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Japanese, regardless of the language of the chat history.';
-    if (lang === 'ko') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Korean, regardless of the language of the chat history.';
-    if (lang === 'ru') return '\n\n[IMPORTANT COMMAND]\nYou MUST write all your output entirely in Russian, regardless of the language of the chat history.';
+    if (lang === 'en') return '[IMPORTANT COMMAND] You MUST write all your output entirely in English, regardless of the language of the chat history.\n\n';
+    if (lang === 'zh-CN') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Simplified Chinese, regardless of the language of the chat history.\n\n';
+    if (lang === 'zh-TW') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Traditional Chinese, regardless of the language of the chat history.\n\n';
+    if (lang === 'ja') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Japanese, regardless of the language of the chat history.\n\n';
+    if (lang === 'ko') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Korean, regardless of the language of the chat history.\n\n';
+    if (lang === 'ru') return '[IMPORTANT COMMAND] You MUST write all your output entirely in Russian, regardless of the language of the chat history.\n\n';
     return '';
 }
 

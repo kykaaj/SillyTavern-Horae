@@ -3258,7 +3258,7 @@ async function compressSelectedTimelineEvents() {
         }).join('\n');
 
         let fullTemplate = settings.customCompressPrompt || getDefaultCompressPrompt();
-        fullTemplate += getLangEnforcementInstruction(settings);
+        fullTemplate = getLangEnforcementInstruction(settings) + fullTemplate;
         const section = parseCompressPrompt(fullTemplate, mode);
         const prompt = section
             .replace(/\{\{events\}\}/gi, mode === 'event' ? sourceText : eventText)
@@ -14691,7 +14691,7 @@ function _getSummaryEntryRange(entry) {
 
 function _buildAutoSummaryPrompt(userName, eventText, sourceText, count) {
     let autoSumTemplate = settings.customAutoSummaryPrompt || getDefaultAutoSummaryPrompt();
-    autoSumTemplate += getLangEnforcementInstruction(settings);
+    autoSumTemplate = getLangEnforcementInstruction(settings) + autoSumTemplate;
     return autoSumTemplate
         .replace(/\{\{events\}\}/gi, eventText || '')
         .replace(/\{\{fulltext\}\}/gi, sourceText || '')
@@ -14701,7 +14701,7 @@ function _buildAutoSummaryPrompt(userName, eventText, sourceText, count) {
 
 function _buildAutoResummaryPrompt(userName, eventText, count) {
     let autoResumTemplate = settings.customAutoResummaryPrompt || getDefaultAutoResummaryPrompt();
-    autoResumTemplate += getLangEnforcementInstruction(settings);
+    autoResumTemplate = getLangEnforcementInstruction(settings) + autoResumTemplate;
     return autoResumTemplate
         .replace(/\{\{events\}\}/gi, eventText || '')
         .replace(/\{\{fulltext\}\}/gi, '')
@@ -16310,7 +16310,7 @@ async function checkAutoSummary() {
 
         const eventText = bufferEvents.map(e => `[${e.level}] ${e.date}${e.time ? ' ' + e.time : ''}: ${e.summary}`).join('\n');
         let autoSumTemplate = settings.customAutoSummaryPrompt || getDefaultAutoSummaryPrompt();
-        autoSumTemplate += getLangEnforcementInstruction(settings);
+        autoSumTemplate = getLangEnforcementInstruction(settings) + autoSumTemplate;
         const includeFullText = _getAutoSummarySourceMode() === 'fulltext';
         const hasFullTextPlaceholder = /\{\{fulltext\}\}/i.test(autoSumTemplate);
         let prompt = autoSumTemplate
@@ -16753,6 +16753,7 @@ event:Importance|Event Summary
 ★ NO fabrications.
 ★ NO atmospheric summaries.`;
         }
+        batchPrompt = getLangEnforcementInstruction(settings) + batchPrompt;
 
         try {
             const response = await Promise.race([
@@ -18076,7 +18077,7 @@ async function analyzeMessageWithAI(messageContent, opts = {}) {
     }
 
     let template = settings.customAnalysisPrompt || getDefaultAnalysisPrompt();
-    template += getLangEnforcementInstruction(settings);
+    template = getLangEnforcementInstruction(settings) + template;
     let analysisPrompt = template
         .replace(/\{\{user\}\}/gi, userName)
         .replace(/\{\{context\}\}/gi, contextText)

@@ -1,29 +1,29 @@
-Вы отвечаете за пополнение записей Horae. Читайте каждое сообщение отдельно и извлекайте только явно указанные время, события и изменения предметов. Не придумывайте факты.
+You are in charge of updating Horae records. Read each message separately and extract ONLY the explicitly stated time, events, and item changes. Do not invent facts.
 
-Основные правила:
-- Каждое сообщение анализируется отдельно и отделяется строкой ===Message#номер===
-- Названия тегов и полей не менять
-- Описания, события и сведения о предметах писать естественным русским языком
+Core rules:
+- Analyze each message independently, separated by ===Message#Number===
+- Do not change tag names or field structures
+- Write descriptions, events, and item details in natural English
 
 {{messages}}
 
-Формат для каждого сообщения:
+Format for each message:
 
-===Message#номер===
+===Message#Number===
 <horae>
-time:дата и время (если не указано явно, подобрать конкретное время по контексту; не писать «неизвестно» или «однажды»)
-item:эмодзиНазвание(количество)|описание=владелец@точное место
-item!:эмодзиНазвание(количество)|описание=владелец@точное место
-item-:название предмета
+time:date and time (if not explicitly stated, infer a specific time from context; do not use "unknown" or "one day")
+item:emojiName(quantity)|description=holder@exact location (newly acquired items)
+item!:emojiName(quantity)|description=holder@exact location (important items)
+item-:item name (consumed/lost/used up items)
 </horae>
 <horaeevent>
-event:важность|краткое описание (50-100 символов, важность: normal/important/critical)
+event:importance|brief description (50-100 chars, importance: normal/important/critical)
 </horaeevent>
 
-Правила:
-· Если в сообщении есть значимое развитие сюжета, запишите хотя бы один event.
-· Повседневные действия и фон — normal; сведения, двигающие сюжет, — important; необратимые решения, разоблачения, смерть, предательство, договоры и перемещение важных предметов — critical.
-· event обычно должен быть около 50-100 символов: сохраняйте действия, улики, обещания, эмоциональные сдвиги, перемещение предметов, место и время.
-· Предметы писать только при получении, расходе, изменении количества, владельца или места. Если изменений нет, строки item не нужны. Обязательно добавляйте подходящий эмодзи перед названием (например, 🔑Ключ, 🍞Хлеб).
-· Для единичного предмета не пишите (1). Место должно быть точным: не «на полу», а «на столе в дальней комнате чайной».
-· Не используйте пустые обобщения. Пишите конкретно: «Марина на ступенях часовни передала {{user}} старый колокольчик и попросила прийти за алтарь в полнолуние».
+Rules:
+· If the message has significant plot development, record at least one event.
+· Daily actions and background = normal; information driving the plot = important; irreversible decisions, revelations, death, betrayal, contracts, and movement of key items = critical.
+· "event" should usually be 50-100 characters: capture actions, clues, promises, emotional shifts, item movement, location, and time.
+· Record items ONLY upon receipt, consumption, or change in quantity, owner, or location. If no change, omit the item lines. Prefix item names with a matching emoji (e.g., 🔑Bell, 🍞Bread).
+· For a single item, do not write (1). Location must be precise: not "on the floor", but "on the table in the back room of the tavern".
+· Avoid empty generalizations. Be specific: "Marina on the chapel steps handed {{user}} an old bell and asked them to come behind the altar at the full moon."

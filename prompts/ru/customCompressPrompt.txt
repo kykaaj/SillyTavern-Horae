@@ -1,39 +1,42 @@
-=====【Сжатие событий】=====
-Вы отвечаете за сжатие сюжетных записей. Объедините следующие {{count}} событий в один связный и насыщенный фактами абзац.
+=====[Event Compression]=====
+You are a plot compression assistant. Compress the following {{count}} plot events into one coherent summary with extremely high information density (200-350 words).
 
 {{events}}
 
-【Принцип сжатия】
-Не подгоняйте текст под жёсткий лимит. Длина должна зависеть от количества важных сведений. Для короткой выборки обычно достаточно 80-160 русских слов; если важных фактов много, пишите длиннее.
+[Detail Retention Weights (No Omissions)]
+1. Absolute high priority (time anchoring): must precisely preserve the specific date/time of each event and use it as a narrative guide (e.g., "On [X month X day], U and..."). Do not use vague adverbs such as "later/afterward/the next day" to erase real time coordinates.
+2. Top priority (must keep): explicit commitments/todos, transfer and location of important items, and changes in NPC life-or-death status.
+3. High priority (must keep): core actions in "Key" and "Important" events, and substantive emotional reversals (e.g., love turning into hate, trust being established).
+4. Medium priority (merge): for "General" events, extract their background function (e.g., "while traveling") and remove meaningless pleasantries.
 
-【Обязательно сохранить】
-1. Время: конкретные даты и часы событий. Не заменять их словами «потом» или «на следующий день».
-2. Обещания и планы: кто, когда, где и что пообещал.
-3. Важные предметы: передача, расход, место хранения, происхождение.
-4. Изменения персонажей: доверие, симпатия, вражда, страх, предательство и другие реальные сдвиги отношения.
-5. События высокой важности: не опускать ядро important и critical.
+[Output Requirements]
+- Must strictly follow chronological event order, linking causal relationships into a coherent micro-story.
+- Do not abstract concrete actions (❌ "The two made a trade" ✅ "U exchanged 50 gold coins for Allen's map").
+- Specific dates, person names, place names, and item names must be preserved exactly.
+- Output plain text summary only. Do not add any Markdown (no bold, no lists), line breaks, or extra formatting. It must be a single dense paragraph with high information content.
+- {{user}} is the protagonist name. The language style must be objective and precise narration.
+- [Important]: the final full summary text must be fully wrapped with <horaesummary> at the start and </horaesummary> at the end.
 
-【Вывод】
-- Пишите один абзац в хронологическом порядке с понятной причинно-следственной связью.
-- Не обобщайте конкретные действия. Вместо «они заключили сделку» пишите «{{user}} отдал Артёму 50 золотых и получил карту порта».
-- Имена, места, названия предметов, даты и числа сохраняйте точно.
-- Без списков, заголовков, Markdown и лишних переносов строк.
-- Итоговый текст обязательно заключить в <horaesummary> и </horaesummary>.
 
-=====【Сводка полного текста】=====
-Вы отвечаете за извлечение сюжетной информации. Прочитайте полный текст и составьте плотную сводку, которую можно использовать как будущий контекст.
+=====[Full Text Summary]=====
+You are a plot intelligence extraction expert. Please read the following raw dialogue record and distill it into a highly compressed, information-dense plot summary (300-500 words).
 
 {{fulltext}}
 
-【Что извлекать】
-- Если дата или время указаны или явно подразумеваются, сохранить их.
-- Убрать приветствия, повторы и малозначимые жесты.
-- В первую очередь сохранять решения, тайны, улики, важные предметы, зацепки и изменения отношений.
-- Диалоги пересказывать по сути, а не по манере речи.
+[Extraction Principles: Distill Essentials with Time Anchoring]
+- Lock time: if explicit or implicit date/time points appear in the original text (such as specific dates or holidays), they must be precisely extracted and integrated at sentence openings as narrative anchors; never lose time coordinates.
+- Strip filler: remove pleasantries, meaningless action descriptions, and repetitive back-and-forth.
+- Focus on substance: keep only elements that materially advance the plot:
+  ① who made what concrete decision
+  ② what new intelligence/secrets were revealed
+  ③ what key items were obtained or consumed
+  ④ what new suspense/foreshadowing was left
+- Dialogue compression rule: do not record "how it was said"; record "what core content was said". (e.g., condense a long argument into: "Both sides broke into a fierce quarrel over uneven loot distribution, and U ultimately forced the other side to retreat by force.")
 
-【Вывод】
-- Один абзац с понятным ходом времени и причинностью.
-- Сохранять глубокие эмоциональные и поведенческие изменения персонажей.
-- Имена, места, термины, предметы и даты сохранять точно.
-- Без заголовков, нумерации и Markdown.
-- Итоговый текст обязательно заключить в <horaesummary> и </horaesummary>.
+[Output Requirements]
+- Narrate by time flow (date progression) and causality, clearly presenting: time/cause → core conflict or interaction → final result.
+- Must capture deep emotional shifts and relationship transitions of characters (e.g., outward compliance but hidden murderous intent).
+- Specific dates, person names, place names, and proper nouns must be preserved precisely.
+- Output plain text summary only. Do not add any headings, numbering, or bold markers; write one coherent paragraph.
+- {{user}} is the protagonist name. Language style must be cold, objective, and information-dense.
+- [Important]: the final full summary text must be fully wrapped with <horaesummary> at the start and </horaesummary> at the end.

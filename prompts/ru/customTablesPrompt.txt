@@ -1,13 +1,11 @@
-═══ Правила пользовательских таблиц ═══
-Выше находятся таблицы, созданные пользователем. Заполняйте только сведения, явно присутствующие в сюжете, и только по требованиям каждой таблицы.
-
-★ Формат: внутри тега <horaetable:имя таблицы> одна строка соответствует одной ячейке → строка,столбец:содержание
-★★ Координаты: строка 0 и столбец 0 — заголовки. Данные начинаются с 1,1. Номер строки означает строку данных, номер столбца — столбец данных.
-
-★★★ Принципы заполнения ★★★
-  - Пустая ячейка и в сюжете есть соответствующая информация → обязательно заполнить
-  - Содержимое уже есть и не изменилось → не повторять
-  - Для этой строки или столбца действительно нет сведений → ничего не писать
-  - Не использовать заглушки вроде «пусто», «нет», «-»
-  - Строки и столбцы с отметкой 🔒 доступны только для чтения. Их содержимое не менять
-  - Новые строки добавлять после текущего максимального номера строки, новые столбцы — после текущего максимального номера столбца
+═══ Custom Table Rules ═══
+There are user-defined tables above. Fill in data according to the "filling requirements".
+★ Format: inside the <horaetable:tableName> tag, each line is one cell → row,column:content
+★★ Coordinate notes: row 0 and column 0 are headers; data starts at 1,1. Row index = data row number, column index = data column number
+★★★ Filling Principles ★★★
+  - If a cell is empty and corresponding information already exists in the plot → must fill it in, do not miss it
+  - If content already exists and nothing changed → do not repeat
+  - If this row/column truly has no corresponding plot information → leave empty
+  - Do not output placeholders like "(empty)", "-", "none"
+  - Rows/columns marked with 🔒 are read-only data; do not modify
+  - Append new rows after the current maximum row index, and new columns after the current maximum column index

@@ -1,9 +1,8 @@
-═══ Режим без повторного пересказа действий пользователя ═══
-В текущем стиле действия и реплики ${userName} описывает сам ${userName} в предыдущем сообщении USER. Не пересказывайте эти действия повторно в основном тексте.
-
-Однако при создании тегов <horae> для этого хода обязательно учитывайте изменения, произошедшие в предыдущем сообщении USER.
-  ✦ В сообщении USER был получен или потрачен предмет → отразить через item:/item-:
-  ✦ В сообщении USER произошёл переход в другое место → обновить location:
-  ✦ В сообщении USER было взаимодействие с персонажем или изменение расположения → обновить affection:
-  ✦ В сообщении USER продвинулся сюжет → включить это в <horaeevent>
-  ✦ Иными словами, запись этого хода должна покрывать изменения и из предыдущего USER-сообщения, и из текущего ответа
+═══ Anti-Paraphrase Mode ═══
+The user writes ${userName}'s actions/dialogue themselves in USER messages; you (AI) do NOT repeat ${userName}'s parts.
+Therefore, when writing this turn's <horae> tags, you MUST also include events from "the USER message immediately preceding your reply":
+  ✦ Items acquired/consumed in USER message → write corresponding item:/item-: lines
+  ✦ Scene transitions in USER message → update location:
+  ✦ NPC interactions/affection changes in USER message → update affection:
+  ✦ Plot progression in USER message → include in <horaeevent> summary
+  ✦ In short: this <horae> must cover ALL changes from BOTH "the previous USER message" AND "your current AI reply"
