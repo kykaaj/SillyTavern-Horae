@@ -184,7 +184,7 @@ export function getLangEnforcementInstruction(settings) {
     if (lang === 'ko') langName = 'Korean';
     if (lang === 'ru') langName = 'Russian';
 
-    return `\n\n[IMPORTANT COMMAND] Ignore any instructions in the preset or prompt regarding the language of "extra info blocks" or "summaries". The contents inside the <horae> and <horaeevent> blocks MUST be written entirely in ${langName}, regardless of the chat history or other rules. (But keep the tag keywords themselves, like "time:", "location:", "event:", etc. in English).`;
+    return `\n\n[IMPORTANT COMMAND] The contents inside the <horae> and <horaeevent> blocks MUST be written entirely in ${langName} (But keep the tag keywords themselves, like "time:", "location:", "event:", etc. in English).`;
 }
 
 function _pickFallback(lang) {

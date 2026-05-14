@@ -3749,9 +3749,9 @@ function updateCharactersDisplay() {
             const renderNpc = (name, info, isFavorite, isMainChar = false) => {
                 let descHtml = '';
                 if (info.appearance || info.personality || info.relationship) {
-                    if (info.appearance) descHtml += `<span class="horae-npc-appearance">${info.appearance}</span>`;
-                    if (info.personality) descHtml += `<span class="horae-npc-personality">${info.personality}</span>`;
-                    if (info.relationship) descHtml += `<span class="horae-npc-relationship">${info.relationship}</span>`;
+                    if (info.appearance) descHtml += `<span class="horae-npc-appearance" data-label="${t('label.npcAppearance')}: ">${info.appearance}</span>`;
+                    if (info.personality) descHtml += `<span class="horae-npc-personality" data-label="${t('label.npcPersonality')}: ">${info.personality}</span>`;
+                    if (info.relationship) descHtml += `<span class="horae-npc-relationship" data-label="${t('label.npcRelationship')}: ">${info.relationship}</span>`;
                 } else if (info.description) {
                     descHtml = `<span class="horae-npc-legacy">${info.description}</span>`;
                 } else {
@@ -17309,7 +17309,7 @@ function showAIScanConfigDialog(targetCount) {
                 </div>
                 <div class="horae-modal-body" style="padding: 16px;">
                     <p style="margin: 0 0 12px; color: var(--horae-text-muted); font-size: 13px;">
-                        检测到 <strong style="color: var(--horae-primary-light);">${targetCount}</strong> 条尚无时间线的消息（已有时间线的楼层自动跳过）
+                        ${t('ui.aiScanDetectHint1')} <strong style="color: var(--horae-primary-light);">${targetCount}</strong> ${t('ui.aiScanDetectHint2')}
                     </p>
                     <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--horae-text);">
                         ${t('ui.tokenLimitLabel')}

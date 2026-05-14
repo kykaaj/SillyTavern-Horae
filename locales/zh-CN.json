@@ -1909,7 +1909,9 @@
     "tokenModeHint3": "建议设为模型上下文窗口的 30%~50%，留出足够空间给其他内容。",
     "messageModeHint": "填入AI条数触发阈值。",
     "messageModeHint2": "仅统计AI消息；中间夹着的用户消息会随全文一起保留/压缩，但不参与计数。遇到总结边界会停止计数。",
-    "buildingIndex": "构建索引中..."
+    "buildingIndex": "构建索引中...",
+    "aiScanDetectHint1": "检测到 ",
+    "aiScanDetectHint2": " 条尚无时间线的消息（已有时间线的楼层自动跳过）"
   },
   "npcFields": {
     "gender": "性别",

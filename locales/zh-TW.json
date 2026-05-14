@@ -407,7 +407,9 @@
     "tokenModeHint2": "參考：Claude ≈ 80K~200K · GPT-4o ≈ 128K · Gemini ≈ 1M~2M",
     "tokenModeHint3": "建議設為模型上下文窗口的 30%~50%，留出足夠空間給其他內容。",
     "messageModeHint": "填入AI條數觸發閾值。",
-    "messageModeHint2": "僅統計AI訊息；中間夾著的使用者訊息會隨全文一起保留/壓縮，但不參與計數。遇到總結邊界會停止計數。"
+    "messageModeHint2": "僅統計AI訊息；中間夾著的使用者訊息會隨全文一起保留/壓縮，但不參與計數。遇到總結邊界會停止計數。",
+    "aiScanDetectHint1": "檢測到 ",
+    "aiScanDetectHint2": " 條尚無時間線的消息（已有時間線的樓層自動跳過）"
   },
   "toast": {
     "saveSuccess": "儲存成功！",

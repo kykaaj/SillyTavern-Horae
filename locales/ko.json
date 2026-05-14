@@ -1736,7 +1736,9 @@
     "tokenModeHint3": "모델 컨텍스트 윈도우의 30%~50%로 설정하여 다른 콘텐츠를 위한 여유를 남기세요.",
     "messageModeHint": "AI 메시지 수 트리거 임계값을 입력하세요.",
     "messageModeHint2": "AI 메시지만 카운트합니다. 사이 USER 메시지는 전문에 포함되지만 카운트하지 않습니다. 요약 경계에서 카운트가 중단됩니다.",
-    "buildingIndex": "인덱스 구축 중..."
+    "buildingIndex": "인덱스 구축 중...",
+    "aiScanDetectHint1": "타임라인이 없는 메시지가 ",
+    "aiScanDetectHint2": "개 감지되었습니다 (타임라인이 있는 메시지는 자동 건너뜀)"
   },
   "npcFields": {
     "gender": "성별",

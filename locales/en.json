@@ -1830,7 +1830,9 @@
     "tokenModeHint3": "Recommend setting to 30%~50% of model context window, leaving room for other content.",
     "messageModeHint": "Enter the AI-message trigger threshold.",
     "messageModeHint2": "Only AI messages are counted; interleaved user messages are included in the full text but not counted. Counting stops at summary boundaries.",
-    "buildingIndex": "Building index..."
+    "buildingIndex": "Building index...",
+    "aiScanDetectHint1": "Detected ",
+    "aiScanDetectHint2": " messages without timeline (messages with timeline will be skipped)"
   },
   "npcFields": {
     "gender": "Gender",
