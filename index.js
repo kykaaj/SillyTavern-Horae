@@ -18038,7 +18038,7 @@ async function _generateForAiTasks(prompt, opts = {}) {
     try {
         return await context.generateRaw({ prompt: messages });
     } catch (errObjectStyle) {
-        console.warn('[Horae] generateRaw object signature failed, falling back to old string signature:'),
+        console.warn('[Horae] generateRaw object signature failed, falling back to old string signature:',
             errObjectStyle?.message || errObjectStyle);
         const flatPrompt = messages
             .map(m => `[${String(m.role || 'system').toUpperCase()}]\n${m.content || ''}`)
@@ -18103,7 +18103,7 @@ async function analyzeMessageWithAI(messageContent, opts = {}) {
             return parsed;
         }
     } catch (error) {
-        console.error('[Horae] AI analysis call failed:'), error);
+        console.error('[Horae] AI analysis call failed:', error);
         throw error;
     }
 
@@ -18262,7 +18262,7 @@ async function _autoFillPreviousAiTimelineBeforeInjection(chat) {
     try {
         await getContext().saveChat();
     } catch (err) {
-        console.warn('[Horae] Pre-fill save failed:'), err);
+        console.warn('[Horae] Pre-fill save failed:', err);
     }
 
     console.log(`[Horae] Pre-fill complete: Wrote back to previous AI floor #${targetIndex} full parsed result`);
@@ -18999,7 +18999,7 @@ async function onChatChanged() {
                 }
             }
         } catch (e) {
-            console.warn('[Horae] Summary migration failed:'), e);
+            console.warn('[Horae] Summary migration failed:', e);
         }
 
         _rebuildGlobalDataForCurrentChat();
@@ -19357,7 +19357,7 @@ jQuery(async () => {
             if (!settings.enabled || !settings.autoSummaryEnabled || !settings.sendTimeline) return;
             _autoSummaryRanThisTurn = true;
             checkAutoSummary().catch((e) => {
-                console.warn('[Horae] Parallel auto-summary failed, retrying after AI reply:'), e);
+                console.warn('[Horae] Parallel auto-summary failed, retrying after AI reply:', e);
                 _autoSummaryRanThisTurn = false;
             });
         });
