@@ -1444,6 +1444,13 @@ body > .horae-port-bottom-bar {
 .horae-summary-time {
     color: var(--horae-primary-light);
     font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.horae-summary-chars {
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .horae-summary-event {
