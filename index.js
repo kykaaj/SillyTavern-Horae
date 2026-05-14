@@ -16974,10 +16974,11 @@ function showScanReviewModal(scanResults, scanOptions) {
     const panelsHtml = tabs.map(tab => {
         const itemsHtml = tab.items.map(item => {
             const itemKey = escapeHtml(makeReviewKey(item));
+            const itemLevelClass = horaeIsCritical(item.level) ? 'critical' : horaeIsImportant(item.level) ? 'important' : '';
             const levelAttr = item.level ? ` data-level="${escapeHtml(item.level)}"` : '';
-            const levelBadge = item.level ? `<span class="horae-level-badge ${horaeIsCritical(item.level) ? 'critical' : horaeIsImportant(item.level) ? 'important' : ''}" style="font-size:10px;margin-right:4px;">${escapeHtml(translateLevelForDisplay(item.level))}</span>` : '';
+            const levelBadge = item.level ? `<span class="horae-level-badge ${itemLevelClass}" style="font-size:10px;margin-right:4px;">${escapeHtml(translateLevelForDisplay(item.level))}</span>` : '';
             const descHtml = item.desc ? `<div class="horae-review-item-sub" style="font-style:italic;opacity:0.8;">📝 ${escapeHtml(item.desc)}</div>` : '';
-            return `<div class="horae-review-item" data-key="${itemKey}"${levelAttr}>
+            return `<div class="horae-review-item ${itemLevelClass}" data-key="${itemKey}"${levelAttr}>
                 <div class="horae-review-item-body">
                     <div class="horae-review-item-title">${levelBadge}${escapeHtml(item.text)}</div>
                     ${item.sub ? `<div class="horae-review-item-sub">${escapeHtml(item.sub)}</div>` : ''}

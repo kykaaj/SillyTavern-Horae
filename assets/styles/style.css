@@ -3766,16 +3766,12 @@ body > .horae-port-bottom-bar {
 }
 
 /* 事件级别 */
-.horae-review-item[data-level="关键"] {
-    border-left-color: #ef4444;
+.horae-review-item.critical {
+    border-left-color: var(--horae-danger);
 }
 
-.horae-review-item[data-level="重要"] {
-    border-left-color: #f59e0b;
-}
-
-.horae-review-item[data-level="一般"] {
-    border-left-color: var(--horae-border);
+.horae-review-item.important {
+    border-left-color: var(--horae-accent);
 }
 
 /* 抽屉内容区应用主题色（不影响顶栏图标） */
