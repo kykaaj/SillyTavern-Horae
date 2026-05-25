@@ -1220,15 +1220,15 @@ class HoraeManager {
 
     /** 获取好感度等级描述 */
     getAffectionLevel(value) {
-        if (value >= 80) return '挚爱';
-        if (value >= 60) return '亲密';
-        if (value >= 40) return '好感';
-        if (value >= 20) return '友好';
-        if (value >= 0) return '中立';
-        if (value >= -20) return '冷淡';
-        if (value >= -40) return '厌恶';
-        if (value >= -60) return '敌视';
-        return '仇恨';
+        if (value >= 80) return L('挚爱','Beloved','最愛','가장 사랑함','Возлюбленный');
+        if (value >= 60) return L('亲密','Intimate','親密','친밀함','Близкий');
+        if (value >= 40) return L('好感','Affection','好感','호감','Симпатия');
+        if (value >= 20) return L('友好','Friendly','友好','우호적','Дружелюбный');
+        if (value >= 0) return L('中立','Neutral','中立','중립','Нейтральный');
+        if (value >= -20) return L('冷淡','Cold','冷淡','냉담함','Холодный');
+        if (value >= -40) return L('厌恶','Dislike','嫌悪','혐오','Неприязнь');
+        if (value >= -60) return L('敌视','Hostile','敵視','적대적','Враждебный');
+        return L('仇恨','Mortal Enemy','仇恨','원수','Смертельный враг');
     }
 
     /**
