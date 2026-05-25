@@ -9521,7 +9521,6 @@ function updateLocationMemoryDisplay() {
                     </div>
                 </div>
                 <div class="horae-loc-desc">${info.desc || `<span class="horae-empty-hint">${t('ui.noDescription')}</span>`}</div>
-                ${dateStr ? `<div class="horae-loc-date">${dateStr}</div>` : ''}
             </div>`;
     };
 

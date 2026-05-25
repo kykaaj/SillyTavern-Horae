@@ -1306,9 +1306,9 @@ body > .horae-port-bottom-bar {
 }
 
 #horae_drawer_icon {
-    font-size: 16px !important;
-    width: 22px !important;
-    height: 22px !important;
+    font-size: 18px !important;
+    width: 24px !important;
+    height: 24px !important;
 }
 
 #horae_drawer .horae-setting-item input[type="checkbox"] {
@@ -3908,7 +3908,7 @@ body .horae-context-menu {
 }
 
 .horae-location-current {
-    border-left: 3px solid var(--horae-primary);
+    border-color: var(--horae-primary);
 }
 
 .horae-location-card-header {
@@ -4181,8 +4181,7 @@ body .horae-context-menu {
 }
 
 .horae-location-card.horae-location-current {
-    border-color: var(--horae-border);
-    border-left: 3px solid var(--horae-primary);
+    border-color: var(--horae-primary);
 }
 
 .horae-loc-header {
@@ -4349,7 +4348,7 @@ body .horae-context-menu {
 }
 
 .horae-loc-child {
-    padding-left: 24px;
+    padding-left: 14px;
 }
 
 /* 移动端关系/场景操作始终可见 */

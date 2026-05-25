@@ -3388,6 +3388,7 @@ class HoraeManager {
                      this.generateRpgPrompt() + this._generateAntiParaphrasePrompt();
         const fieldLines = this.getPromptFieldLines();
 
+        let finalPrompt = '';
         if (this.settings?.customSystemPrompt) {
             let custom = this.settings.customSystemPrompt
                 .replace(/\{\{user\}\}/gi, userName)
@@ -3395,13 +3396,19 @@ class HoraeManager {
             for (const [key, value] of Object.entries(fieldLines)) {
                 custom = custom.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), value);
             }
-            return custom + subs + getLangEnforcementInstruction(this.settings);
+            finalPrompt = custom + subs + getLangEnforcementInstruction(this.settings);
+        } else {
+            const base = this.getDefaultSystemPrompt({ systemPromptAddition: subs })
+                .replace(/\{\{user\}\}/gi, userName)
+                .replace(/\{\{char\}\}/gi, charName);
+            finalPrompt = '\n' + base + getLangEnforcementInstruction(this.settings);
         }
 
-        const base = this.getDefaultSystemPrompt({ systemPromptAddition: subs })
-            .replace(/\{\{user\}\}/gi, userName)
-            .replace(/\{\{char\}\}/gi, charName);
-        return '\n' + base + getLangEnforcementInstruction(this.settings);
+        if (this.settings?.sendItems === false) {
+            finalPrompt = finalPrompt.replace(/═══ \[(Items|物品|アイテム|아이템)\].*?(?=═══|$)/is, '');
+        }
+
+        return finalPrompt;
     }
 
     getDefaultSystemPrompt(vars = null) {
