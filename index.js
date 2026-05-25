@@ -3698,8 +3698,7 @@ function updateCharactersDisplay() {
                 const mainClass = isMainChar ? 'main-character' : '';
                 return `
                     <div class="horae-affection-item horae-editable-item ${mainClass}" data-char="${key}" data-value="${numValue}">
-                        ${isMainChar ? '<i class="fa-solid fa-crown main-char-icon"></i>' : ''}
-                        <span class="horae-affection-name">${key}</span>
+                        <span class="horae-affection-name">${isMainChar ? '<i class="fa-solid fa-crown main-char-icon" style="margin-right:4px;"></i>' : ''}${key}</span>
                         <span class="horae-affection-value ${valueClass}">${numValue > 0 ? '+' : ''}${numValue}</span>
                         <span class="horae-affection-level">${level}</span>
                         <button class="horae-item-edit-btn horae-affection-edit-btn" data-edit-type="affection" data-char="${key}" title="${t('tooltip.editAffection')}">

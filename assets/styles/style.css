@@ -16,7 +16,7 @@
     --horae-primary: #6abf69;
     --horae-primary-light: #a8e6a3;
     --horae-primary-dark: #4a9f4a;
-    --horae-accent: #e85d5d;
+    --horae-accent: #fcd581;
     --horae-success: #10b981;
     --horae-warning: #f59e0b;
     --horae-danger: #ef4444;
@@ -1239,6 +1239,9 @@ body > .horae-port-bottom-bar {
 
 .horae-full-item-info {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .horae-full-item-name {
@@ -1300,6 +1303,12 @@ body > .horae-port-bottom-bar {
     display: flex;
     gap: 6px;
     margin-top: 6px;
+}
+
+#horae_drawer_icon {
+    font-size: 14px !important;
+    width: 20px !important;
+    height: 20px !important;
 }
 
 #horae_drawer .horae-setting-item input[type="checkbox"] {
