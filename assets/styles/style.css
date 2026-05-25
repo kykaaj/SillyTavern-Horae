@@ -3908,8 +3908,7 @@ body .horae-context-menu {
 }
 
 .horae-location-current {
-    border-color: var(--horae-primary);
-    box-shadow: 0 0 0 1px var(--horae-primary-light);
+    border-left: 3px solid var(--horae-primary);
 }
 
 .horae-location-card-header {
@@ -4182,7 +4181,7 @@ body .horae-context-menu {
 }
 
 .horae-location-card.horae-location-current {
-    border-color: var(--horae-primary);
+    border-color: var(--horae-border);
     border-left: 3px solid var(--horae-primary);
 }
 
