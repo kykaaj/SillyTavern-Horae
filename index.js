@@ -10939,7 +10939,7 @@ function addMessagePanel(messageEl, messageIndex) {
 
         const mesTextEl = messageEl.querySelector('.mes_text');
         if (mesTextEl) {
-            mesTextEl.insertAdjacentHTML('afterend', panelHtml);
+            mesTextEl.insertAdjacentHTML('beforeend', panelHtml);
             const panelEl = messageEl.querySelector('.horae-message-panel');
             bindPanelEvents(panelEl);
             if (!settings.showMessagePanel && panelEl) {
