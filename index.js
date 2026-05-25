@@ -511,13 +511,13 @@ function translateLevelForDisplay(level) {
 
 function horaeIsCritical(level) {
     if (!level) return false;
-    const l = level.toLowerCase();
+    const l = level.toLowerCase().trim();
     return l === '关键' || l === '關鍵' || l === 'critical' || l === 'key' || l === '!!' || l.includes('ключев');
 }
 
 function horaeIsImportant(level) {
     if (!level) return false;
-    const l = level.toLowerCase();
+    const l = level.toLowerCase().trim();
     return l === '重要' || l === 'important' || l === '!' || l.includes('важн');
 }
 
