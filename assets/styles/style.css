@@ -1306,9 +1306,9 @@ body > .horae-port-bottom-bar {
 }
 
 #horae_drawer_icon {
-    font-size: 14px !important;
-    width: 20px !important;
-    height: 20px !important;
+    font-size: 16px !important;
+    width: 22px !important;
+    height: 22px !important;
 }
 
 #horae_drawer .horae-setting-item input[type="checkbox"] {
