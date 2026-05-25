@@ -27,6 +27,16 @@ const _locales = {
         yearsMonthsLater: (y, m) => `In ${y}y ${m}mo`,
         yearsAgo: (y) => `${y}y ago`,
         yearsLater: (y) => `In ${y}y`,
+        timeOfDay: {
+            lateNight1: 'Late Night',
+            morning1: 'Early Morning',
+            morning2: 'Morning',
+            noon: 'Noon',
+            afternoon: 'Afternoon',
+            evening: 'Evening',
+            night: 'Night',
+            lateNight2: 'Late Night'
+        }
     },
     ru: {
         weekdays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
@@ -50,6 +60,16 @@ const _locales = {
         yearsMonthsLater: (y, m) => `Через ${y} г. ${m} мес.`,
         yearsAgo: (y) => `${y} г. назад`,
         yearsLater: (y) => `Через ${y} г.`,
+        timeOfDay: {
+            lateNight1: 'Глубокая ночь',
+            morning1: 'Раннее утро',
+            morning2: 'Утро',
+            noon: 'Полдень',
+            afternoon: 'День',
+            evening: 'Вечер',
+            night: 'Ночь',
+            lateNight2: 'Поздняя ночь'
+        }
     },
 };
 
@@ -565,14 +585,15 @@ export function getTimeOfDay(timeStr) {
     }
     
     if (hour !== null) {
-        if (hour >= 0 && hour < 5) return '凌晨';
-        if (hour >= 5 && hour < 8) return '早上';
-        if (hour >= 8 && hour < 11) return '上午';
-        if (hour >= 11 && hour < 13) return '中午';
-        if (hour >= 13 && hour < 17) return '下午';
-        if (hour >= 17 && hour < 19) return '傍晚';
-        if (hour >= 19 && hour < 23) return '晚上';
-        return '深夜';
+        const tod = _displayLocale.timeOfDay || _locales.en.timeOfDay;
+        if (hour >= 0 && hour < 5) return tod.lateNight1;
+        if (hour >= 5 && hour < 8) return tod.morning1;
+        if (hour >= 8 && hour < 11) return tod.morning2;
+        if (hour >= 11 && hour < 13) return tod.noon;
+        if (hour >= 13 && hour < 17) return tod.afternoon;
+        if (hour >= 17 && hour < 19) return tod.evening;
+        if (hour >= 19 && hour < 23) return tod.night;
+        return tod.lateNight2;
     }
     
     return '';

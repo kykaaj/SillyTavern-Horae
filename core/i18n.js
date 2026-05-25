@@ -18,6 +18,19 @@ const _localeCache = {};
 let _currentLang = null;
 let _fallbackData = null;
 let _currentData = null;
+
+/**
+ * 辅助：多语言行内翻译函数
+ * 适用于无需抽取到 JSON 的高频静态字符串
+ */
+export function L(zh, en, ja, ko, ru) {
+    const lang = _currentLang || 'en';
+    if (lang.startsWith('ru')) return ru || en || zh;
+    if (lang.startsWith('zh')) return zh;
+    if (lang.startsWith('ja')) return ja || zh;
+    if (lang.startsWith('ko')) return ko || zh;
+    return en || zh;
+}
 let _pluginBasePath = '';
 let _zhFallback = null;
 let _enFallback = null;

@@ -4,7 +4,7 @@
  */
 
 import { parseStoryDate, calculateRelativeTime, calculateDetailedRelativeTime, generateTimeReference, formatRelativeTime, formatFullDateTime, getRelativeTimeMeta } from '../utils/timeUtils.js';
-import { detectEffectiveAiLangIsZh, detectEffectiveAiLang, getLangEnforcementInstruction } from './i18n.js';
+import { L, detectEffectiveAiLangIsZh, detectEffectiveAiLang, getLangEnforcementInstruction } from './i18n.js';
 import { getPromptDefaultSync } from './promptDefaults.js';
 
 /**
