@@ -266,31 +266,6 @@ body > .horae-port-bottom-bar {
     border-radius: 10px;
 }
 
-/* === 抽屉拉手与图标 === */
-.drawer-toggle {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: -20px;
-    width: 20px;
-    height: 60px;
-    background: var(--horae-bg-secondary);
-    border-radius: 8px 0 0 8px;
-    border: 1px solid var(--horae-border);
-    border-right: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10001;
-}
-
-#horae_drawer_icon {
-    font-size: 18px !important;
-    width: 24px !important;
-    height: 24px !important;
-}
 
 /* 标签页 */
 .horae-tabs {
