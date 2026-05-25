@@ -1449,8 +1449,10 @@ body > .horae-port-bottom-bar {
     background: var(--horae-bg);
     border: 1px solid var(--horae-border);
     order: 9999;  /* 强制底部 */
-    width: 100%;
-    flex-basis: 100%;
+    display: block !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    flex: 0 0 100% !important;
 }
 
 .horae-panel-toggle {
