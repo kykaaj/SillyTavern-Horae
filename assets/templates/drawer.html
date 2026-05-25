@@ -810,49 +810,55 @@
                     </div>
                     
                     <div class="horae-setting-item">
-                        <label data-i18n="settings.sendTimeline">
+                        <label data-i18n="settings.sendTimeline" class="horae-token-label">
                             <input type="checkbox" id="horae-setting-send-timeline" checked>
                             剧情轨迹
+                            <span id="horae-token-timeline" class="horae-token-badge">...</span>
                         </label>
                         <span class="horae-setting-sub-hint" data-i18n="settings.sendTimelineHint">历史事件总结、相对时间计算。关闭后AI无法知道"几天前"发生了什么。</span>
                     </div>
                     
                     <div class="horae-setting-item">
-                        <label data-i18n="settings.sendCharacters">
+                        <label data-i18n="settings.sendCharacters" class="horae-token-label">
                             <input type="checkbox" id="horae-setting-send-characters" checked>
                             角色信息
+                            <span id="horae-token-characters" class="horae-token-badge">...</span>
                         </label>
                         <span class="horae-setting-sub-hint" data-i18n="settings.sendCharactersHint">在场角色、服装描述、好感度、角色信息。关闭后AI可能描写错误的服装。</span>
                     </div>
                     
                     <div class="horae-setting-item">
-                        <label data-i18n="settings.sendItems">
+                        <label data-i18n="settings.sendItems" class="horae-token-label">
                             <input type="checkbox" id="horae-setting-send-items" checked>
                             物品栏
+                            <span id="horae-token-items" class="horae-token-badge">...</span>
                         </label>
                         <span class="horae-setting-sub-hint" data-i18n="settings.sendItemsHint">当前持有的物品及位置。关闭后AI可能"凭空"取出不存在的物品。</span>
                     </div>
 
                     <div class="horae-setting-item">
-                        <label data-i18n="settings.sendLocationMemory">
+                        <label data-i18n="settings.sendLocationMemory" class="horae-token-label">
                             <input type="checkbox" id="horae-setting-send-location-memory">
                             场景记忆
+                            <span id="horae-token-location" class="horae-token-badge">...</span>
                         </label>
                         <span class="horae-setting-sub-hint" data-i18n="settings.sendLocationMemoryHint">记录地点的固定物理特征，保持跨回合场景描写一致性。开启后AI会在首次到达新地点时记录特征描述。</span>
                     </div>
                     
                     <div class="horae-setting-item">
-                        <label data-i18n="settings.sendRelationships">
+                        <label data-i18n="settings.sendRelationships" class="horae-token-label">
                             <input type="checkbox" id="horae-setting-send-relationships">
                             关系网络
+                            <span id="horae-token-relationships" class="horae-token-badge">...</span>
                         </label>
                         <span class="horae-setting-sub-hint" data-i18n="settings.sendRelationshipsHint">追踪角色间的关系变化（朋友、恋人、敌对等），AI仅在关系变化时输出。关闭后不生成rel:标签，不注入关系网络提示词。</span>
                     </div>
                     
                     <div class="horae-setting-item">
-                        <label data-i18n="settings.sendMood">
+                        <label data-i18n="settings.sendMood" class="horae-token-label">
                             <input type="checkbox" id="horae-setting-send-mood">
                             情绪追踪
+                            <span id="horae-token-mood" class="horae-token-badge">...</span>
                         </label>
                         <span class="horae-setting-sub-hint" data-i18n="settings.sendMoodHint">追踪在场角色的情绪/心理状态变化，帮助AI保持角色情绪连贯性。AI仅在情绪明显变化时输出。</span>
                     </div>

@@ -9798,8 +9798,34 @@ function updateTokenCounter() {
         const combined = `${dataPrompt}\n${rulesPrompt}`;
         const tokens = estimateTokens(combined);
         el.textContent = `≈ ${tokens.toLocaleString()}`;
+
+        // Per-section breakdown — diff by toggling each setting off temporarily
+        const sections = [
+            { badgeId: 'horae-token-timeline',      key: 'sendTimeline' },
+            { badgeId: 'horae-token-characters',    key: 'sendCharacters' },
+            { badgeId: 'horae-token-items',         key: 'sendItems' },
+            { badgeId: 'horae-token-location',      key: 'sendLocationMemory' },
+            { badgeId: 'horae-token-relationships', key: 'sendRelationships' },
+            { badgeId: 'horae-token-mood',          key: 'sendMood' },
+        ];
+        for (const section of sections) {
+            const badge = document.getElementById(section.badgeId);
+            if (!badge) continue;
+            const original = settings[section.key];
+            const wasOn = original !== false;
+            if (!wasOn) { badge.textContent = '0 tok'; continue; }
+            settings[section.key] = false;
+            try {
+                const d = horaeManager.generateCompactPrompt();
+                const r = horaeManager.generateSystemPromptAddition();
+                const diff = tokens - estimateTokens(`${d}\n${r}`);
+                badge.textContent = `≈${Math.max(0, diff).toLocaleString()}`;
+            } finally {
+                settings[section.key] = original;
+            }
+        }
     } catch (err) {
-        console.warn('[Horae] Token 计数failed:', err);
+        console.warn('[Horae] Token count failed:', err);
         el.textContent = '--';
     }
 }

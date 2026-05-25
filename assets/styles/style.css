@@ -1306,9 +1306,9 @@ body > .horae-port-bottom-bar {
 }
 
 #horae_drawer_icon {
-    font-size: 18px !important;
-    width: 24px !important;
-    height: 24px !important;
+    font-size: 20px !important;
+    width: 26px !important;
+    height: 26px !important;
 }
 
 #horae_drawer .horae-setting-item input[type="checkbox"] {
@@ -4181,6 +4181,7 @@ body .horae-context-menu {
 
 .horae-location-card.horae-location-current {
     border-color: var(--horae-primary);
+    border-width: 2px;
 }
 
 .horae-loc-header {
@@ -4358,9 +4359,29 @@ body .horae-context-menu {
     }
 }
 
-/* ============================================
-   向量记忆
-   ============================================ */
+/* === Token badges next to section toggles === */
+.horae-token-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.horae-token-badge {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--horae-primary-light);
+    background: rgba(106, 191, 105, 0.12);
+    border: 1px solid rgba(106, 191, 105, 0.25);
+    border-radius: 20px;
+    padding: 1px 7px;
+    white-space: nowrap;
+    font-family: monospace;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+}
+
 
 .horae-vector-status {
     display: flex;
