@@ -413,6 +413,8 @@ body > .horae-port-bottom-bar {
     color: var(--horae-text);
     font-size: 13px;
     flex: 1;
+    white-space: pre-line;
+    line-height: 1.4;
 }
 
 /* 物品快速列表 */
@@ -423,15 +425,15 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-item-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+    display: inline-block;
     background: var(--horae-bg);
     border: 1px solid var(--horae-border);
     padding: 4px 10px;
     border-radius: 15px;
     font-size: 12px;
     color: var(--horae-text);
+    white-space: pre-line;
+    line-height: 1.4;
 }
 
 .horae-item-tag .holder {
@@ -497,7 +499,7 @@ body > .horae-port-bottom-bar {
 
 .horae-btn.primary:hover {
     background: linear-gradient(135deg, var(--horae-primary), var(--horae-primary-light));
-    box-shadow: 0 2px 10px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 .horae-btn.danger {
@@ -580,7 +582,7 @@ body > .horae-port-bottom-bar {
 
 .horae-data-btn.primary:hover {
     background: linear-gradient(135deg, var(--horae-primary), var(--horae-primary-light));
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* 危险按钮 */
@@ -2182,7 +2184,7 @@ body > .horae-port-bottom-bar {
 
 .horae-items-search-row .horae-search-input:focus {
     border-color: var(--horae-accent, #b388ff);
-    box-shadow: 0 0 0 2px rgba(179, 136, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.2);
 }
 
 .horae-items-search-row .horae-search-input::placeholder {
@@ -2396,7 +2398,7 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-gender-btn:hover {
-    background: rgba(124, 58, 237, 0.1);
+    background: color-mix(in srgb, var(--horae-primary) 10%, transparent);
     color: var(--horae-text);
 }
 
@@ -2573,15 +2575,15 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-deleted-item-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+    display: inline-block;
     padding: 4px 10px;
     background: rgba(239, 68, 68, 0.15);
     border: 1px solid rgba(239, 68, 68, 0.3);
     border-radius: 12px;
     font-size: 12px;
     color: #f87171;
+    white-space: pre-line;
+    line-height: 1.4;
 }
 
 .horae-deleted-item-tag i {
@@ -3135,7 +3137,7 @@ body > .horae-port-bottom-bar {
     padding: 1px 6px;
     border-radius: 3px;
     cursor: pointer;
-    background: rgba(124, 58, 237, 0.15);
+    background: color-mix(in srgb, var(--horae-primary) 15%, transparent);
     color: var(--horae-primary-light);
     flex-shrink: 0;
 }
@@ -3333,7 +3335,7 @@ body > .horae-port-bottom-bar {
 
 .horae-excel-table input:focus {
     outline: none;
-    background: rgba(124, 58, 237, 0.1);
+    background: color-mix(in srgb, var(--horae-primary) 10%, transparent);
 }
 
 .horae-excel-table input::placeholder {
@@ -3599,7 +3601,7 @@ body > .horae-port-bottom-bar {
 
 .horae-progress-overlay .horae-progress-cancel:hover {
     background: var(--horae-primary-light) !important;
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
 }
 
 /* === 摘要审阅 === */
@@ -3802,14 +3804,14 @@ body > .horae-port-bottom-bar {
 .horae-modal.horae-light,
 .horae-context-menu.horae-light,
 .horae-progress-overlay.horae-light {
-    --horae-primary: #7c3aed;
-    --horae-primary-light: #6d28d9;
-    --horae-primary-dark: #8b5cf6;
-    --horae-accent: #d97706;
-    --horae-success: #059669;
-    --horae-warning: #d97706;
-    --horae-danger: #dc2626;
-    --horae-info: #2563eb;
+    --horae-primary: #007aff;
+    --horae-primary-light: #47a0ff;
+    --horae-primary-dark: #0056b3;
+    --horae-accent: #ff3b30;
+    --horae-success: #34c759;
+    --horae-warning: #ff9500;
+    --horae-danger: #ff3b30;
+    --horae-info: #5ac8fa;
 
     --horae-bg: #f5f5f7;
     --horae-bg-secondary: #e8e8ec;
@@ -3846,7 +3848,7 @@ body > .horae-port-bottom-bar {
 /* 物品标签 */
 .horae-message-panel.horae-light .horae-item-tag,
 #horae_drawer.horae-light .horae-item-tag {
-    background: rgba(124, 58, 237, 0.12);
+    background: color-mix(in srgb, var(--horae-primary) 12%, transparent);
 }
 
 /* 状态区块 */
@@ -4052,7 +4054,7 @@ body .horae-context-menu {
 .horae-rel-type {
     padding: 1px 8px;
     border-radius: 10px;
-    background: rgba(124, 58, 237, 0.15);
+    background: color-mix(in srgb, var(--horae-primary) 15%, transparent);
     color: var(--horae-primary);
     font-size: 12px;
 }
@@ -4213,7 +4215,7 @@ body .horae-context-menu {
     font-size: 10px;
     padding: 1px 6px;
     border-radius: 8px;
-    background: rgba(124, 58, 237, 0.2);
+    background: color-mix(in srgb, var(--horae-primary) 20%, transparent);
     color: var(--horae-primary);
     font-weight: normal;
 }
@@ -4461,7 +4463,7 @@ body .horae-context-menu {
 }
 
 .horae-vector-btn.build:hover {
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     transform: translateY(-1px);
 }
 
@@ -4612,7 +4614,7 @@ body .horae-context-menu {
     background-image: none !important;
 }
 .horae-rpg-btn-sm:hover {
-    background: rgba(124, 58, 237, 0.12);
+    background: color-mix(in srgb, var(--horae-primary) 12%, transparent);
     border-color: var(--horae-primary, #7c3aed);
     color: var(--horae-text);
 }
@@ -5532,7 +5534,7 @@ body .horae-context-menu {
 }
 
 .horae-tutorial-card-body code {
-    background: rgba(124, 58, 237, 0.15);
+    background: color-mix(in srgb, var(--horae-primary) 15%, transparent);
     padding: 0 4px;
     border-radius: 3px;
     font-size: 11px;
