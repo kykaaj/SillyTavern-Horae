@@ -5014,7 +5014,6 @@ function openNpcEditModal(npcName) {
             newData._ageRefDate = storyDate;
         }
 
-        const isSummaryLevel = newLevel === '摘要' || newLevel === 'summary';
         const isRename = newName !== npcName;
 
         // 改名：级联迁移所有消息中的 key + 记录曾用名

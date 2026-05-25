@@ -3,6 +3,9 @@
  * 作者: SenriYuki
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap&subset=cyrillic');
+
+
 /* === 变量定义 === */
 #horae_drawer,
 .horae-message-panel,
@@ -10,18 +13,18 @@
 .horae-modal,
 .horae-context-menu,
 .horae-progress-overlay {
-    --horae-primary: #7c3aed;
-    --horae-primary-light: #a78bfa;
-    --horae-primary-dark: #5b21b6;
-    --horae-accent: #f59e0b;
+    --horae-primary: #6abf69;
+    --horae-primary-light: #a8e6a3;
+    --horae-primary-dark: #4a9f4a;
+    --horae-accent: #e85d5d;
     --horae-success: #10b981;
     --horae-warning: #f59e0b;
     --horae-danger: #ef4444;
     --horae-info: #3b82f6;
     
-    --horae-bg: #1e1e28;
-    --horae-bg-secondary: #2d2d3c;
-    --horae-bg-hover: #3c3c50;
+    --horae-bg: #1a1d23;
+    --horae-bg-secondary: #252a30;
+    --horae-bg-hover: #2f3640;
     --horae-border: rgba(255, 255, 255, 0.1);
     --horae-text: #e5e5e5;
     --horae-text-muted: #a0a0a0;
@@ -40,7 +43,28 @@
     color: var(--horae-text);
 }
 
+#horae_drawer,
+.horae-message-panel,
+.horae-modal {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+}
+
 /* 输入框隔离 */
+#horae_drawer input:not([type="checkbox"]):not([type="radio"]),
+#horae_drawer textarea,
+#horae_drawer select,
+#horae_drawer button,
+.horae-message-panel input:not([type="checkbox"]):not([type="radio"]),
+.horae-message-panel textarea,
+.horae-message-panel select,
+.horae-modal input:not([type="checkbox"]):not([type="radio"]),
+.horae-modal textarea,
+.horae-modal select,
+.horae-modal button {
+    font-family: inherit;
+}
+
 #horae_drawer input:not([type="checkbox"]):not([type="radio"]),
 #horae_drawer textarea,
 #horae_drawer select,
@@ -240,6 +264,35 @@ body > .horae-port-bottom-bar {
     background: rgba(0, 0, 0, 0.2);
     padding: 2px 8px;
     border-radius: 10px;
+}
+
+/* === 抽屉拉手与图标 === */
+.drawer-toggle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -20px;
+    width: 20px;
+    height: 60px;
+    background: var(--horae-bg-secondary);
+    border-radius: 8px 0 0 8px;
+    border: 1px solid var(--horae-border);
+    border-right: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+#horae_drawer_icon {
+    font-size: 18px !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 标签页 */
@@ -1093,9 +1146,10 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-affection-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     padding: 8px 12px;
     padding-right: 36px;
     background: var(--horae-bg);
@@ -1111,7 +1165,6 @@ body > .horae-port-bottom-bar {
 }
 
 .horae-affection-name {
-    flex: 1;
     font-size: 13px;
     color: var(--horae-text);
 }
@@ -1121,6 +1174,8 @@ body > .horae-port-bottom-bar {
     padding: 2px 8px;
     border-radius: 10px;
     font-size: 12px;
+    min-width: 44px;
+    text-align: center;
 }
 
 .horae-affection-value.positive {
@@ -1141,7 +1196,7 @@ body > .horae-port-bottom-bar {
 .horae-affection-level {
     font-size: 11px;
     color: var(--horae-text-muted);
-    min-width: 40px;
+    min-width: 100px;
     text-align: right;
 }
 
@@ -2366,42 +2421,45 @@ body > .horae-port-bottom-bar {
 }
 
 /* NPC 编辑弹窗 */
+.horae-edit-field {
+    margin-bottom: 12px;
+}
+
+.horae-edit-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--horae-text-muted);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.horae-edit-field input[type="text"],
+.horae-edit-field input[type="number"],
+.horae-edit-field input[type="password"],
+.horae-edit-field textarea,
+.horae-edit-field select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid var(--horae-border);
+    background: var(--horae-bg);
+}
+
+.horae-edit-field textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+/* Компактные поля в ряд */
 .horae-edit-field-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
 }
 
 .horae-edit-field-compact {
-    min-width: 0; /* 防溢出 */
-}
-
-.horae-edit-field-compact label {
-    font-size: 11px;
-    margin-bottom: 2px;
-    white-space: nowrap;
-}
-
-.horae-edit-field-compact input,
-.horae-edit-field-compact select {
-    width: 100%;
-    min-width: 0;
-    padding: 5px 6px;
-    font-size: 12px;
-    box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-    .horae-edit-field-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-    }
-    
-    .horae-edit-field-compact input,
-    .horae-edit-field-compact select {
-        padding: 6px 8px;
-        font-size: 13px;
-    }
+    margin-bottom: 0;
 }
 
 /* === NPC星标 === */
@@ -2935,40 +2993,6 @@ body > .horae-port-bottom-bar {
     display: flex;
     flex-direction: column;
     gap: 12px;
-}
-
-.horae-edit-field {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.horae-edit-field label {
-    font-size: 12px;
-    color: var(--horae-text-muted);
-    font-weight: 500;
-}
-
-.horae-edit-field input,
-.horae-edit-field textarea,
-.horae-edit-field select {
-    padding: 8px 10px;
-    background: var(--horae-bg);
-    border: 1px solid var(--horae-border);
-    border-radius: var(--horae-radius-sm);
-    color: var(--horae-text);
-    font-size: 13px;
-}
-
-.horae-edit-field textarea {
-    resize: vertical;
-    min-height: 60px;
-}
-
-.horae-edit-field input:focus,
-.horae-edit-field textarea:focus {
-    outline: none;
-    border-color: var(--horae-primary);
 }
 
 /* NPC操作 */
@@ -5019,6 +5043,7 @@ body .horae-context-menu {
     color: var(--horae-text, #e2e8f0);
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
 .horae-rpg-hud-effect {
