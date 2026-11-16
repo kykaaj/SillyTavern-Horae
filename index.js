@@ -4804,7 +4804,7 @@ async function aiEnrichNpc(name, aliases = []) {
     const targetLang = detectEffectiveAiLang(settings);
     const langName = targetLang === 'zh-CN' ? '简体中文' : targetLang === 'zh-TW' ? '繁體中文'
         : targetLang === 'ja' ? '日本語' : targetLang === 'ko' ? '한국어'
-            : targetLang === 'ru' ? 'Русский' : 'English';
+            : targetLang === 'ru' ? 'Русский' : targetLang === 'uk' ? 'Українська' : 'English';
 
     const prompt = `You are an analyst extracting a character profile from roleplay messages.\n` +
         `Target character: "${name}"${aliases.length ? ` (also known as: ${aliases.join(', ')})` : ''}\n\n` +
