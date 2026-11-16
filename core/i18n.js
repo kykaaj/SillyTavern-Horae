@@ -23,8 +23,9 @@ let _currentData = null;
  * 辅助：多语言行内翻译函数
  * 适用于无需抽取到 JSON 的高频静态字符串
  */
-export function L(zh, en, ja, ko, ru) {
+export function L(zh, en, ja, ko, ru, uk) {
     const lang = _currentLang || 'en';
+    if (lang.startsWith('uk')) return uk || ru || en || zh;
     if (lang.startsWith('ru')) return ru || en || zh;
     if (lang.startsWith('zh')) return zh;
     if (lang.startsWith('ja')) return ja || zh;
@@ -35,7 +36,7 @@ let _pluginBasePath = '';
 let _zhFallback = null;
 let _enFallback = null;
 
-const SUPPORTED_LANGS = ['zh-CN', 'zh-TW', 'en', 'ko', 'ja', 'ru'];
+const SUPPORTED_LANGS = ['zh-CN', 'zh-TW', 'en', 'ko', 'ja', 'ru', 'uk'];
 const DEFAULT_LANG = 'en';
 const ZH_LANGS = new Set(['zh-CN', 'zh-TW']);
 
@@ -49,6 +50,7 @@ function _normalizeLang(raw) {
     if (lower.startsWith('ko')) return 'ko';
     if (lower.startsWith('ja')) return 'ja';
     if (lower.startsWith('ru')) return 'ru';
+    if (lower.startsWith('uk')) return 'uk';
     return null;
 }
 
@@ -196,12 +198,17 @@ export function getLangEnforcementInstruction(settings) {
     if (lang === 'ja') langName = 'Japanese';
     if (lang === 'ko') langName = 'Korean';
     if (lang === 'ru') langName = 'Russian';
+    if (lang === 'uk') langName = 'Ukrainian';
 
     return `\n\n[IMPORTANT COMMAND] The contents inside the <horae> and <horaeevent> blocks MUST be written entirely in ${langName} (But keep the tag keywords themselves, like "time:", "location:", "event:", etc. in English).`;
 }
 
+let _ruFallback = null;
+
 function _pickFallback(lang) {
-    return ZH_LANGS.has(lang) ? _zhFallback : _enFallback;
+    if (ZH_LANGS.has(lang)) return _zhFallback;
+    if (lang === 'uk') return _ruFallback || _enFallback;
+    return _enFallback;
 }
 
 /**
@@ -261,6 +268,7 @@ export async function initI18n(basePath, settings) {
 
     _zhFallback = await _loadLocale('zh-CN') || {};
     _enFallback = await _loadLocale('en') || {};
+    _ruFallback = await _loadLocale('ru') || {};
     await Promise.all(SUPPORTED_LANGS.map(lang => _loadLocale(lang)));
 
     const detected = _detectLanguage(settings);

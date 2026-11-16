@@ -12215,7 +12215,7 @@ function initSettingsEvents() {
         initTabs();
         refreshAllDisplays();
         if (prev !== this.value) {
-            const langNames = { 'zh-CN': '简体中文', 'zh-TW': '繁體中文', 'en': 'English', 'ko': '한국어', 'ja': '日本語', 'auto': 'Auto' };
+            const langNames = { 'zh-CN': '简体中文', 'zh-TW': '繁體中文', 'en': 'English', 'ko': '한국어', 'ja': '日本語', 'ru': 'Русский', 'uk': 'Українська', 'auto': 'Auto' };
             alert(t('confirm.languageChanged', { lang: langNames[newLang] || newLang }));
         }
     });
